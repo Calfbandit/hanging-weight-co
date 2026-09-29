@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Beef Price Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F1; --surface:#FFFFFF; --ink:#1D2621; --muted:#5B685F; --line:#D9DFD6;
+  --accent:#2F6B4F; --accent-soft:#E3EEE7; --gold:#9A6A12; --gold-soft:#F6EBD2;
+  --good:#2F6B4F; --warn:#9A5B12;
+  --display:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111613; --surface:#19201C; --ink:#E4E9E3; --muted:#9AA79E; --line:#2C3630;
+    --accent:#7CC39C; --accent-soft:#1F2E26; --gold:#E0B45A; --gold-soft:#2E2718;
+    --good:#7CC39C; --warn:#E0A65A;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111613; --surface:#19201C; --ink:#E4E9E3; --muted:#9AA79E; --line:#2C3630;
+  --accent:#7CC39C; --accent-soft:#1F2E26; --gold:#E0B45A; --gold-soft:#2E2718;
+  --good:#7CC39C; --warn:#E0A65A;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:28px 48px}
+header{display:grid;gap:6px;margin-bottom:24px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(28px,5vw,40px);line-height:1.1;margin:0;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:62ch}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px;align-items:start}
+@media (max-width:820px){.grid{grid-template-columns:1fr}}
+.inputs{display:grid;gap:16px}
+fieldset{border:1px solid var(--line);background:var(--surface);border-radius:10px;margin:0;padding:16px 16px 18px;display:grid;gap:12px}
+legend{font-family:var(--display);font-weight:700;font-size:18px;padding:0 6px}
+.hint{font-size:13px;color:var(--muted);margin:-4px 0 0}
+.row{display:grid;grid-template-columns:1fr 128px;gap:12px;align-items:center}
+.row label{font-size:14px}
+.row label small{display:block;color:var(--muted);font-size:12px}
+.field{display:flex;align-items:center;border:1px solid var(--line);border-radius:7px;background:var(--bg);overflow:hidden}
+.field span{font-family:var(--mono);font-size:13px;color:var(--muted);padding:0 8px}
+.field input{width:100%;min-width:0;border:0;background:transparent;color:var(--ink);font-family:var(--mono);font-size:15px;padding:8px 8px;text-align:right;font-variant-numeric:tabular-nums}
+.field:focus-within{outline:2px solid var(--accent);outline-offset:1px}
+.derived{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.derived b{font-family:var(--mono);color:var(--ink);font-weight:500}
+.toggle{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.toggle input{position:absolute;opacity:0;pointer-events:none}
+.toggle label{padding:9px 10px;font-size:13px;text-align:center;cursor:pointer;background:var(--bg)}
+.toggle input:checked + label{background:var(--accent);color:var(--surface);font-weight:600}
+.toggle input:focus-visible + label{outline:2px solid var(--gold);outline-offset:-2px}
+.results{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);display:grid;gap:16px}
+@media (max-width:820px){.results{position:static}}
+.headline{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:4px}
+.headline .label{font-size:13px;color:var(--muted)}
+.price{font-family:var(--display);font-weight:700;font-size:clamp(40px,8vw,56px);line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.price small{font-family:var(--body);font-size:16px;font-weight:500;color:var(--muted)}
+.sub{font-size:13px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.stat{display:grid;gap:2px}
+.stat .k{font-size:12px;color:var(--muted)}
+.stat .v{font-family:var(--mono);font-size:16px;font-variant-numeric:tabular-nums}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.card h2{font-family:var(--display);font-size:18px;margin:0 0 10px}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:460px}
+th,td{padding:8px 6px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+th{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+th:first-child,td:first-child{text-align:left}
+td{font-family:var(--mono)}
+td:first-child{font-family:var(--body);font-weight:600}
+td.total{color:var(--accent);font-weight:500}
+.compare{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:8px;background:var(--gold-soft);font-size:14px}
+.chip{flex:none;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:99px;border:1px solid currentColor}
+.chip.good{color:var(--good)} .chip.warn{color:var(--warn)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+button{font:inherit;font-size:14px;font-weight:600;padding:9px 14px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+#copyStatus{font-size:13px;color:var(--muted)}
+#sheetText{width:100%;margin-top:10px;font-family:var(--mono);font-size:13px;min-height:130px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:10px}
+.foot{margin-top:28px;font-size:13px;color:var(--muted);max-width:70ch;display:grid;gap:6px}
+.foot p{margin:0}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Hanging Weight Co. · For ranchers selling direct</div>
+    <h1>What should you charge per pound of hanging weight?</h1>
+    <p>Enter what it really costs you to raise one animal. The calculator gives a price that covers every cost plus your profit, and a ready-to-post price sheet for whole, half and quarter beef. The starting numbers are examples. Replace them with yours.</p>
+  </header>
+
+  <div class="grid">
+    <form class="inputs" id="calc" autocomplete="off">
+      <fieldset>
+        <legend>The animal</legend>
+        <div class="row"><label for="live">Live weight<small>at finish</small></label><div class="field"><input id="live" type="number" inputmode="decimal" min="0" step="10" value="1250"><span>lb</span></div></div>
+        <div class="row"><label for="dress">Dressing percentage<small>hanging ÷ live, usually 58–64%</small></label><div class="field"><input id="dress" type="number" inputmode="decimal" min="1" max="100" step="0.5" value="60"><span>%</span></div></div>
+        <div class="row"><label for="yield">Take-home yield<small>packaged meat ÷ hanging, usually 58–66%</small></label><div class="field"><input id="yield" type="number" inputmode="decimal" min="1" max="100" step="0.5" value="62"><span>%</span></div></div>
+        <div class="derived"><span>Hanging weight</span><b id="hangOut">750 lb</b></div>
+        <div class="derived"><span>Take-home meat</span><b id="takeOut">465 lb</b></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Your costs for this animal</legend>
+        <p class="hint">Count everything, including what the calf was worth if you had sold it at weaning.</p>
+        <div class="row"><label for="calf">Calf value or purchase</label><div class="field"><span>$</span><input id="calf" type="number" inputmode="decimal" min="0" step="25" value="1400"></div></div>
+        <div class="row"><label for="feed">Feed and hay</label><div class="field"><span>$</span><input id="feed" type="number" inputmode="decimal" min="0" step="25" value="700"></div></div>
+        <div class="row"><label for="pasture">Pasture, lease, land</label><div class="field"><span>$</span><input id="pasture" type="number" inputmode="decimal" min="0" step="25" value="250"></div></div>
+        <div class="row"><label for="vet">Vet, minerals, misc.</label><div class="field"><span>$</span><input id="vet" type="number" inputmode="decimal" min="0" step="25" value="100"></div></div>
+        <div class="row"><label for="haul">Hauling to processor</label><div class="field"><span>$</span><input id="haul" type="number" inputmode="decimal" min="0" step="5" value="75"></div></div>
+        <div class="row"><label for="mkt">Marketing and your time selling<small>ads, calls, deliveries</small></label><div class="field"><span>$</span><input id="mkt" type="number" inputmode="decimal" min="0" step="25" value="75"></div></div>
+        <div class="derived"><span>Your cost per head</span><b id="costOut">$2,600</b></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Processing</legend>
+        <div class="row"><label for="kill">Kill fee<small>per head</small></label><div class="field"><span>$</span><input id="kill" type="number" inputmode="decimal" min="0" step="5" value="100"></div></div>
+        <div class="row"><label for="cut">Cut and wrap<small>per lb of hanging weight</small></label><div class="field"><span>$</span><input id="cut" type="number" inputmode="decimal" min="0" step="0.05" value="1.05"></div></div>
+        <div role="radiogroup" aria-label="Who pays the processor" class="toggle">
+          <input type="radio" name="who" id="whoCust" value="customer" checked><label for="whoCust">Customer pays processor</label>
+          <input type="radio" name="who" id="whoMe" value="me"><label for="whoMe">I pay, it's in my price</label>
+        </div>
+        <div class="derived"><span>Processing per head</span><b id="procOut">$888</b></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Your profit and the market</legend>
+        <div class="row"><label for="profit">Profit you want per head</label><div class="field"><span>$</span><input id="profit" type="number" inputmode="decimal" min="0" step="25" value="600"></div></div>
+        <div class="row"><label for="grocery">Grocery price to compare<small>blended $/lb for similar beef</small></label><div class="field"><span>$</span><input id="grocery" type="number" inputmode="decimal" min="0" step="0.25" value="9.50"></div></div>
+      </fieldset>
+    </form>
+
+    <section class="results" aria-live="polite">
+      <div class="headline">
+        <div class="label" id="priceLabel">Charge per lb of hanging weight (plus processing)</div>
+        <div class="price"><span id="priceOut">$4.25</span> <small>/ lb hanging</small></div>
+        <div class="sub" id="exactOut">Exact: $4.27. Rounded to the nearest $0.05.</div>
+        <div class="stats">
+          <div class="stat"><span class="k">Break-even</span><span class="v" id="beOut">$3.47</span></div>
+          <div class="stat"><span class="k">Profit per head</span><span class="v" id="profOut">$600</span></div>
+          <div class="stat"><span class="k">Margin on your price</span><span class="v" id="marginOut">19%</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Price sheet</h2>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Share</th><th>Hanging</th><th>Your price</th><th>Processing</th><th>Customer total</th><th>Per lb take-home</th></tr></thead>
+            <tbody id="sheet"></tbody>
+          </table>
+        </div>
+        <div class="actions">
+          <button type="button" id="copyBtn">Copy price sheet</button>
+          <span id="copyStatus"></span>
+        </div>
+        <textarea id="sheetText" readonly hidden aria-label="Price sheet text"></textarea>
+      </div>
+
+      <div class="compare" id="compare"></div>
+    </section>
+  </div>
+
+  <div class="foot">
+    <p>Take-home weight varies with the animal, the cuts chosen and whether bones and organs are kept, so the per-pound take-home cost is an estimate. Suggested deposits are about 25% of your price for the share.</p>
+    <p><b>Hanging Weight Co.</b> helps ranchers price and sell beef direct. Want help setting your price and selling your next 5 beef? Book a one-hour Beef Pricing &amp; Direct-Sales Game Plan session.</p>
+    <p><a href="https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01" target="_blank" rel="noopener" style="display:inline-block;background:var(--accent);color:var(--surface);font-weight:600;text-decoration:none;padding:10px 16px;border-radius:8px">Reserve your session – $197</a></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const num = id => { const v = parseFloat($(id).value); return isFinite(v) ? v : 0; };
+  const usd = (v, d=0) => (v<0?"-":"") + "$" + Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+  const lb = v => Math.round(v).toLocaleString("en-US") + " lb";
+  let sheetPlain = "";
+
+  function calc(){
+    const hanging = num("live") * num("dress")/100;
+    const take = hanging * num("yield")/100;
+    const costs = ["calf","feed","pasture","vet","haul","mkt"].reduce((s,k)=>s+num(k),0);
+    const proc = num("kill") + num("cut")*hanging;
+    const profit = num("profit");
+    const custPays = $("whoCust").checked;
+
+    $("hangOut").textContent = lb(hanging);
+    $("takeOut").textContent = lb(take);
+    $("costOut").textContent = usd(costs);
+    $("procOut").textContent = usd(proc);
+
+    if(hanging <= 0){ $("priceOut").textContent = "–"; return; }
+
+    const base = custPays ? costs : costs + proc;
+    const exact = (base + profit)/hanging;
+    const price = Math.ceil(exact*20 - 1e-9)/20;
+    const be = base/hanging;
+    const rancherTotal = price*hanging;
+    const realProfit = rancherTotal - base;
+
+    $("priceLabel").textContent = custPays ? "Charge per lb of hanging weight (customer also pays processing)" : "Charge per lb of hanging weight (processing included)";
+    $("priceOut").textContent = usd(price,2);
+    $("exactOut").textContent = "Exact: " + usd(exact,2) + ". Rounded up to the nearest $0.05.";
+    $("beOut").textContent = usd(be,2);
+    $("profOut").textContent = usd(realProfit);
+    $("marginOut").textContent = rancherTotal>0 ? Math.round(realProfit/rancherTotal*100) + "%" : "–";
+
+    const shares = [["Whole",1],["Half",.5],["Quarter",.25]];
+    let rows = "", lines = [];
+    lines.push("BEEF PRICE SHEET");
+    lines.push(usd(price,2) + "/lb hanging weight" + (custPays ? " + processing paid to the processor" : ", processing included"));
+    lines.push("");
+    shares.forEach(([name,f])=>{
+      const h = hanging*f, yours = rancherTotal*f, p = custPays ? proc*f : 0;
+      const total = yours + p, perTake = total/(take*f || 1);
+      const deposit = Math.round(yours*0.25/25)*25;
+      rows += `<tr><td>${name}</td><td>${lb(h)}</td><td>${usd(yours)}</td><td>${custPays?usd(p):"Included"}</td><td class="total">${usd(total)}</td><td>${usd(perTake,2)}</td></tr>`;
+      lines.push(`${name}: about ${lb(h)} hanging, ${lb(take*f)} take-home. About ${usd(total)} total${custPays?` (${usd(yours)} to us + about ${usd(p)} processing)`:""}. ${usd(deposit)} deposit reserves your spot.`);
+    });
+    $("sheet").innerHTML = rows;
+    sheetPlain = lines.join("\n");
+    $("sheetText").value = sheetPlain;
+
+    const perTake = (rancherTotal + (custPays?proc:0))/take;
+    const g = num("grocery");
+    let html;
+    if(g>0){
+      const diff = (g - perTake)/g*100;
+      html = diff >= 0
+        ? `<span class="chip good">Under grocery</span><span>Customers pay about <b>${usd(perTake,2)}/lb</b> for packaged meat, ${Math.round(diff)}% less than ${usd(g,2)}/lb at the store. Lead with that in your posts.</span>`
+        : `<span class="chip warn">Above grocery</span><span>Customers pay about <b>${usd(perTake,2)}/lb</b> for packaged meat, ${Math.round(-diff)}% more than ${usd(g,2)}/lb at the store. Sell on quality, grass-fed or local, or look for costs to cut.</span>`;
+    } else {
+      html = `<span>Customers pay about <b>${usd(perTake,2)}/lb</b> for packaged meat.</span>`;
+    }
+    $("compare").innerHTML = html;
+  }
+
+  $("calc").addEventListener("input", calc);
+  $("calc").addEventListener("change", calc);
+  $("calc").addEventListener("submit", e=>e.preventDefault());
+
+  $("copyBtn").addEventListener("click", ()=>{
+    const done = () => { $("copyStatus").textContent = "Copied. Paste it into a post or text."; };
+    const fallback = () => {
+      const t = $("sheetText"); t.hidden = false; t.focus(); t.select();
+      $("copyStatus").textContent = "Select the text below and copy it.";
+    };
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(sheetPlain).then(done, fallback);
+      } else fallback();
+    }catch(e){ fallback(); }
+  });
+
+  calc();
+})();
+</script>
+
+</body>
+</html>

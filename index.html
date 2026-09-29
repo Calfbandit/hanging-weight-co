@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hanging Weight Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F1; --surface:#FFFFFF; --ink:#1D2621; --muted:#56635A; --line:#D9DFD6;
+  --accent:#2F6B4F; --accent-ink:#FFFFFF; --accent-soft:#E3EEE7; --gold:#9A6A12; --tag:#F3E6C4; --tag-ink:#3B2C0C;
+  --display:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111613; --surface:#19201C; --ink:#E4E9E3; --muted:#9AA79E; --line:#2C3630;
+    --accent:#7CC39C; --accent-ink:#0F1A14; --accent-soft:#1F2E26; --gold:#E0B45A; --tag:#2E2718; --tag-ink:#F0DDB0;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111613; --surface:#19201C; --ink:#E4E9E3; --muted:#9AA79E; --line:#2C3630;
+  --accent:#7CC39C; --accent-ink:#0F1A14; --accent-soft:#1F2E26; --gold:#E0B45A; --tag:#2E2718; --tag-ink:#F0DDB0;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.wrap{max-width:1000px;margin:0 auto;padding-inline:20px}
+a{color:var(--accent)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:18px;border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.01em}
+.top nav{display:flex;gap:18px;font-size:14px;flex-wrap:wrap}
+.top nav a{color:var(--muted);text-decoration:none}
+.top nav a:hover,.top nav a:focus-visible{color:var(--ink);text-decoration:underline}
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:48px 40px}
+@media (max-width:780px){.hero{grid-template-columns:1fr;gap:28px;padding-block:32px}}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 10px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:0 0 16px;text-wrap:balance}
+.lede{font-size:18px;color:var(--muted);max-width:52ch;margin:0 0 24px}
+.cta{display:inline-block;background:var(--accent);color:var(--accent-ink);font-weight:600;text-decoration:none;padding:12px 20px;border-radius:8px}
+.cta:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.cta-note{display:block;margin-top:10px;font-size:14px;color:var(--muted)}
+/* carcass tag */
+.tag{background:var(--tag);color:var(--tag-ink);border-radius:10px 10px 10px 10px;padding:22px 22px 20px;position:relative;font-family:var(--mono);font-size:14px;max-width:340px;justify-self:center;width:100%;transform:rotate(-2deg)}
+@media (prefers-reduced-motion:no-preference){.tag{transition:transform .3s}.tag:hover{transform:rotate(0)}}
+.tag::before{content:"";position:absolute;top:14px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--tag-ink) 30%,transparent)}
+.tag h3{font-family:var(--display);font-size:18px;margin:18px 0 12px;text-align:center;letter-spacing:.04em}
+.tag dl{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin:0}
+.tag dt{opacity:.8}
+.tag dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.tag .rule{grid-column:1/-1;border-top:1px dashed color-mix(in srgb,var(--tag-ink) 40%,transparent);margin:4px 0}
+.tag .big{font-weight:500;font-size:16px}
+.tag small{display:block;margin-top:12px;font-size:11px;opacity:.75;text-align:center;font-family:var(--body)}
+section{padding-block:40px;border-top:1px solid var(--line)}
+h2{font-family:var(--display);font-size:clamp(24px,4vw,32px);line-height:1.15;margin:0 0 14px;text-wrap:balance}
+.prose{max-width:65ch;color:var(--ink)}
+.prose p{margin:0 0 12px}
+.offer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:780px){.offer{grid-template-columns:1fr}}
+.price-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;gap:10px}
+.price-card .amt{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;color:var(--accent)}
+.price-card .amt small{font-family:var(--body);font-size:15px;font-weight:500;color:var(--muted)}
+ul.checks{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+ul.checks li{padding-left:26px;position:relative}
+ul.checks li::before{content:"";position:absolute;left:4px;top:.55em;width:10px;height:6px;border-left:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(-45deg)}
+ol.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:s}
+@media (max-width:780px){ol.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:440px){ol.steps{grid-template-columns:1fr}}
+ol.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:4px;align-content:start}
+ol.steps li::before{content:counter(s);font-family:var(--display);font-weight:700;font-size:22px;color:var(--gold)}
+ol.steps b{font-weight:600}
+ol.steps span{font-size:14px;color:var(--muted)}
+.contact{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+.email{font-family:var(--mono);font-size:16px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px;user-select:all}
+button{font:inherit;font-size:14px;font-weight:600;padding:10px 14px;border-radius:8px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+#copyMsg{font-size:14px;color:var(--muted)}
+.policies{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media (max-width:780px){.policies{grid-template-columns:1fr}}
+.policies h3{font-family:var(--display);font-size:18px;margin:0 0 6px}
+.policies p{margin:0;font-size:14px;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding-block:24px 40px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand">Hanging Weight Co.</div>
+    <nav aria-label="Page sections">
+      <a href="calculator/" target="_blank" rel="noopener">Free price calculator</a>
+      <a href="#session">The session</a>
+      <a href="#how">How it works</a>
+      <a href="#contact">Contact</a>
+      <a href="#policies">Policies</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <div>
+      <p class="eyebrow">Consulting for ranchers who sell beef direct</p>
+      <h1>Price your beef right. Sell out every time.</h1>
+      <p class="lede">Hanging Weight Co. helps cattle ranchers set a price per pound that covers processing, feed and a real profit, then build a plan to sell their next 5 beef to local buyers.</p>
+      <a class="cta" href="https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01" target="_blank" rel="noopener">Reserve your session – $197</a>
+      <span class="cta-note">One hour, one-on-one, by phone or video. Secure checkout by Stripe.</span>
+      <span class="cta-note">Not ready yet? Try the <a href="calculator/" target="_blank" rel="noopener">free Beef Price Calculator</a>.</span>
+    </div>
+    <div class="tag" aria-label="Example price tag for a half beef">
+      <h3>HALF BEEF · EXAMPLE</h3>
+      <dl>
+        <dt>Hanging weight</dt><dd>375 lb</dd>
+        <dt>Price per lb hanging</dt><dd>$4.30</dd>
+        <dt>Processing (to processor)</dt><dd>~$444</dd>
+        <div class="rule" role="presentation"></div>
+        <dt class="big">Customer total</dt><dd class="big">~$2,056</dd>
+        <dt>Take-home meat</dt><dd>~233 lb</dd>
+        <dt>Cost per lb in the freezer</dt><dd>~$8.84</dd>
+      </dl>
+      <small>Example figures. Your numbers depend on your costs.</small>
+    </div>
+  </div>
+
+  <section id="session">
+    <div class="offer">
+      <div class="prose">
+        <h2>Beef Pricing &amp; Direct-Sales Game Plan</h2>
+        <p>Most ranchers selling direct price by guesswork or by copying the neighbor. That usually means leaving money on the table, or pricing so high that halves and quarters don't move.</p>
+        <p>In one focused hour we work through your actual numbers and leave you with a price you can stand behind and a plan to sell it.</p>
+      </div>
+      <div class="price-card">
+        <div class="amt">$197 <small>one-time</small></div>
+        <ul class="checks">
+          <li>Your real cost per head, including the value of the calf, feed, pasture, hauling and your time</li>
+          <li>A price per pound of hanging weight that covers every cost plus the profit you want</li>
+          <li>A whole, half and quarter price sheet with deposit amounts, ready to post</li>
+          <li>A written plan to find buyers for your next 5 beef</li>
+          <li>Delivered by phone or video call; the written plan follows by email</li>
+        </ul>
+        <a class="cta" href="https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01" target="_blank" rel="noopener" style="justify-self:start">Reserve your session – $197</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><b>Reserve</b><span>Pay securely by card through Stripe. It takes about a minute.</span></li>
+      <li><b>Book a time</b><span>Allen emails you within 24 hours to set a time that works around chores.</span></li>
+      <li><b>Meet for an hour</b><span>Bring your rough costs. We build the price and the plan together.</span></li>
+      <li><b>Get your plan</b><span>Your price sheet and written sales plan arrive by email.</span></li>
+    </ol>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="prose">
+      <p>Questions, or ready to reserve a session? Email Allen at Hanging Weight Co. We reply within one business day.</p>
+    </div>
+    <div class="contact">
+      <span class="email" id="emailAddr">info@hangingweightco.com</span>
+      <button type="button" id="copyBtn">Copy email</button>
+      <span id="copyMsg" aria-live="polite"></span>
+    </div>
+  </section>
+
+  <section id="policies">
+    <h2>Policies</h2>
+    <div class="policies">
+      <div>
+        <h3>Refunds and cancellations</h3>
+        <p>Cancel at least 24 hours before your scheduled session for a full refund. You can reschedule once at no cost with 24 hours' notice. Sessions missed without notice are not refunded.</p>
+      </div>
+      <div>
+        <h3>Payments</h3>
+        <p>Payments are processed securely by Stripe. Hanging Weight Co. never sees or stores your full card number. Charges appear on your statement as HANGINGWEIGHT CO.</p>
+      </div>
+      <div>
+        <h3>Privacy</h3>
+        <p>We use your name, email and ranch information only to deliver your session and follow up about it. We do not sell or share your information.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Hanging Weight Co.</span>
+    <span>info@hangingweightco.com</span>
+  </footer>
+</div>
+
+<script>
+document.getElementById("copyBtn").addEventListener("click", function(){
+  var addr = "info@hangingweightco.com", msg = document.getElementById("copyMsg");
+  function fallback(){
+    var el = document.getElementById("emailAddr"), r = document.createRange();
+    r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    msg.textContent = "Selected. Copy it with your device's copy command.";
+  }
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(addr).then(function(){ msg.textContent = "Copied."; }, fallback);
+    } else fallback();
+  }catch(e){ fallback(); }
+});
+</script>
+
+</body>
+</html>
