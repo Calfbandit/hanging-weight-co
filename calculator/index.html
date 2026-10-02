@@ -94,6 +94,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .emailform .erow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
 .emailform input{width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:inherit;font:inherit}
 @media (max-width:520px){.emailform .erow{grid-template-columns:1fr}}
+.emailform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 </style>
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -177,6 +178,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
           <p class="hint">We'll send your numbers so you have them, plus a few short notes on selling direct. Unsubscribe any time.</p>
           <div class="erow"><input id="leadName" type="text" placeholder="Your name" autocomplete="name" required><input id="leadEmail" type="email" placeholder="Email" autocomplete="email" required></div>
           <div class="erow"><input id="leadRanch" type="text" placeholder="Ranch name (optional)" autocomplete="organization"><input id="leadState" type="text" placeholder="State" autocomplete="address-level1" maxlength="2"></div>
+          <div class="hp" aria-hidden="true"><label for="leadWebsite">Leave this empty</label><input id="leadWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
           <div class="actions"><button type="submit" id="emailBtn">Send my price sheet</button><span id="emailStatus" aria-live="polite"></span></div>
         </form>
         <textarea id="sheetText" readonly hidden aria-label="Price sheet text"></textarea>
@@ -293,9 +295,10 @@ function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel
 
   // Lane C: email capture
   const inputIds = ["live","dress","yield","calf","feed","pasture","vet","haul","mkt","kill","cut","profit","grocery"];
+  // Only the numbers go to the server; capture-lead rebuilds the sheet itself so it can't be used to mail arbitrary text.
   const snapshot = () => {
     const inputs = {}; inputIds.forEach(k => inputs[k] = num(k)); inputs.who = $("whoCust").checked ? "customer" : "me";
-    return { inputs, results: { price_per_lb_hanging: $("priceOut").textContent, hanging: $("hangOut").textContent, take_home: $("takeOut").textContent, cost_per_head: $("costOut").textContent, processing: $("procOut").textContent, profit_per_head: $("profOut").textContent }, sheet_text: sheetPlain };
+    return { inputs };
   };
   let completedSent = false;
   $("calc").addEventListener("input", () => { if(!completedSent){ completedSent = true; track("calculator_completed"); } });
@@ -306,7 +309,7 @@ function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel
     const ranch = $("leadRanch").value.trim(), state = $("leadState").value.trim().toUpperCase();
     const st = $("emailStatus");
     if(!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ st.textContent = "Add your name and a real email address."; return; }
-    const payload = Object.assign({ name, email, ranch, state, source: "calculator", page: location.href }, snapshot());
+    const payload = Object.assign({ name, email, ranch, state, website: $("leadWebsite").value, source: "calculator", page: location.href }, snapshot());
     $("emailBtn").disabled = true; st.textContent = "Sending…";
     if(!CAPTURE_URL){
       const body = "Name: " + name + "\nRanch: " + ranch + "\nState: " + state + "\n\n" + sheetPlain + "\n\nPlease email me this price sheet.";
@@ -316,9 +319,13 @@ function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel
     }
     try{
       const r = await fetch(CAPTURE_URL, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
+      const data = await r.json().catch(() => ({}));
+      if(r.status === 400 && data.error){ st.textContent = data.error; return; }
       if(!r.ok) throw new Error("bad status " + r.status);
-      st.textContent = "Check your inbox. Your price sheet is on its way.";
-      track("email_captured", {via: "api", state}); $("emailForm").reset();
+      st.textContent = data.emailed
+        ? "Check your inbox. Your price sheet is on its way."
+        : "We saved your details, but the email didn't go out. Use Copy price sheet above to keep your numbers, or email info@hangingweightco.com and we'll resend it.";
+      track("email_captured", {via: "api", state, emailed: !!data.emailed}); $("emailForm").reset();
     }catch(err){
       st.textContent = "That didn't go through. Email info@hangingweightco.com and we'll send it by hand.";
     }finally{ $("emailBtn").disabled = false; }

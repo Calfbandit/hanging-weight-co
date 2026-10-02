@@ -20,6 +20,7 @@ Plain HTML, CSS and JavaScript. No build step: open `index.html` in a browser to
 - `calculator/index.html`: `CAPTURE_URL` = the deployed capture-lead function URL. While it's empty, the form falls back to a pre-filled email to info@hangingweightco.com, so leads still arrive.
 - `index.html` and `calculator/index.html`: `MIXPANEL_TOKEN` = the shared South Creek Mixpanel project token. Empty = tracking off.
 - Function secrets are set in Supabase, never here: `SENDGRID_API_KEY`, `MAILING_ADDRESS` (plus the Supabase URL and service key the platform provides).
+- capture-lead always saves the lead, but only sends the email once `MAILING_ADDRESS` and `SENDGRID_API_KEY` are set, at most 3 per address per day and 50 per hour overall. It builds the price sheet from the calculator numbers itself, and every email carries an unsubscribe link (the same function, `?unsubscribe=<lead id>`).
 
 ## Deploy
 
