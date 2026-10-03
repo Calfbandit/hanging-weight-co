@@ -89,6 +89,12 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 #sheetText{width:100%;margin-top:10px;font-family:var(--mono);font-size:13px;min-height:130px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:10px}
 .foot{margin-top:28px;font-size:13px;color:var(--muted);max-width:70ch;display:grid;gap:6px}
 .foot p{margin:0}
+.emailform{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.emailform h3{margin:0 0 4px;font-size:16px}
+.emailform .erow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.emailform input{width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:inherit;font:inherit}
+@media (max-width:520px){.emailform .erow{grid-template-columns:1fr}}
+.emailform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 </style>
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -167,6 +173,14 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
           <button type="button" id="copyBtn">Copy price sheet</button>
           <span id="copyStatus"></span>
         </div>
+        <form id="emailForm" class="emailform" novalidate>
+          <h3>Email me this price sheet</h3>
+          <p class="hint">We'll send your numbers so you have them, plus a few short notes on selling direct. Unsubscribe any time.</p>
+          <div class="erow"><input id="leadName" type="text" placeholder="Your name" autocomplete="name" required><input id="leadEmail" type="email" placeholder="Email" autocomplete="email" required></div>
+          <div class="erow"><input id="leadRanch" type="text" placeholder="Ranch name (optional)" autocomplete="organization"><input id="leadState" type="text" placeholder="State" autocomplete="address-level1" maxlength="2"></div>
+          <div class="hp" aria-hidden="true"><label for="leadWebsite">Leave this empty</label><input id="leadWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <div class="actions"><button type="submit" id="emailBtn">Send my price sheet</button><span id="emailStatus" aria-live="polite"></span></div>
+        </form>
         <textarea id="sheetText" readonly hidden aria-label="Price sheet text"></textarea>
       </div>
 
@@ -181,6 +195,21 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   </div>
 </div>
 
+<script>
+// Lane C config. Fill these in once the Supabase function and Mixpanel project exist.
+// Leave CAPTURE_URL empty and the form falls back to a pre-filled email to info@hangingweightco.com.
+const CAPTURE_URL = "";
+const MIXPANEL_TOKEN = "97e8474459e4737f5ff0963a2d3c4d7b"; // Mixpanel "Herd Direct" project, shared by all three sites
+</script>
+<script>
+(function(){
+  if(!MIXPANEL_TOKEN) return;
+  (function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
+  mixpanel.init(MIXPANEL_TOKEN, {track_pageview: "url-with-path", persistence: "localStorage", autocapture: false, record_sessions_percent: 0});
+  mixpanel.register({ site: "hanging_weight" });
+})();
+function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel.track(name, props||{}); }catch(e){} }
+</script>
 <script>
 (function(){
   const $ = id => document.getElementById(id);
@@ -264,6 +293,45 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
       } else fallback();
     }catch(e){ fallback(); }
   });
+
+  // Lane C: email capture
+  const inputIds = ["live","dress","yield","calf","feed","pasture","vet","haul","mkt","kill","cut","profit","grocery"];
+  // Only the numbers go to the server; capture-lead rebuilds the sheet itself so it can't be used to mail arbitrary text.
+  const snapshot = () => {
+    const inputs = {}; inputIds.forEach(k => inputs[k] = num(k)); inputs.who = $("whoCust").checked ? "customer" : "me";
+    return { inputs };
+  };
+  let completedSent = false;
+  $("calc").addEventListener("input", () => { if(!completedSent){ completedSent = true; track("calculator_completed"); } });
+  document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(a => a.addEventListener("click", () => track("stripe_checkout_opened", {from: "calculator"})));
+  $("emailForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = $("leadName").value.trim(), email = $("leadEmail").value.trim();
+    const ranch = $("leadRanch").value.trim(), state = $("leadState").value.trim().toUpperCase();
+    const st = $("emailStatus");
+    if(!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ st.textContent = "Add your name and a real email address."; return; }
+    const payload = Object.assign({ name, email, ranch, state, website: $("leadWebsite").value, source: "calculator", page: location.href }, snapshot());
+    $("emailBtn").disabled = true; st.textContent = "Sending…";
+    if(!CAPTURE_URL){
+      const body = "Name: " + name + "\nRanch: " + ranch + "\nState: " + state + "\n\n" + sheetPlain + "\n\nPlease email me this price sheet.";
+      location.href = "mailto:info@hangingweightco.com?subject=" + encodeURIComponent("My beef price sheet") + "&body=" + encodeURIComponent(body);
+      st.textContent = "Your email app should open with the sheet filled in. Hit send and it's on its way.";
+      track("email_captured", {via: "mailto"}); $("emailBtn").disabled = false; return;
+    }
+    try{
+      const r = await fetch(CAPTURE_URL, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
+      const data = await r.json().catch(() => ({}));
+      if(r.status === 400 && data.error){ st.textContent = data.error; return; }
+      if(!r.ok) throw new Error("bad status " + r.status);
+      st.textContent = data.emailed
+        ? "Check your inbox. Your price sheet is on its way."
+        : "We saved your details, but the email didn't go out. Use Copy price sheet above to keep your numbers, or email info@hangingweightco.com and we'll resend it.";
+      track("email_captured", {via: "api", state, emailed: !!data.emailed}); $("emailForm").reset();
+    }catch(err){
+      st.textContent = "That didn't go through. Email info@hangingweightco.com and we'll send it by hand.";
+    }finally{ $("emailBtn").disabled = false; }
+  });
+  track("calculator_opened");
 
   calc();
 })();
