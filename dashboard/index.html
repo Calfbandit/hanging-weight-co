@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Hanging Weight Co. Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a rancher's tally board — ear-tag yellow marks what moves, pine marks what's on; caution-stripe DEMO band on top; bottom tabs on phone, side rail on desktop */
+:root{
+  --bg:#EDF0EB; --surface:#FAFBF8; --raise:#FFFFFF; --ink:#17221D; --muted:#5B6961; --line:#D3DBD4;
+  --tag:#F2B705; --tag-ink:#271F00; --pine:#1F4A38; --pine-soft:#DDE9E2;
+  --good:#2D7A4C; --warn:#A86A12; --bad:#B03F2C; --good-soft:#DCEFE2; --warn-soft:#F6E9D2; --bad-soft:#F5DDD8;
+  --display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:10px; --shadow:0 1px 0 rgba(23,34,29,.06),0 6px 18px -10px rgba(23,34,29,.25);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1512; --surface:#151E1A; --raise:#1B2621; --ink:#E7EEE9; --muted:#93A49A; --line:#29362F;
+  --tag:#F5C230; --tag-ink:#241C00; --pine:#86CBA6; --pine-soft:#1F3229;
+  --good:#63C58B; --warn:#E2AA4E; --bad:#E77662; --good-soft:#18301F; --warn-soft:#33270F; --bad-soft:#3A1D18;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 8px 22px -12px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1512; --surface:#151E1A; --raise:#1B2621; --ink:#E7EEE9; --muted:#93A49A; --line:#29362F;
+  --tag:#F5C230; --tag-ink:#241C00; --pine:#86CBA6; --pine-soft:#1F3229;
+  --good:#63C58B; --warn:#E2AA4E; --bad:#E77662; --good-soft:#18301F; --warn-soft:#33270F; --bad-soft:#3A1D18;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 8px 22px -12px rgba(0,0,0,.7); color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--tag)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--tag);outline-offset:2px;border-radius:6px}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.01em;text-wrap:balance;margin:0}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+
+/* demo band */
+.demo{position:sticky;top:env(safe-area-inset-top,0px);z-index:25;color:var(--tag-ink);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  background:repeating-linear-gradient(-45deg,var(--tag) 0 14px,#E3A800 14px 28px);padding-block:6px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;gap:10px;align-items:center;justify-content:center;text-align:center}
+.demo span{background:var(--tag);padding:2px 8px;border-radius:4px}
+
+/* shell */
+.shell{display:grid;grid-template-columns:1fr;min-height:calc(100% - 30px)}
+.rail{display:none}
+main{min-width:0;padding-block:18px 110px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1120px;width:100%;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand b{font-family:var(--display);font-size:22px;font-weight:700;line-height:1;letter-spacing:.02em}
+.brand small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.who{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);flex:none}
+@media (max-width:520px){.who span{display:none}.top .brand small{display:none}.top .brand b{font-size:20px}}
+.who button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;cursor:pointer}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);
+  padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.tabbar button,.rail button{background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px 10px;font-size:11.5px;font-weight:600;color:var(--muted);position:relative}
+.tabbar button[aria-current="page"]{color:var(--ink)}
+.tabbar button[aria-current="page"]::before{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:var(--tag)}
+.tabbar svg,.rail svg{width:22px;height:22px}
+.badge{position:absolute;top:5px;right:calc(50% - 20px);background:var(--bad);color:#fff;font-size:10px;font-weight:700;border-radius:999px;min-width:17px;height:17px;display:grid;place-items:center;padding:0 4px}
+
+@media (min-width:900px){
+  .shell{grid-template-columns:232px 1fr}
+  .tabbar{display:none}
+  .rail{display:flex;flex-direction:column;gap:2px;position:sticky;top:30px;align-self:start;height:calc(100vh - 30px);padding:22px 14px;border-right:1px solid var(--line);background:var(--surface)}
+  .rail .brand{padding:4px 8px 18px}
+  .rail button{flex-direction:row;justify-content:flex-start;gap:12px;font-size:14.5px;padding:10px 12px;border-radius:8px;text-align:left}
+  .rail button:hover{background:var(--bg)}
+  .rail button[aria-current="page"]{background:var(--pine-soft);color:var(--ink)}
+  .rail .badge{position:static;margin-left:auto}
+  .rail .sep{height:1px;background:var(--line);margin:10px 8px}
+  main{padding-block:26px 48px}
+  .top .brand{display:none}
+}
+
+/* cards & bits */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.card.raised{box-shadow:var(--shadow);background:var(--raise)}
+.grid{display:grid;gap:14px}
+@media (min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g-wide{grid-template-columns:1.5fr 1fr}}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:22px 0 10px}
+.section-head h2{font-size:24px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.pill.good{background:var(--good-soft);color:var(--good)}.pill.warn{background:var(--warn-soft);color:var(--warn)}.pill.bad{background:var(--bad-soft);color:var(--bad)}.pill.off{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.dot{width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 14px;font-weight:600;cursor:pointer;font-size:14px}
+.btn.primary{background:var(--pine);border-color:var(--pine);color:var(--surface)}
+.btn.tag{background:var(--tag);border-color:var(--tag);color:var(--tag-ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:hover:not(:disabled){filter:brightness(1.05)}
+.row{display:flex;align-items:center;gap:10px}
+.spread{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.list{display:flex;flex-direction:column}
+.list > *{padding:12px 0;border-top:1px solid var(--line)}
+.list > *:first-child{border-top:0;padding-top:2px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+td.r,th.r{text-align:right}
+.scroll{overflow-x:auto;margin:0 -16px;padding:0 16px}
+th button{background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit}
+th button[aria-sort]::after{content:" ▾"}
+
+/* hello */
+.hello{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;margin-bottom:14px}
+.hello h1{font-size:34px;line-height:1}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:760px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;min-width:0}
+.kpi .v{font-size:32px;font-weight:700;line-height:1.05;margin-top:4px}
+.kpi .d{font-size:12.5px;font-weight:600;margin-top:2px}
+.up{color:var(--good)}.down{color:var(--bad)}
+
+/* funnel alley */
+.alley{position:relative;display:grid;grid-template-columns:44px 1fr;gap:0 12px}
+.alley canvas{grid-column:1;grid-row:1 / span 99;width:44px;height:100%;display:block}
+.stage{grid-column:2;display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 12px;padding:11px 12px;border-radius:9px;cursor:pointer;background:none;border:1px solid transparent;text-align:left;width:100%}
+.stage:hover{background:var(--bg);border-color:var(--line)}
+.stage .nm{font-weight:600;font-size:15px}
+.stage .ct{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;text-align:right}
+.stage .bar{grid-column:1 / -1;height:8px;border-radius:4px;background:var(--bg);overflow:hidden;margin-top:6px}
+.stage .bar i{display:block;height:100%;background:var(--pine);border-radius:4px;transition:width .8s ease}
+.stage .sub{font-size:12.5px;color:var(--muted)}
+.gate{grid-column:2;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);padding:1px 12px}
+.gate b{font-weight:700;color:var(--ink)}
+.gate .lose{color:var(--bad);font-weight:600}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:10px}
+.tagmark{display:inline-block;width:12px;height:12px;border-radius:3px 3px 6px 6px;background:var(--tag);vertical-align:-1px}
+
+/* charts */
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-family:var(--body);font-size:11px}
+.chart .gl{stroke:var(--line);stroke-width:1}
+.seg{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:none;padding:6px 10px;border-radius:7px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.keys{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-top:8px}
+.keys i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+/* agents */
+.team{margin-top:18px}
+.team h3{font-size:19px;margin-bottom:8px}
+.agent{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:start}
+.agent .an{font-weight:600}
+.agent .meta{font-size:13px;color:var(--muted)}
+.agent .did{font-size:13.5px;grid-column:1 / -1}
+.agent.future .an,.agent.future .did{color:var(--muted)}
+.switch{position:relative;width:48px;height:28px;flex:none}
+.switch input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:1}
+.switch span{position:absolute;inset:0;border-radius:999px;background:var(--line);transition:background .2s}
+.switch span::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.switch input:checked + span{background:var(--good)}
+.switch input:checked + span::after{transform:translateX(20px)}
+.switch input:disabled{cursor:not-allowed}
+.switch input:disabled + span{opacity:.45}
+.switch input:focus-visible + span{outline:3px solid var(--tag);outline-offset:2px}
+
+/* calls & clients */
+.call{display:grid;grid-template-columns:auto 1fr;gap:10px 12px;align-items:center}
+.call .actions{grid-column:1 / -1;flex-direction:row!important}
+@media (min-width:760px){.call{grid-template-columns:auto 1fr auto}.call .actions{grid-column:auto;flex-direction:column!important}}
+.when{width:56px;text-align:center;border:1px solid var(--line);border-radius:8px;padding:5px 0;background:var(--raise)}
+.when b{display:block;font-family:var(--display);font-size:22px;line-height:1}
+.when small{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.track{position:relative;height:10px;border-radius:5px;background:var(--bg);margin:10px 0 6px}
+.track i{position:absolute;inset:0 auto 0 0;border-radius:5px;background:var(--pine)}
+.track .mk{position:absolute;top:-4px;width:2px;height:18px;background:var(--line)}
+.ticks{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+
+/* approvals */
+.appr{display:flex;flex-direction:column;gap:10px}
+.preview{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:14px;white-space:pre-wrap}
+.preview[contenteditable="true"]{background:var(--raise);outline:2px solid var(--tag)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.empty{text-align:center;padding:36px 16px;color:var(--muted)}
+.empty b{display:block;font-family:var(--display);font-size:24px;color:var(--ink);margin-bottom:4px}
+
+/* money */
+.meter{height:16px;border-radius:8px;background:var(--bg);overflow:hidden;border:1px solid var(--line)}
+.meter i{display:block;height:100%;background:var(--tag)}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(10,15,12,.45);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:620px;max-height:86%;overflow:auto;border-radius:16px 16px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));animation:up .25s ease}
+@media (min-width:760px){.scrim{align-items:center}.sheet{border-radius:16px;max-height:80%}}
+@keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+.sheet h2{font-size:26px}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 12px}
+.toast{text-align:center;position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:600;font-size:14px;z-index:50;max-width:calc(100% - 32px)}
+@media (min-width:900px){.toast{bottom:28px}}
+
+/* login */
+.gatepage{min-height:calc(100% - 30px);display:grid;place-items:center;padding-block:28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.login{width:100%;max-width:420px;display:flex;flex-direction:column;gap:16px}
+.login h1{font-size:44px;line-height:.95}
+.pick{display:flex;flex-direction:column;gap:10px}
+.pick button{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:left;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer}
+.pick button:hover{border-color:var(--pine)}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:18px;background:var(--pine);color:var(--surface)}
+.tagicon{width:40px;height:44px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="demo" role="status"><span>Demo data</span> Sample numbers and made-up ranchers. Nothing here is real yet.</div>
+<div id="app"></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- helpers ---------- */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>Math.round(n).toLocaleString("en-US");
+const usd=n=>"$"+Math.round(n).toLocaleString("en-US");
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const store={get(k,d){try{const v=localStorage.getItem("hwc_"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("hwc_"+k,JSON.stringify(v))}catch(e){}}};
+function toast(msg){const t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2400)}
+
+/* ---------- DEMO SEED DATA (replaced by live sources at handover: see docs/DEPLOY.md) ---------- */
+const WEEKS=["Aug 31","Sep 7","Sep 14","Sep 21","Sep 28","Oct 5","Oct 12","Oct 19"];
+const VIS=[180,232,288,356,431,514,608,716];
+const SOURCES=[
+  {key:"outreach",name:"Outreach emails",agent:"Outreach",color:"var(--pine)",share:[.18,.22,.26,.29,.31,.33,.35,.36]},
+  {key:"google",name:"Google search",agent:null,color:"#6E8F7E",share:[.30,.28,.27,.26,.25,.25,.24,.24]},
+  {key:"facebook",name:"Facebook (Allen's posts)",agent:null,color:"#C99A2E",share:[.32,.30,.27,.25,.24,.22,.21,.20]},
+  {key:"referral",name:"Word of mouth",agent:null,color:"#9C6B4E",share:[.08,.09,.10,.10,.11,.11,.12,.12]},
+  {key:"direct",name:"Typed the address",agent:null,color:"#8C9690",share:[.12,.11,.10,.10,.09,.09,.08,.08]}
+];
+// conversion by source (calc use, email, booking, package)
+const CONV={outreach:[.48,.42,.12,.28],google:[.44,.36,.09,.22],facebook:[.36,.34,.08,.20],referral:[.55,.48,.16,.33],direct:[.40,.38,.10,.25]};
+function week(i){ // returns per-source rows for week i
+  return SOURCES.map(s=>{const v=Math.round(VIS[i]*s.share[i]);const c=CONV[s.key];
+    const calc=Math.round(v*c[0]),email=Math.round(calc*c[1]),book=Math.round(email*c[2]+(i%3==0?0:.4)),pkg=Math.round(book*c[3]+.15);
+    return {src:s,visits:v,calc,email,book,pkg,rev:book*197+pkg*1000};});
+}
+const W=WEEKS.map((_,i)=>{const rows=week(i);const t=rows.reduce((a,r)=>({visits:a.visits+r.visits,calc:a.calc+r.calc,email:a.email+r.email,book:a.book+r.book,pkg:a.pkg+r.pkg,rev:a.rev+r.rev}),{visits:0,calc:0,email:0,book:0,pkg:0,rev:0});return {rows,t}});
+const NOW=W.length-1;
+
+const FIRST=["Cody","Ray","Dale","Wade","Jolene","Travis","Darla","Luis","Hank","Marisol","Clint","Bobbie","Dusty","Ana","Royce","Lupe","Garrett","Tammy","Earl","Rosa"];
+const RANCH=["Cedar Draw","Mesquite Flat","Brazos Bend","Caprock","Live Oak","Three Forks","Red Bluff","Pecan Creek","Rocking J","Lone Mesa","Salt Fork","Tule Canyon"];
+const TOWNS=["Stephenville","Gainesville","Brenham","Lampasas","Weatherford","Hico","Llano","Decatur","Paris","Uvalde","Seguin","Graham"];
+const LAST=["Bell","Ortiz","Harmon","Pruitt","Vega","Keller","Moody","Salinas","Boone","Tate","Garza","Whitley","Cobb","Reyes","Ashby","Dunn","Lockhart","Serna"];
+function person(i){return {name:FIRST[i%FIRST.length]+" "+LAST[i*7%LAST.length],ranch:RANCH[i%RANCH.length]+" Cattle",town:TOWNS[(i*5)%TOWNS.length],head:[6,12,20,8,35,15,4,50,10,25][i%10],src:SOURCES[[0,1,2,0,3,1,0,4,2,0][i%10]].name}}
+
+const AGENTS=[
+ {team:"Finding ranchers",items:[
+  {id:"finder",name:"Rancher Finder",when:"Every morning",ok:"No",live:true,last:"Today 6:05 AM",did:"Found 18 new Texas ranches that sell beef direct, from public farm directories.",brought:"18 ranches added"},
+  {id:"outreach",name:"Outreach",when:"Weekday mornings",ok:"You tap Send",live:true,last:"Today 8:10 AM",did:"Wrote 10 friendly invites to try the free calculator. Waiting in your Gmail.",brought:"258 visits this week"},
+  {id:"articles",name:"Article Writer",when:"Weekly",ok:"Yes",live:false},
+  {id:"social",name:"Social Poster",when:"3 times a week",ok:"Yes",live:false},
+  {id:"partners",name:"Partner Outreach",when:"Weekly",ok:"Yes",live:false},
+  {id:"referral",name:"Referral",when:"After each call",ok:"No",live:false}]},
+ {team:"Turning visitors into calls",items:[
+  {id:"helper",name:"Calculator Helper",when:"Always on",ok:"No",live:false},
+  {id:"followup",name:"Follow-up",when:"Every morning",ok:"You tap Send",live:true,last:"Today 7:00 AM",did:"Wrote follow-ups to 14 ranchers who used the calculator. 2 asked about a call.",brought:"5 calls booked this week"},
+  {id:"booking",name:"Booking",when:"Each booking",ok:"No",live:false},
+  {id:"prep",name:"Call Prep",when:"Every morning",ok:"You read it",live:true,last:"Today 6:30 AM",did:"Made prep sheets for your 2 calls today.",brought:"2 prep sheets"},
+  {id:"recap",name:"Call Recap",when:"Each call",ok:"Yes",live:false},
+  {id:"upgrade",name:"Upgrade",when:"Each call",ok:"No",live:false}]},
+ {team:"Taking care of clients",items:[
+  {id:"profile",name:"HerdDirect Profile Builder",when:"Each client",ok:"Yes",live:false},
+  {id:"buyers",name:"Local Buyer Finder",when:"Weekly per client",ok:"First batch",live:false},
+  {id:"posts",name:"Client Post Writer",when:"Weekly",ok:"Yes",live:false},
+  {id:"orders",name:"Order Reminders",when:"Each order",ok:"No",live:false},
+  {id:"report",name:"Client Report",when:"Day 30, 60, 90",ok:"No",live:false}]},
+ {team:"Keeping watch",items:[
+  {id:"watchdog",name:"Watchdog",when:"Every 6 hours",ok:"No",live:true,last:"Today 12:00 PM",did:"All three websites up. Farm dashboard and outreach pages still locked behind a login.",brought:"0 problems"},
+  {id:"analyst",name:"Funnel Analyst",when:"Weekly",ok:"No",live:false},
+  {id:"driver",name:"Daily Driver",when:"7:30 AM every day",ok:"No",live:true,last:"Today 7:30 AM",did:"Sent your morning email: 3 things to do today.",brought:"1 email to you"}]}
+];
+const CALLS=[
+ {day:"Sat",date:"24",time:"2:00 PM",p:person(3),status:"today"},
+ {day:"Sat",date:"24",time:"4:30 PM",p:person(8),status:"today"},
+ {day:"Mon",date:"26",time:"10:00 AM",p:person(5),status:"soon"},
+ {day:"Tue",date:"27",time:"1:00 PM",p:person(11),status:"soon"},
+ {day:"Thu",date:"29",time:"9:30 AM",p:person(14),status:"soon"}
+];
+const CLIENTS=[
+ {p:person(1),day:5,next:"Phone interview for the ranch story",orders:0,deposits:0},
+ {p:person(6),day:40,next:"Second launch post goes out Friday",orders:7,deposits:5},
+ {p:person(9),day:80,next:"Day 90 report and renewal talk",orders:19,deposits:14}
+];
+const APPROVALS_SEED=[
+ {id:"a1",kind:"Outreach batch",agent:"Outreach",title:"10 invites to new ranches",text:"Hi Ray,\n\nI'm Allen with Hanging Weight Co. I saw Red Bluff Cattle sells halves and quarters out of Paris. I built a free calculator that shows your break-even and what to charge per pound hanging weight. Takes about a minute:\nhangingweightco.com/calculator\n\nHappy to talk beef pricing any time.\nAllen\n\nIf you'd rather not hear from me, just reply \"no thanks\" and I won't write again."},
+ {id:"a2",kind:"Follow-up",agent:"Follow-up",title:"Day 3 note to Jolene (used the calculator)",text:"Hi Jolene,\n\nOne tip from your numbers: your break-even on a half is about $4.85 a pound hanging. Most folks price a half and a quarter the same per pound, but a quarter takes the same work to sell. Adding 25 cents a pound on quarters usually covers it.\n\nIf you want, we can go through your whole price sheet on a $197 call.\nAllen"},
+ {id:"a3",kind:"Call prep",agent:"Call Prep",title:"Prep sheet for your 2:00 PM call",text:""}
+];
+APPROVALS_SEED[2].text=(p=>`${p.name}, ${p.ranch}, ${p.town}. ${p.head} head, sells halves.\nCalculator: break-even about $4.62/lb hanging. Charging $5.25 now.\nAsk: 1) Processor dates booked for spring? 2) How do buyers find you today? 3) Biggest headache selling?\nMention the $2,000 package if he wants buyers lined up for him, not just a price.`)(CALLS[0].p);
+const SITES=[
+ {name:"Hanging Weight Co.",url:"hangingweightco.com",role:"Your calculator and calls",state:"up",visits:W[NOW].t.visits,signups:W[NOW].t.email,orders:W[NOW].t.book+" calls"},
+ {name:"HerdDirect",url:"herddirect.net",role:"Marketplace. You run it.",state:"up",visits:342,signups:4,orders:"9 orders"},
+ {name:"Farm & Ranch Marketing",url:"farm-ranch-marketing.com",role:"Retired. Sends people to HerdDirect.",state:"retired",visits:61,signups:0,orders:"—"}
+];
+const SALES=[
+ {d:"Oct 23",what:"$197 call",who:person(5).name,amt:197},
+ {d:"Oct 22",what:"Package deposit",who:person(1).name,amt:1000},
+ {d:"Oct 21",what:"$197 call",who:person(11).name,amt:197},
+ {d:"Oct 20",what:"$197 call",who:person(14).name,amt:197},
+ {d:"Oct 19",what:"Package balance",who:person(6).name,amt:1000},
+ {d:"Oct 17",what:"$197 call",who:person(3).name,amt:197}
+];
+
+/* ---------- state ---------- */
+const S={user:store.get("user",null),view:"funnel",agents:store.get("agents",{}),approvals:store.get("approvals",null)||APPROVALS_SEED.map(a=>a.id),edits:store.get("edits",{}),callsDone:store.get("callsDone",{}),offered:store.get("offered",{}),trafficSort:"visits",growthMetric:"visits",growthSplit:"source"};
+const VIEWS=[
+ {id:"funnel",label:"Today",icon:"M3 4h18l-7 8v6l-4 2v-8z",tab:1},
+ {id:"agents",label:"Agents",icon:"M12 3a4 4 0 110 8 4 4 0 010-8zM4 21c0-4 4-6 8-6s8 2 8 6",tab:1},
+ {id:"calls",label:"Calls",icon:"M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z",tab:1},
+ {id:"approvals",label:"Waiting",icon:"M4 6h16M4 12h10M4 18h7M17 15l2 2 4-4",tab:1},
+ {id:"money",label:"Money",icon:"M12 3v18M17 7H9.5a3 3 0 000 6h5a3 3 0 010 6H6",tab:1},
+ {id:"traffic",label:"Traffic",icon:"M4 18l5-6 4 3 7-9",tab:0},
+ {id:"growth",label:"Growth",icon:"M4 20V10M10 20V4M16 20v-7M22 20H2",tab:0},
+ {id:"sites",label:"Websites",icon:"M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18M3 12a9 9 0 1018 0 9 9 0 10-18 0",tab:0},
+ {id:"more",label:"More",icon:"M5 12h.01M12 12h.01M19 12h.01",tab:2}
+];
+const ico=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+const agentOn=a=>a.live&&S.agents[a.id]!==false;
+const pendingCount=()=>S.approvals.length;
+
+/* ---------- routing ---------- */
+function go(v){S.view=v;stopAlley();render();window.scrollTo(0,0);try{history.replaceState(null,"","#"+v)}catch(e){}}
+function render(){
+  const app=$("#app");
+  if(!S.user){app.innerHTML=loginView();bindLogin();return}
+  const tabs=VIEWS.filter(v=>v.tab===1).concat(VIEWS.filter(v=>v.tab===2));
+  const curTab=VIEWS.some(v=>v.id===S.view&&v.tab===1)?S.view:"more";
+  const badge=id=>id==="approvals"&&pendingCount()?`<span class="badge">${pendingCount()}</span>`:"";
+  app.innerHTML=`<div class="shell">
+   <nav class="rail" aria-label="Sections">
+     <div class="brand">${tagSvg(34)}<div><b>Hanging Weight Co.</b><small>Owner's board</small></div></div>
+     ${VIEWS.filter(v=>v.tab!==2).map((v,i)=>`${i===5?'<div class="sep"></div>':''}<button data-go="${v.id}" ${S.view===v.id?'aria-current="page"':''}>${ico(v.icon)}<span>${v.label}</span>${badge(v.id)}</button>`).join("")}
+     ${S.user==="dj"?`<div class="sep"></div><button data-go="handover" ${S.view==="handover"?'aria-current="page"':''}>${ico("M4 12l5 5L20 6")}<span>Handover</span></button>`:""}
+   </nav>
+   <main id="main" tabindex="-1">
+     <div class="top"><div class="brand">${tagSvg(30)}<div><b>Hanging Weight Co.</b><small>Owner's board</small></div></div>
+       <div class="who"><span>${S.user==="allen"?"Allen · Owner":"DJ · Admin"}</span><button data-act="logout">Switch</button></div></div>
+     ${views[S.view]()}
+   </main>
+   <nav class="tabbar" aria-label="Sections">${tabs.map(v=>`<button data-go="${v.id}" ${curTab===v.id?'aria-current="page"':''}>${ico(v.icon)}<span>${v.label}</span>${badge(v.id)}</button>`).join("")}</nav>
+  </div>`;
+  after[S.view]&&after[S.view]();
+}
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-go]");if(g){e.preventDefault();go(g.dataset.go);return}
+  const a=e.target.closest("[data-act]");if(a){acts[a.dataset.act]&&acts[a.dataset.act](a,e)}
+});
+
+function tagSvg(s){return `<svg class="tagicon" style="width:${s}px;height:${s*1.1}px" viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2a4 4 0 014 4v3h5a7 7 0 017 7v13c0 7-7 13-16 13S4 36 4 29V16a7 7 0 017-7h5V6a4 4 0 014-4z" fill="var(--tag)"/><circle cx="20" cy="7" r="2.2" fill="var(--bg)"/><text x="20" y="31" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="700" font-size="14" fill="var(--tag-ink)">HWC</text></svg>`}
+
+/* ---------- login ---------- */
+function loginView(){return `<div class="gatepage"><div class="login">
+  ${tagSvg(52)}
+  <div><div class="eyebrow">Hanging Weight Co.</div><h1>Owner's board</h1></div>
+  <p class="muted" style="margin:0">See how many ranchers came in, what your helpers did, and what's waiting for you. This is the demo, filled with sample numbers.</p>
+  <div class="pick">
+    <button data-who="allen"><span class="av">A</span><span><b>Open as Allen</b><br><span class="muted" style="font-size:13px">Owner · sees everything, approves, turns helpers on and off</span></span>${ico("M9 6l6 6-6 6")}</button>
+    <button data-who="dj"><span class="av" style="background:var(--tag);color:var(--tag-ink)">DJ</span><span><b>Open as DJ</b><br><span class="muted" style="font-size:13px">Admin · everything, plus the handover checklist</span></span>${ico("M9 6l6 6-6 6")}</button>
+  </div></div></div>`}
+function bindLogin(){document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{S.user=b.dataset.who;store.set("user",S.user);go(viewFromHash()||"funnel")})}
+const acts={
+ logout(){S.user=null;store.set("user",null);stopAlley();render()},
+};
+
+/* ---------- views ---------- */
+const views={},after={};
+const trend=(a,b,money)=>{const d=a-b;if(!b)return "";const p=Math.round(d/b*100);return `<div class="d ${d>=0?'up':'down'}">${d>=0?"▲":"▼"} ${money?usd(Math.abs(d)):fmt(Math.abs(d))} (${Math.abs(p)}%) vs last week</div>`};
+
+views.funnel=()=>{const t=W[NOW].t,l=W[NOW-1].t;const stages=stageList(t);
+ const hour=new Date().getHours();const hi=hour<12?"Good morning":hour<17?"Good afternoon":"Good evening";
+ return `<div class="hello"><h1>${hi}, ${S.user==="allen"?"Allen":"DJ"}</h1><span class="muted">Week of ${WEEKS[NOW]} · sample week</span></div>
+ <div class="kpis">
+   <div class="kpi"><div class="eyebrow">Money in</div><div class="v num">${usd(t.rev)}</div>${trend(t.rev,l.rev,1)}</div>
+   <div class="kpi"><div class="eyebrow">$197 calls booked</div><div class="v num">${t.book}</div>${trend(t.book,l.book)}</div>
+   <div class="kpi"><div class="eyebrow">Emails collected</div><div class="v num">${t.email}</div>${trend(t.email,l.email)}</div>
+   <div class="kpi"><div class="eyebrow">Waiting for you</div><div class="v num">${pendingCount()}</div><div class="d"><a href="#approvals" data-go="approvals" style="color:var(--pine);font-weight:700">Open ›</a></div></div>
+ </div>
+ <div class="grid g-wide" style="margin-top:14px">
+ <section class="card raised" aria-labelledby="fh">
+   <div class="spread"><h2 id="fh" style="font-size:24px">This week's alley</h2><span class="pill good"><span class="dot"></span>Helpers working</span></div>
+   <p class="muted" style="margin:4px 0 12px;font-size:13.5px">Every tag is a rancher moving through. Tap a pen to see who's in it.</p>
+   <div class="alley" id="alley"><canvas id="alleyc" aria-hidden="true"></canvas>
+   ${stages.map((s,i)=>`${i?`<div class="gate">${i===stages.length-1?"Gate":"Gate"} ${i}: <b>${pct(s.n,stages[i-1].n)}%</b> go on <span class="lose">· ${fmt(stages[i-1].n-s.n)} stop here</span></div>`:""}
+     <button class="stage" data-act="stage" data-i="${i}" aria-label="${s.name}: ${s.n}. Show who is here"><span><span class="nm">${s.name}</span><br><span class="sub">${s.sub}</span></span><span class="ct">${fmt(s.n)}</span><span class="bar"><i style="width:${Math.max(3,Math.sqrt(s.n/stages[0].n)*100)}%"></i></span></button>`).join("")}
+   </div>
+   <div class="legend"><span><span class="tagmark"></span> a rancher</span><span>Bars use a square-root scale so small pens stay visible.</span></div>
+ </section>
+ <div class="grid" style="align-content:start">
+   <section class="card"><div class="eyebrow">Today, do these 3 things</div>
+     <ol style="margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+       <li>Read and send the <a href="#approvals" data-go="approvals" style="color:var(--pine);font-weight:700">${pendingCount()} drafts</a> your helpers wrote.</li>
+       <li>Read the prep sheet before your <b>2:00 PM</b> call with ${esc(CALLS[0].p.name)}.</li>
+       <li>Offer the $2,000 package to ${esc(CALLS[1].p.name)} on the 4:30 PM call. He asked about buyers.</li>
+     </ol></section>
+   <section class="card"><div class="spread"><div class="eyebrow">Where they came from</div><a href="#traffic" data-go="traffic" style="color:var(--pine);font-weight:700;font-size:13px">All sources ›</a></div>
+     <div class="list" style="margin-top:8px">${W[NOW].rows.slice().sort((a,b)=>b.visits-a.visits).slice(0,3).map(r=>`<div class="spread"><span class="row"><i style="width:10px;height:10px;border-radius:2px;background:${r.src.color};display:inline-block"></i>${esc(r.src.name)}</span><span class="num" style="font-size:20px">${fmt(r.visits)}</span></div>`).join("")}</div></section>
+   <section class="card"><div class="spread"><div class="eyebrow">Helpers</div><a href="#agents" data-go="agents" style="color:var(--pine);font-weight:700;font-size:13px">See all ›</a></div>
+     <p style="margin:8px 0 0"><b class="num" style="font-size:26px">${AGENTS.flatMap(t=>t.items).filter(agentOn).length}</b> <span class="muted">of 6 working today</span></p></section>
+ </div></div>`};
+function stageList(t){return [
+ {name:"Visited the site",sub:"People who opened hangingweightco.com",n:t.visits,key:"visits"},
+ {name:"Used the calculator",sub:"Put in their numbers",n:t.calc,key:"calc"},
+ {name:"Left an email",sub:"Got their price plan by email",n:t.email,key:"email"},
+ {name:"Booked a $197 call",sub:"Paid and picked a time",n:t.book,key:"book"},
+ {name:"Started the $2,000 package",sub:"Paid the $1,000 to start",n:t.pkg,key:"pkg"}]}
+acts.stage=(b)=>{const i=+b.dataset.i;const st=stageList(W[NOW].t)[i];let body;
+ if(i<2){body=`<p class="muted">Visitors stay anonymous until they leave an email, so this pen shows counts by where they came from.</p>${sourceTable(W[NOW].rows,i===0?"visits":"calc")}`}
+ else{const n=Math.min(st.n,i===2?14:st.n);const rows=Array.from({length:n},(_,k)=>person(k+i*5));
+  body=`${i===2&&st.n>n?`<p class="muted">Showing the newest ${n} of ${st.n}.</p>`:""}<div class="list">${rows.map((p,k)=>`<div class="spread"><span><b>${esc(p.name)}</b> <span class="muted">· ${esc(p.ranch)}, ${esc(p.town)}</span><br><span class="muted" style="font-size:13px">${p.head} head · came from ${esc(p.src)}</span></span>${i===3?`<span class="pill warn">Call ${["Sat","Mon","Tue","Thu","Fri"][k%5]}</span>`:i===4?`<span class="pill good">Day ${[5,12,40][k%3]}</span>`:`<span class="pill off">Emailed</span>`}</div>`).join("")}</div>`}
+ sheet(`<div class="eyebrow">Pen ${i+1} of 5 · sample week</div><h2>${st.name}: ${fmt(st.n)}</h2>${body}`)};
+function sourceTable(rows,key){return `<div class="list">${rows.slice().sort((a,b)=>b[key]-a[key]).map(r=>`<div class="spread"><span class="row"><i style="width:10px;height:10px;border-radius:2px;background:${r.src.color};display:inline-block"></i>${esc(r.src.name)}</span><b class="num" style="font-size:20px">${fmt(r[key])}</b></div>`).join("")}</div>`}
+
+/* alley animation */
+let raf=0,parts=[];
+function stopAlley(){cancelAnimationFrame(raf);raf=0;parts=[]}
+after.funnel=()=>{const c=$("#alleyc"),box=$("#alley");if(!c)return;const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const st=stageList(W[NOW].t),btns=[...box.querySelectorAll(".stage")];const dpr=Math.min(2,window.devicePixelRatio||1);
+ let H=0,ys=[];
+ function size(){H=box.clientHeight;c.width=44*dpr;c.height=H*dpr;c.style.height=H+"px";const top=box.getBoundingClientRect().top;ys=btns.map(b=>{const r=b.getBoundingClientRect();return r.top-top+r.height/2})}
+ size();window.onresize=size;
+ const css=getComputedStyle(document.documentElement);const col={tag:css.getPropertyValue("--tag").trim(),line:css.getPropertyValue("--line").trim(),pine:css.getPropertyValue("--pine").trim(),bad:css.getPropertyValue("--bad").trim()};
+ const rates=st.slice(1).map((s,i)=>s.n/st[i].n);
+ const ctx=c.getContext("2d");let last=performance.now(),acc=0;
+ function spawn(){parts.push({y:-8,x:22,stage:0,out:false,a:1,vx:0,v:38+Math.random()*16})}
+ function drawStatic(){ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,44,H);
+   ctx.strokeStyle=col.line;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(12,0);ctx.lineTo(12,H);ctx.moveTo(32,0);ctx.lineTo(32,H);ctx.stroke();
+   ys.forEach((y,i)=>{if(!i)return;const g=(ys[i-1]+y)/2;ctx.strokeStyle=col.pine;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(12,g);ctx.lineTo(19,g);ctx.moveTo(25,g);ctx.lineTo(32,g);ctx.stroke()})}
+ function tag(x,y,a){ctx.globalAlpha=a;ctx.fillStyle=col.tag;ctx.beginPath();ctx.moveTo(x-5,y-4);ctx.lineTo(x+5,y-4);ctx.lineTo(x+5,y+2);ctx.quadraticCurveTo(x+5,y+6,x,y+6);ctx.quadraticCurveTo(x-5,y+6,x-5,y+2);ctx.closePath();ctx.fill();ctx.globalAlpha=1}
+ if(reduce){drawStatic();ys.forEach(y=>tag(22,y,1));return}
+ function frame(t){const dt=Math.min(.05,(t-last)/1000);last=t;acc+=dt;while(acc>.16){acc-=.16;spawn()}
+   drawStatic();
+   for(const p of parts){
+     if(p.out){p.x+=p.vx*dt;p.a-=dt*1.4}else{p.y+=p.v*dt;
+       const gi=p.stage+1;if(gi<ys.length){const g=(ys[gi-1]+ys[gi])/2;if(p.y>=g){if(Math.random()<rates[p.stage]){p.stage++}else{p.out=true;p.vx=60}}}
+       else if(p.y>ys[ys.length-1]){p.v=Math.max(0,p.v-60*dt);if(p.v<=0){p.out=true;p.vx=0}}}
+     tag(p.x,p.y,Math.max(0,p.a));}
+   parts=parts.filter(p=>p.a>0&&p.y<H+10&&p.x<60);
+   raf=requestAnimationFrame(frame)}
+ raf=requestAnimationFrame(frame)};
+
+/* traffic */
+views.traffic=()=>{const rows=W[NOW].rows.slice().sort((a,b)=>b[S.trafficSort]-a[S.trafficSort]);const t=W[NOW].t;
+ const h=(k,l)=>`<th class="r"><button data-act="sort" data-k="${k}" ${S.trafficSort===k?'aria-sort="descending"':''}>${l}</button></th>`;
+ return `<div class="section-head"><div><div class="eyebrow">Week of ${WEEKS[NOW]}</div><h2>Where ranchers came from</h2></div></div>
+ <section class="card"><div class="scroll"><table><thead><tr><th>Source</th>${h("visits","Visits")}${h("calc","Used calculator")}${h("book","Calls")}${h("pkg","Packages")}</tr></thead><tbody>
+ ${rows.map(r=>`<tr><td><span class="row" style="gap:8px"><i style="width:10px;height:10px;border-radius:2px;background:${r.src.color};display:inline-block;flex:none"></i><span>${esc(r.src.name)}${r.src.agent?`<br><span class="muted" style="font-size:12px">Helper: ${r.src.agent}</span>`:""}</span></span></td><td class="r num" style="font-size:17px">${fmt(r.visits)}</td><td class="r num" style="font-size:17px">${fmt(r.calc)}</td><td class="r num" style="font-size:17px">${r.book}</td><td class="r num" style="font-size:17px">${r.pkg}</td></tr>`).join("")}
+ <tr><td><b>Total</b></td><td class="r num" style="font-size:17px"><b>${fmt(t.visits)}</b></td><td class="r num" style="font-size:17px"><b>${fmt(t.calc)}</b></td><td class="r num" style="font-size:17px"><b>${t.book}</b></td><td class="r num" style="font-size:17px"><b>${t.pkg}</b></td></tr>
+ </tbody></table></div>
+ <p class="muted" style="font-size:13px;margin:12px 0 0">Article, social and partner helpers come in a future update, so they bring no traffic yet.</p></section>`};
+acts.sort=b=>{S.trafficSort=b.dataset.k;render()};
+
+/* growth */
+const METRICS=[{k:"visits",l:"Visits"},{k:"calc",l:"Calculator uses"},{k:"book",l:"$197 calls"},{k:"pkg",l:"$2,000 packages"},{k:"rev",l:"Money in"}];
+views.growth=()=>{return `<div class="section-head"><div><div class="eyebrow">Last 8 weeks · sample</div><h2>Growth</h2></div></div>
+ <section class="card raised">
+  <div class="seg" role="group" aria-label="What to show">${METRICS.map(m=>`<button data-act="metric" data-k="${m.k}" aria-pressed="${S.growthMetric===m.k}">${m.l}</button>`).join("")}</div>
+  <div class="spread" style="margin-top:12px;flex-wrap:wrap"><div><span class="num" style="font-size:34px;font-weight:700">${val(W[NOW].t[S.growthMetric])}</span> <span class="muted">this week</span></div>
+   <div class="seg" role="group" aria-label="Split"><button data-act="split" data-k="source" aria-pressed="${S.growthSplit==="source"}">By source</button><button data-act="split" data-k="none" aria-pressed="${S.growthSplit==="none"}">Total</button></div></div>
+  <div id="gchart" style="margin-top:8px"></div>
+ </section>`};
+const val=v=>S.growthMetric==="rev"?usd(v):fmt(v);
+after.growth=()=>{const k=S.growthMetric,split=S.growthSplit==="source";const w=640,h=280,pl=44,pr=10,pt=12,pb=30;
+ const tot=W.map(x=>x.t[k]);const max=niceMax(Math.max(...tot));const bw=(w-pl-pr)/W.length;
+ const y=v=>pt+(h-pt-pb)*(1-v/max);
+ let s=`<svg class="chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="${METRICS.find(m=>m.k===k).l} per week, last 8 weeks">`;
+ for(let i=0;i<=4;i++){const v=max*i/4,yy=y(v);s+=`<line class="gl" x1="${pl}" x2="${w-pr}" y1="${yy}" y2="${yy}"/><text x="${pl-6}" y="${yy+4}" text-anchor="end">${k==="rev"?"$"+(v>=1000?(v/1000)+"k":v):fmt(v)}</text>`}
+ W.forEach((x,i)=>{const x0=pl+i*bw+bw*.18,bwid=bw*.64;let acc=0;
+   if(split){x.rows.forEach(r=>{const v=r[k];if(!v)return;const y1=y(acc+v),y0=y(acc);s+=`<rect x="${x0}" y="${y1}" width="${bwid}" height="${Math.max(0,y0-y1)}" fill="${r.src.color}"><title>${r.src.name}: ${val(v)}</title></rect>`;acc+=v})}
+   else{s+=`<rect x="${x0}" y="${y(x.t[k])}" width="${bwid}" height="${y(0)-y(x.t[k])}" rx="3" fill="${i===NOW?"var(--tag)":"var(--pine)"}"><title>${val(x.t[k])}</title></rect>`}
+   if(i===NOW)s+=`<text x="${x0+bwid/2}" y="${y(x.t[k])-6}" text-anchor="middle" style="fill:var(--ink);font-weight:700">${val(x.t[k])}</text>`;
+   s+=`<text x="${x0+bwid/2}" y="${h-10}" text-anchor="middle">${WEEKS[i]}</text>`});
+ s+=`</svg>`;if(split)s+=`<div class="keys">${SOURCES.map(z=>`<span><i style="background:${z.color}"></i>${z.name}</span>`).join("")}</div>`;
+ $("#gchart").innerHTML=s};
+function niceMax(v){const p=Math.pow(10,Math.floor(Math.log10(v||1)));const n=[1,2,2.5,5,10].find(m=>m*p>=v)||10;return n*p}
+acts.metric=b=>{S.growthMetric=b.dataset.k;render()};acts.split=b=>{S.growthSplit=b.dataset.k;render()};
+
+/* agents */
+views.agents=()=>{const on=AGENTS.flatMap(t=>t.items).filter(agentOn).length;
+ return `<div class="section-head"><div><div class="eyebrow">Your helpers</div><h2>${on} of 6 working</h2></div></div>
+ <p class="muted" style="margin:-4px 0 6px">Six helpers come with your system. The rest are planned and come in future updates. Helpers never send anything without you.</p>
+ ${AGENTS.map(t=>`<section class="team"><h3>${t.team}</h3><div class="card"><div class="list">${t.items.map(a=>a.live?`
+   <div class="agent"><div><div class="an">${a.name}</div><div class="meta">${a.when} · ${agentOn(a)?`Last ran ${a.last}`:"Turned off"}</div></div>
+     <label class="switch" title="Turn ${a.name} on or off"><input type="checkbox" id="sw-${a.id}" data-act="toggle" data-id="${a.id}" ${agentOn(a)?"checked":""} aria-label="${a.name} on or off"><span></span></label>
+     <div class="did">${agentOn(a)?esc(a.did):"Off. Turn it on to start again."}</div>
+     <div class="row" style="grid-column:1 / -1;flex-wrap:wrap;gap:6px">${agentOn(a)?`<span class="pill good"><span class="dot"></span>${esc(a.brought)}</span>`:`<span class="pill off">Off</span>`}<span class="pill off">Your OK: ${a.ok}</span></div></div>`:`
+   <div class="agent future"><div><div class="an">${a.name}</div><div class="meta">${a.when}</div></div>
+     <label class="switch"><input type="checkbox" id="sw-${a.id}" disabled aria-label="${a.name}: coming in a future update"><span></span></label>
+     <div class="did">Coming in a future update.</div></div>`).join("")}</div></div></section>`).join("")}`};
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset&&t.dataset.act==="toggle"){S.agents[t.dataset.id]=t.checked;store.set("agents",S.agents);const a=AGENTS.flatMap(x=>x.items).find(x=>x.id===t.dataset.id);toast(`${a.name} turned ${t.checked?"on":"off"}`);render()}});
+
+/* calls & clients */
+views.calls=()=>`<div class="section-head"><div><div class="eyebrow">$197 calls</div><h2>Coming up</h2></div></div>
+ <section class="card"><div class="list">${CALLS.map((c,i)=>{const done=S.callsDone[i],off=S.offered[i];return `
+  <div class="call"><div class="when"><small>${c.day}</small><b>${c.date}</b></div>
+   <div style="min-width:0"><b>${esc(c.p.name)}</b> <span class="muted">· ${c.time}</span><br><span class="muted" style="font-size:13px">${esc(c.p.ranch)}, ${esc(c.p.town)} · ${c.p.head} head</span>
+    <div class="row" style="flex-wrap:wrap;gap:6px;margin-top:6px">${done?`<span class="pill good">Call done</span>`:c.status==="today"?`<span class="pill warn">Today</span>`:`<span class="pill off">Booked</span>`}${off?`<span class="pill good">Offered $2,000</span>`:""}</div></div>
+   <div class="actions" style="flex-direction:column;align-items:stretch"><button class="btn" data-act="prep" data-i="${i}">Prep sheet</button>
+    ${done?(off?"":`<button class="btn tag" data-act="offer" data-i="${i}">Offered $2,000</button>`):`<button class="btn primary" data-act="done" data-i="${i}">Mark done</button>`}</div></div>`}).join("")}</div></section>
+ <div class="section-head"><div><div class="eyebrow">$2,000 clients · 90 days</div><h2>Ranch Store in a Box</h2></div></div>
+ <div class="grid g3">${CLIENTS.map(c=>`<section class="card"><div class="spread"><b>${esc(c.p.ranch)}</b><span class="pill ${c.day>75?"warn":"good"}">Day ${c.day}</span></div>
+   <div class="muted" style="font-size:13px">${esc(c.p.name)} · ${esc(c.p.town)}</div>
+   <div class="track"><i style="width:${c.day/90*100}%"></i>${[30,60].map(m=>`<span class="mk" style="left:${m/90*100}%"></span>`).join("")}</div>
+   <div class="ticks"><span>Start</span><span>30</span><span>60</span><span>90</span></div>
+   <p style="margin:10px 0 4px;font-size:14px"><span class="eyebrow">Next</span><br>${esc(c.next)}</p>
+   <div class="row" style="gap:16px;margin-top:8px"><span><b class="num" style="font-size:24px">${c.orders}</b> <span class="muted" style="font-size:13px">HerdDirect orders</span></span><span><b class="num" style="font-size:24px">${c.deposits}</b> <span class="muted" style="font-size:13px">deposits</span></span></div></section>`).join("")}</div>`;
+acts.done=b=>{S.callsDone[b.dataset.i]=1;store.set("callsDone",S.callsDone);toast("Call marked done");render()};
+acts.offer=b=>{S.offered[b.dataset.i]=1;store.set("offered",S.offered);toast("Noted: you offered the $2,000 package");render()};
+acts.prep=b=>{const c=CALLS[b.dataset.i],p=c.p;const be=(4.4+((b.dataset.i*37)%60)/100).toFixed(2);
+ sheet(`<div class="eyebrow">Call prep · ${c.day} ${c.time} · sample</div><h2>${esc(p.name)}</h2><p class="muted" style="margin-top:2px">${esc(p.ranch)}, ${esc(p.town)} · ${p.head} head · came from ${esc(p.src)}</p>
+ <div class="grid g2" style="margin-top:12px"><div class="card"><div class="eyebrow">Break-even (from calculator)</div><div class="num" style="font-size:30px;font-weight:700">$${be}<span class="muted" style="font-size:16px">/lb hanging</span></div></div>
+ <div class="card"><div class="eyebrow">Sells</div><div style="font-size:16px;font-weight:600;margin-top:4px">Halves and quarters</div></div></div>
+ <h3 style="font-size:19px;margin-top:16px">Ask these 3 things</h3><ol style="padding-left:20px;display:flex;flex-direction:column;gap:6px"><li>Do you have processor dates booked for spring?</li><li>How do buyers find you today?</li><li>What's the hardest part of selling a whole beef?</li></ol>
+ <h3 style="font-size:19px">When to mention the $2,000 package</h3><p>If he wants buyers lined up for him, not only a price. $197 counts toward it within 30 days.</p>`)};
+
+/* approvals */
+views.approvals=()=>{const items=APPROVALS_SEED.filter(a=>S.approvals.includes(a.id));
+ return `<div class="section-head"><div><div class="eyebrow">Waiting for you</div><h2>${items.length?items.length+" to look at":"All caught up"}</h2></div>${items.length?"":`<button class="btn" data-act="reset">Bring back samples</button>`}</div>
+ <p class="muted" style="margin:-4px 0 12px">Your helpers write; you decide. Nothing goes out until you send it. In your real system these sit in Gmail under "Ready to send".</p>
+ ${items.length?`<div class="grid">${items.map(a=>`<section class="card appr" id="ap-${a.id}"><div class="spread"><div><div class="eyebrow">${a.kind} · ${a.agent}</div><b>${esc(a.title)}</b></div></div>
+   <div class="preview" id="pv-${a.id}">${esc(S.edits[a.id]||a.text)}</div>
+   <div class="actions"><button class="btn primary" data-act="approve" data-id="${a.id}">${a.kind==="Call prep"?"Got it":"Approve & send"}</button><button class="btn" data-act="edit" data-id="${a.id}">Edit</button><button class="btn" data-act="reject" data-id="${a.id}">Don't send</button></div></section>`).join("")}</div>`:`<div class="card empty"><b>Nothing waiting</b>New drafts land here each morning.</div>`}`};
+acts.approve=b=>{done(b.dataset.id,"Approved. In the live system this sends from your Gmail.")};
+acts.reject=b=>{done(b.dataset.id,"Removed. Nothing was sent.")};
+acts.edit=b=>{const pv=$("#pv-"+b.dataset.id);if(pv.isContentEditable){pv.contentEditable="false";S.edits[b.dataset.id]=pv.innerText;store.set("edits",S.edits);b.textContent="Edit";toast("Changes saved")}else{pv.contentEditable="true";pv.focus();b.textContent="Save changes"}};
+acts.reset=()=>{S.approvals=APPROVALS_SEED.map(a=>a.id);S.edits={};store.set("approvals",S.approvals);store.set("edits",{});render()};
+function done(id,msg){S.approvals=S.approvals.filter(x=>x!==id);store.set("approvals",S.approvals);toast(msg);render()}
+
+/* sites */
+views.sites=()=>`<div class="section-head"><div><div class="eyebrow">Checked every 6 hours</div><h2>Your websites</h2></div></div>
+ <div class="grid g3">${SITES.map(s=>`<section class="card"><div class="spread"><b style="font-size:16px">${s.name}</b>${s.state==="up"?`<span class="pill good"><span class="dot"></span>Up</span>`:`<span class="pill off">Retired</span>`}</div>
+  <div class="muted" style="font-size:13px">${s.url}</div><p style="margin:8px 0 12px;font-size:14px">${s.role}</p>
+  <div class="row" style="gap:18px;flex-wrap:wrap"><span><b class="num" style="font-size:24px">${fmt(s.visits)}</b><br><span class="muted" style="font-size:12px">visits</span></span><span><b class="num" style="font-size:24px">${fmt(s.signups)}</b><br><span class="muted" style="font-size:12px">sign-ups</span></span><span><b class="num" style="font-size:24px">${s.orders}</b><br><span class="muted" style="font-size:12px">this week</span></span></div></section>`).join("")}</div>
+ <section class="card" style="margin-top:14px"><div class="eyebrow">Last check · sample</div><p style="margin:6px 0 0">All three sites loaded. The HerdDirect farm dashboard and outreach pages still ask for a login, so private farm details stay private.</p></section>`;
+
+/* money */
+views.money=()=>{const t=W[NOW].t;const used=1.5,budget=250/60;
+ return `<div class="section-head"><div><div class="eyebrow">Week of ${WEEKS[NOW]} · sample</div><h2>Money</h2></div></div>
+ <div class="kpis"><div class="kpi"><div class="eyebrow">Money in this week</div><div class="v num">${usd(t.rev)}</div>${trend(t.rev,W[NOW-1].t.rev,1)}</div>
+  <div class="kpi"><div class="eyebrow">$197 calls</div><div class="v num">${usd(t.book*197)}</div><div class="d muted">${t.book} calls</div></div>
+  <div class="kpi"><div class="eyebrow">Package payments</div><div class="v num">${usd(t.pkg*1000)}</div><div class="d muted">$1,000 each</div></div>
+  <div class="kpi"><div class="eyebrow">Last 8 weeks</div><div class="v num">${usd(W.reduce((a,x)=>a+x.t.rev,0))}</div><div class="d muted">sample total</div></div></div>
+ <div class="grid g-wide" style="margin-top:14px">
+ <section class="card"><div class="spread"><h3 style="font-size:20px">Recent payments</h3><span class="pill warn">Stripe test mode</span></div>
+  <div class="scroll" style="margin-top:6px"><table><thead><tr><th>Date</th><th>What</th><th>Who</th><th class="r">Amount</th></tr></thead><tbody>${SALES.map(s=>`<tr><td>${s.d}</td><td>${s.what}</td><td>${esc(s.who)}</td><td class="r num" style="font-size:17px">${usd(s.amt)}</td></tr>`).join("")}</tbody></table></div></section>
+ <div class="grid" style="align-content:start">
+  <section class="card"><div class="eyebrow">Help from DJ's team this month</div>
+   <div class="spread" style="margin:8px 0"><span><b class="num" style="font-size:28px">${fmtH(budget-used)}</b> <span class="muted">left</span></span><span class="muted" style="font-size:13px">${fmtH(used)} used of ${fmtH(budget)}</span></div>
+   <div class="meter" role="img" aria-label="${fmtH(used)} used of ${fmtH(budget)}"><i style="width:${used/budget*100}%"></i></div>
+   <p class="muted" style="font-size:13px;margin:8px 0 0">$250 a month covers about 4 hours 10 minutes of calls, fixes and changes at $60 an hour.</p></section>
+  <section class="card"><div class="eyebrow">Bills</div><div class="list" style="margin-top:6px">
+   <div class="spread"><span>Monthly help · $250</span><button class="btn" data-act="pay">Pay</button></div></div>
+   <p class="muted" style="font-size:12.5px;margin:10px 0 0">Test mode: buttons don't charge anything.</p></section>
+ </div></div>`};
+const fmtH=h=>{const m=Math.round(h*60);return `${Math.floor(m/60)}h ${m%60}m`};
+acts.pay=()=>toast("Test mode: no card was charged.");
+
+/* more (phone) */
+views.more=()=>`<div class="section-head"><h2>More</h2></div><div class="card"><div class="list">
+ ${VIEWS.filter(v=>v.tab===0).map(v=>`<button class="spread" data-go="${v.id}" style="background:none;border:0;border-top:1px solid var(--line);width:100%;text-align:left;cursor:pointer;padding:14px 0"><span class="row">${ico(v.icon)}<b>${v.label}</b></span>${ico("M9 6l6 6-6 6")}</button>`).join("")}
+ ${S.user==="dj"?`<button class="spread" data-go="handover" style="background:none;border:0;border-top:1px solid var(--line);width:100%;text-align:left;cursor:pointer;padding:14px 0"><span class="row">${ico("M4 12l5 5L20 6")}<b>Handover checklist</b></span>${ico("M9 6l6 6-6 6")}</button>`:""}
+ </div></div>`;
+
+/* handover (admin only) */
+const HANDOVER=[
+ ["Demo shown to Allen","DJ walks Allen through this board and the calculator."],
+ ["Second $1,000 received","Code and helpers are handed over after this."],
+ ["Repos moved to Allen's GitHub","hanging-weight-co already lives on Allen's account."],
+ ["Six helpers set up in Allen's Claude account","Using the instructions in handover/agents."],
+ ["Gmail connected in Allen's Claude","So helpers can save drafts and send Allen his morning email."],
+ ["Stripe links switched from test to live","$197 call and the $1,000 package deposit."],
+ ["Board connected to live numbers","Mixpanel, Stripe and the helpers' daily log replace the samples."]
+];
+views.handover=()=>{const hv=store.get("handover",{});return `<div class="section-head"><div><div class="eyebrow">Admin only</div><h2>Handover checklist</h2></div></div>
+ <section class="card"><div class="list">${HANDOVER.map((h,i)=>`<label class="row" style="align-items:flex-start;cursor:pointer"><input type="checkbox" id="hv-${i}" data-hv="${i}" ${hv[i]?"checked":""} style="width:20px;height:20px;margin-top:2px;accent-color:var(--pine)"><span><b>${h[0]}</b><br><span class="muted" style="font-size:13px">${h[1]}</span></span></label>`).join("")}</div></section>`};
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset&&t.dataset.hv!=null){const hv=store.get("handover",{});hv[t.dataset.hv]=t.checked;store.set("handover",hv)}});
+
+/* sheet */
+function sheet(html){const s=document.createElement("div");s.className="scrim";s.innerHTML=`<div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>${html}<div style="margin-top:16px"><button class="btn" data-close style="width:100%">Close</button></div></div>`;
+ document.body.appendChild(s);const close=()=>{s.remove();document.removeEventListener("keydown",k)};const k=e=>{if(e.key==="Escape")close()};document.addEventListener("keydown",k);
+ s.addEventListener("click",e=>{if(e.target===s||e.target.closest("[data-close]"))close()});s.querySelector(".sheet").scrollTop=0;s.querySelector("[data-close]").focus({preventScroll:true})}
+
+function viewFromHash(){const h=(location.hash||"").slice(1);return views[h]&&(h!=="handover"||S.user==="dj")?h:null}
+S.view=viewFromHash()||"funnel";
+render();
+})();
+</script>
+
+</body>
+</html>

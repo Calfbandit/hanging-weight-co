@@ -1,7 +1,10 @@
 // Supabase Edge Function: capture-lead (lane C)
 // POST (JSON): stores a calculator lead and emails the rancher their price sheet through SendGrid.
 // GET or POST with ?unsubscribe=<lead id>: marks that email address unsubscribed (link + one-click header in every email).
-// Secrets (set with `supabase secrets set`): SENDGRID_API_KEY, MAILING_ADDRESS (postal address for the email footer).
+// Secrets (set with `supabase secrets set`): SENDGRID_API_KEY, MAILING_ADDRESS (postal address for the email footer),
+// NOTIFY_EMAIL (where Allen's "new lead" notifications go; defaults to theherd@herddirect.net when unset).
+// POST with type=package_interest ("Tell Allen you're interested" in the $2,000 package): name + phone required, email optional;
+// the lead is saved and Allen is notified, but nothing is emailed to the visitor.
 // SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided by the platform.
 //
 // Anti-abuse: the email body is built here from the calculator numbers, never from text the browser sends,
@@ -12,6 +15,8 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 const ALLOWED_ORIGINS = ["https://hangingweightco.com", "https://www.hangingweightco.com"];
 const MAX_EMAILS_PER_ADDRESS_PER_DAY = 3;
 const MAX_EMAILS_PER_HOUR = 50;
+const MAX_NOTIFY_PER_HOUR = 100; // owner notifications; keeps a bot flood from burying Allen's inbox
+const DEFAULT_NOTIFY_EMAIL = "theherd@herddirect.net";
 const INPUT_KEYS = ["live", "dress", "yield", "calf", "feed", "pasture", "vet", "haul", "mkt", "kill", "cut", "profit", "grocery"];
 
 const cors = (origin: string | null) => ({
@@ -27,6 +32,54 @@ const usd = (v: number, d = 0) =>
   (v < 0 ? "-" : "") + "$" + Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 const lb = (v: number) => Math.round(v).toLocaleString("en-US") + " lb";
 const round2 = (v: number) => Math.round(v * 100) / 100;
+const clip = (v: unknown, n: number) => String(v ?? "").replace(/[\r\n]+/g, " ").trim().slice(0, n);
+
+// Plain-text email through SendGrid. Returns true when SendGrid accepted it.
+async function sendMail(key: string, to: string, toName: string, subject: string, body: string, extraHeaders?: Record<string, string>) {
+  const r = await fetch("https://api.sendgrid.com/v3/mail/send", {
+    method: "POST",
+    headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      personalizations: [{ to: [{ email: to, name: toName }] }],
+      from: { email: "info@hangingweightco.com", name: "Allen, Hanging Weight Co." },
+      reply_to: { email: "info@hangingweightco.com" },
+      subject,
+      content: [{ type: "text/plain", value: body }],
+      ...(extraHeaders ? { headers: extraHeaders } : {}),
+    }),
+  });
+  if (!r.ok) console.error("SendGrid error", r.status, await r.text());
+  return r.ok;
+}
+
+// Tells Allen about every saved lead. Never blocks or fails the visitor's request.
+async function notifyOwner(key: string, lastHour: number, kind: "lead" | "package", f: Record<string, string>) {
+  if (!key) { console.error("Owner notification skipped: SENDGRID_API_KEY not set"); return false; }
+  if (lastHour >= MAX_NOTIFY_PER_HOUR) { console.error("Owner notification skipped: hourly cap"); return false; }
+  const to = (Deno.env.get("NOTIFY_EMAIL") ?? "").trim() || DEFAULT_NOTIFY_EMAIL;
+  const who = f.name || f.email || "unknown";
+  const subject = kind === "package" ? `Package interest – ${who}` : `New calculator lead – ${who}`;
+  const lines = [
+    kind === "package"
+      ? "Someone asked about Ranch Store in a Box ($2,000) on hangingweightco.com. Call or text them."
+      : "Someone used the Beef Price Calculator on hangingweightco.com and asked for their price sheet.",
+    "",
+    `Name:          ${f.name || "-"}`,
+    `Email:         ${f.email || "-"}`,
+    `Phone:         ${f.phone || "-"}`,
+    `Ranch:         ${f.ranch || "-"}`,
+    `State:         ${f.state || "-"}`,
+    `ZIP:           ${f.zip || "-"}`,
+    `Head count:    ${f.heads || "-"}`,
+    `How they sell: ${f.shares || "-"}`,
+    `Break-even:    ${f.break_even || "-"}`,
+    `Price on sheet:${f.price ? " " + f.price : " -"}`,
+    "",
+    `Lead id: ${f.id}`,
+    `Page: ${f.page || "-"}`,
+  ];
+  return await sendMail(key, to, "Hanging Weight Co.", subject, lines.join("\n"));
+}
 
 // Same math and wording as calc() in calculator/index.html. Change both together.
 function priceSheet(n: Record<string, number>, custPays: boolean) {
@@ -48,7 +101,7 @@ function priceSheet(n: Record<string, number>, custPays: boolean) {
   for (const [name, f] of [["Whole", 1], ["Half", .5], ["Quarter", .25]] as const) {
     const h = hanging * f, yours = rancherTotal * f, p = custPays ? proc * f : 0;
     const total = yours + p;
-    const deposit = Math.round(yours * 0.25 / 25) * 25;
+    const deposit = Math.round(yours * 0.30 / 25) * 25;
     lines.push(`${name}: about ${lb(h)} hanging, ${lb(take * f)} take-home. About ${usd(total)} total${custPays ? ` (${usd(yours)} to us + about ${usd(p)} processing)` : ""}. ${usd(deposit)} deposit reserves your spot.`);
   }
   return {
@@ -85,16 +138,48 @@ Deno.serve(async (req) => {
   // Honeypot: the form's hidden "website" field is only ever filled by bots. Pretend it worked.
   if (String(body.website ?? "").trim()) return Response.json({ ok: true, emailed: true }, { status: 200, headers });
 
+  const isPackage = body.type === "package_interest";
   const name = String(body.name ?? "").trim().slice(0, 80);
   const email = String(body.email ?? "").trim().toLowerCase().slice(0, 200);
   const ranch = String(body.ranch ?? "").trim().slice(0, 200);
   const state = String(body.state ?? "").trim().toUpperCase().slice(0, 2);
-  if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+  const phone = clip(body.phone, 30);
+  const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+  if (isPackage) {
+    if (!name || phone.replace(/\D/g, "").length < 10 || !/^[0-9+().\-\s]+$/.test(phone)) {
+      return Response.json({ error: "Add your name and a phone number Allen can call or text." }, { status: 400, headers });
+    }
+    if (email && !emailOk) return Response.json({ error: "That email doesn't look right." }, { status: 400, headers });
+  } else if (!name || !emailOk) {
     return Response.json({ error: "Add your name and a real email address." }, { status: 400, headers });
   }
   // The name is the only free text that reaches the email, so keep links out of it.
   if (/https?:|www\.|[<>@/\\]|[a-z]\.[a-z]{2,}\b/i.test(name)) {
     return Response.json({ error: "Enter just your name, without links." }, { status: 400, headers });
+  }
+
+  // Extra calculator v2 fields, used only in Allen's notification (and kept in the inputs column).
+  const extra = {
+    phone,
+    heads: clip(body.heads, 10),
+    shares: Array.isArray(body.shares) ? body.shares.map((x) => clip(x, 10)).slice(0, 3).join(", ") : clip(body.shares, 40),
+    zip: clip(body.zip, 10),
+    break_even: Number.isFinite(Number(body.break_even)) && body.break_even !== null && body.break_even !== "" ? usd(Number(body.break_even), 2) + "/lb hanging" : "",
+  };
+  const sendgridKey = Deno.env.get("SENDGRID_API_KEY") ?? "";
+  const hourAgo = new Date(Date.now() - 3600e3).toISOString();
+
+  if (isPackage) {
+    const { count: lastHourPkg } = await supabase.from("leads").select("id", { count: "exact", head: true }).gte("created_at", hourAgo);
+    const { data: lead, error } = await supabase.from("leads").insert({
+      name, email, ranch, state,
+      source: "package_interest",
+      page: String(body.page ?? "").slice(0, 300),
+      inputs: { ...extra, raw_inputs: body.inputs ?? null },
+    }).select("id").single();
+    if (error || !lead) return Response.json({ error: "Could not save lead" }, { status: 500, headers });
+    const notified = await notifyOwner(sendgridKey, lastHourPkg ?? 0, "package", { ...extra, name, email, ranch, state, id: lead.id, page: String(body.page ?? "") });
+    return Response.json({ ok: true, notified }, { status: 200, headers });
   }
 
   const raw = (body.inputs ?? {}) as Record<string, unknown>;
@@ -111,7 +196,6 @@ Deno.serve(async (req) => {
   if (!built) return Response.json({ error: "Check the calculator numbers and try again." }, { status: 400, headers });
 
   const dayAgo = new Date(Date.now() - 24 * 3600e3).toISOString();
-  const hourAgo = new Date(Date.now() - 3600e3).toISOString();
   const [{ count: sameAddress }, { count: lastHour }] = await Promise.all([
     supabase.from("leads").select("id", { count: "exact", head: true }).eq("email", email).gte("created_at", dayAgo),
     supabase.from("leads").select("id", { count: "exact", head: true }).gte("created_at", hourAgo),
@@ -121,14 +205,19 @@ Deno.serve(async (req) => {
     name, email, ranch, state,
     source: String(body.source ?? "calculator").slice(0, 40),
     page: String(body.page ?? "").slice(0, 300),
-    inputs: { ...inputs, who: custPays ? "customer" : "me" },
+    inputs: { ...inputs, who: custPays ? "customer" : "me", ...extra },
     results: built.results,
     sheet_text: built.sheet,
   }).select("id").single();
   if (error || !lead) return Response.json({ error: "Could not save lead" }, { status: 500, headers });
 
+  // Allen hears about every saved lead, whether or not the visitor's email goes out.
+  const notified = await notifyOwner(sendgridKey, lastHour ?? 0, "lead", {
+    ...extra, name, email, ranch, state, id: lead.id, page: String(body.page ?? ""),
+    price: usd(built.results.price_per_lb_hanging, 2) + "/lb hanging",
+  });
+
   const address = (Deno.env.get("MAILING_ADDRESS") ?? "").trim();
-  const sendgridKey = Deno.env.get("SENDGRID_API_KEY") ?? "";
   let skip = "";
   if (!address) skip = "MAILING_ADDRESS not set";
   else if (!sendgridKey) skip = "SENDGRID_API_KEY not set";
@@ -136,7 +225,7 @@ Deno.serve(async (req) => {
   else if ((lastHour ?? 0) >= MAX_EMAILS_PER_HOUR) skip = "hourly cap";
   if (skip) {
     console.error("Lead saved, email skipped:", skip, lead.id);
-    return Response.json({ ok: true, emailed: false }, { status: 200, headers });
+    return Response.json({ ok: true, emailed: false, notified }, { status: 200, headers });
   }
 
   const unsubscribeUrl = `${Deno.env.get("SUPABASE_URL")}/functions/v1/capture-lead?unsubscribe=${lead.id}`;
@@ -158,19 +247,8 @@ Deno.serve(async (req) => {
     `Unsubscribe: ${unsubscribeUrl}`,
   ].join("\n");
 
-  const sg = await fetch("https://api.sendgrid.com/v3/mail/send", {
-    method: "POST",
-    headers: { "Authorization": `Bearer ${sendgridKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      personalizations: [{ to: [{ email, name }] }],
-      from: { email: "info@hangingweightco.com", name: "Allen, Hanging Weight Co." },
-      reply_to: { email: "info@hangingweightco.com" },
-      subject: "Your beef price sheet",
-      content: [{ type: "text/plain", value: message }],
-      headers: { "List-Unsubscribe": `<${unsubscribeUrl}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" },
-    }),
-  });
-  if (!sg.ok) console.error("SendGrid error", sg.status, await sg.text());
+  const emailed = await sendMail(sendgridKey, email, name, "Your beef price sheet", message,
+    { "List-Unsubscribe": `<${unsubscribeUrl}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" });
 
-  return Response.json({ ok: true, emailed: sg.ok }, { status: 200, headers });
+  return Response.json({ ok: true, emailed, notified }, { status: 200, headers });
 });
