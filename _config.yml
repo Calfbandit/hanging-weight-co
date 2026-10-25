@@ -1,0 +1,8 @@
+# GitHub Pages: publish only the public website. Owner-only and setup files stay off hangingweightco.com.
+exclude:
+  - dashboard
+  - handover
+  - docs
+  - supabase
+  - CLAUDE.md
+  - TASKS.md

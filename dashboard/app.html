@@ -220,7 +220,7 @@ const pct=(a,b)=>b?Math.round(a/b*100):0;
 const store={get(k,d){try{const v=localStorage.getItem("hwc_"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("hwc_"+k,JSON.stringify(v))}catch(e){}}};
 function toast(msg){const t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2400)}
 
-/* ---------- DEMO SEED DATA (replaced by live sources at handover: see docs/DEPLOY.md) ---------- */
+/* ---------- DEMO SEED DATA (replaced by live sources at handover: see dashboard/README.md) ---------- */
 const WEEKS=["Aug 31","Sep 7","Sep 14","Sep 21","Sep 28","Oct 5","Oct 12","Oct 19"];
 const VIS=[180,232,288,356,431,514,608,716];
 const SOURCES=[
@@ -246,19 +246,20 @@ const TOWNS=["Stephenville","Gainesville","Brenham","Lampasas","Weatherford","Hi
 const LAST=["Bell","Ortiz","Harmon","Pruitt","Vega","Keller","Moody","Salinas","Boone","Tate","Garza","Whitley","Cobb","Reyes","Ashby","Dunn","Lockhart","Serna"];
 function person(i){return {name:FIRST[i%FIRST.length]+" "+LAST[i*7%LAST.length],ranch:RANCH[i%RANCH.length]+" Cattle",town:TOWNS[(i*5)%TOWNS.length],head:[6,12,20,8,35,15,4,50,10,25][i%10],src:SOURCES[[0,1,2,0,3,1,0,4,2,0][i%10]].name}}
 
+const LASTWEEKDAY=(()=>{const d=new Date().getDay();return d===0||d===6?"Fri":"Today"})();
 const AGENTS=[
  {team:"Finding ranchers",items:[
-  {id:"finder",name:"Rancher Finder",when:"Every morning",ok:"No",live:true,last:"Today 6:05 AM",did:"Found 18 new Texas ranches that sell beef direct, from public farm directories.",brought:"18 ranches added"},
-  {id:"outreach",name:"Outreach",when:"Weekday mornings",ok:"You tap Send",live:true,last:"Today 8:10 AM",did:"Wrote 10 friendly invites to try the free calculator. Waiting in your Gmail.",brought:"258 visits this week"},
+  {id:"finder",name:"Rancher Finder",when:"Every morning",ok:"No",live:true,last:"Today 5:10 AM",did:"Found 18 new Texas ranches that sell beef direct, from public farm directories.",brought:"18 ranches added"},
+  {id:"outreach",name:"Outreach",when:"Weekday mornings",ok:"You tap Send",live:true,last:LASTWEEKDAY+" 6:20 AM",did:"Wrote 10 friendly invites to try the free calculator. Waiting in your Gmail.",brought:"258 visits this week"},
   {id:"articles",name:"Article Writer",when:"Weekly",ok:"Yes",live:false},
-  {id:"social",name:"Social Poster",when:"3 times a week",ok:"Yes",live:false},
+  {id:"social",name:"Post Writer (drafts for your page)",when:"3 times a week",ok:"Yes",live:false},
   {id:"partners",name:"Partner Outreach",when:"Weekly",ok:"Yes",live:false},
   {id:"referral",name:"Referral",when:"After each call",ok:"No",live:false}]},
  {team:"Turning visitors into calls",items:[
   {id:"helper",name:"Calculator Helper",when:"Always on",ok:"No",live:false},
-  {id:"followup",name:"Follow-up",when:"Every morning",ok:"You tap Send",live:true,last:"Today 7:00 AM",did:"Wrote follow-ups to 14 ranchers who used the calculator. 2 asked about a call.",brought:"5 calls booked this week"},
+  {id:"followup",name:"Follow-up",when:"Every morning",ok:"You tap Send",live:true,last:"Today 6:40 AM",did:"Wrote follow-ups to 14 ranchers who used the calculator. 2 asked about a call.",brought:"5 calls booked this week"},
   {id:"booking",name:"Booking",when:"Each booking",ok:"No",live:false},
-  {id:"prep",name:"Call Prep",when:"Every morning",ok:"You read it",live:true,last:"Today 6:30 AM",did:"Made prep sheets for your 2 calls today.",brought:"2 prep sheets"},
+  {id:"prep",name:"Call Prep",when:"Every morning",ok:"You read it",live:true,last:"Today 7:00 AM",did:"Made prep sheets for your 2 calls today.",brought:"2 prep sheets"},
   {id:"recap",name:"Call Recap",when:"Each call",ok:"Yes",live:false},
   {id:"upgrade",name:"Upgrade",when:"Each call",ok:"No",live:false}]},
  {team:"Taking care of clients",items:[
@@ -268,16 +269,18 @@ const AGENTS=[
   {id:"orders",name:"Order Reminders",when:"Each order",ok:"No",live:false},
   {id:"report",name:"Client Report",when:"Day 30, 60, 90",ok:"No",live:false}]},
  {team:"Keeping watch",items:[
-  {id:"watchdog",name:"Watchdog",when:"Every 6 hours",ok:"No",live:true,last:"Today 12:00 PM",did:"All three websites up. Farm dashboard and outreach pages still locked behind a login.",brought:"0 problems"},
-  {id:"analyst",name:"Funnel Analyst",when:"Weekly",ok:"No",live:false},
+  {id:"watchdog",name:"Watchdog",when:"Every 6 hours",ok:"No",live:true,last:"Today 12:00 PM",did:"Sample check: all three websites up, and the two private HerdDirect pages ask for a login.",brought:"0 problems"},
+  {id:"analyst",name:"Weekly Numbers Check",when:"Weekly",ok:"No",live:false},
   {id:"driver",name:"Daily Driver",when:"7:30 AM every day",ok:"No",live:true,last:"Today 7:30 AM",did:"Sent your morning email: 3 things to do today.",brought:"1 email to you"}]}
 ];
+const DAYN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function dayOut(n){const d=new Date();d.setDate(d.getDate()+n);return {day:DAYN[d.getDay()],date:String(d.getDate())}}
 const CALLS=[
- {day:"Sat",date:"24",time:"2:00 PM",p:person(3),status:"today"},
- {day:"Sat",date:"24",time:"4:30 PM",p:person(8),status:"today"},
- {day:"Mon",date:"26",time:"10:00 AM",p:person(5),status:"soon"},
- {day:"Tue",date:"27",time:"1:00 PM",p:person(11),status:"soon"},
- {day:"Thu",date:"29",time:"9:30 AM",p:person(14),status:"soon"}
+ {...dayOut(0),time:"2:00 PM",p:person(3),status:"today",be:"4.62",sells:"Halves"},
+ {...dayOut(0),time:"4:30 PM",p:person(8),status:"today",be:"4.85",sells:"Halves and quarters"},
+ {...dayOut(2),time:"10:00 AM",p:person(5),status:"soon",be:"4.40",sells:"Quarters"},
+ {...dayOut(3),time:"1:00 PM",p:person(11),status:"soon",be:"4.71",sells:"Wholes and halves"},
+ {...dayOut(5),time:"9:30 AM",p:person(14),status:"soon",be:"4.55",sells:"Halves"}
 ];
 const CLIENTS=[
  {p:person(1),day:5,next:"Phone interview for the ranch story",orders:0,deposits:0},
@@ -286,10 +289,10 @@ const CLIENTS=[
 ];
 const APPROVALS_SEED=[
  {id:"a1",kind:"Outreach batch",agent:"Outreach",title:"10 invites to new ranches",text:"Hi Ray,\n\nI'm Allen with Hanging Weight Co. I saw Red Bluff Cattle sells halves and quarters out of Paris. I built a free calculator that shows your break-even and what to charge per pound hanging weight. Takes about a minute:\nhangingweightco.com/calculator\n\nHappy to talk beef pricing any time.\nAllen\n\nIf you'd rather not hear from me, just reply \"no thanks\" and I won't write again."},
- {id:"a2",kind:"Follow-up",agent:"Follow-up",title:"Day 3 note to Jolene (used the calculator)",text:"Hi Jolene,\n\nOne tip from your numbers: your break-even on a half is about $4.85 a pound hanging. Most folks price a half and a quarter the same per pound, but a quarter takes the same work to sell. Adding 25 cents a pound on quarters usually covers it.\n\nIf you want, we can go through your whole price sheet on a $197 call.\nAllen"},
+ {id:"a2",kind:"Follow-up",agent:"Follow-up",title:"Day 3 note to Jolene (used the calculator)",text:"Hi Jolene,\n\nOne pricing tip, rancher to rancher: take a deposit when someone reserves a quarter, half or whole. It holds their spot with the processor and keeps folks from backing out.\n\nYour calculator: hangingweightco.com/calculator\nIf you want help with your whole price sheet, we can do it on a $197 call.\nAllen\n\nIf you'd rather not hear from me, just reply \"no thanks\" and I won't write again."},
  {id:"a3",kind:"Call prep",agent:"Call Prep",title:"Prep sheet for your 2:00 PM call",text:""}
 ];
-APPROVALS_SEED[2].text=(p=>`${p.name}, ${p.ranch}, ${p.town}. ${p.head} head, sells halves.\nCalculator: break-even about $4.62/lb hanging. Charging $5.25 now.\nAsk: 1) Processor dates booked for spring? 2) How do buyers find you today? 3) Biggest headache selling?\nMention the $2,000 package if he wants buyers lined up for him, not just a price.`)(CALLS[0].p);
+APPROVALS_SEED[2].text=(c=>`${c.p.name}, ${c.p.ranch}, ${c.p.town}. ${c.p.head} head. Sells: ${c.sells.toLowerCase()}.\nCalculator: break-even about $${c.be}/lb hanging. Charging $5.25 now.\nAsk: 1) Processor dates booked for spring? 2) How do buyers find you today? 3) Biggest headache selling?\nMention the $2,000 package if he wants buyers lined up for him, not just a price.`)(CALLS[0]);
 const SITES=[
  {name:"Hanging Weight Co.",url:"hangingweightco.com",role:"Your calculator and calls",state:"up",visits:W[NOW].t.visits,signups:W[NOW].t.email,orders:W[NOW].t.book+" calls"},
  {name:"HerdDirect",url:"herddirect.net",role:"Marketplace. You run it.",state:"up",visits:342,signups:4,orders:"9 orders"},
@@ -308,7 +311,7 @@ const SALES=[
 const S={user:store.get("user",null),view:"funnel",agents:store.get("agents",{}),approvals:store.get("approvals",null)||APPROVALS_SEED.map(a=>a.id),edits:store.get("edits",{}),callsDone:store.get("callsDone",{}),offered:store.get("offered",{}),trafficSort:"visits",growthMetric:"visits",growthSplit:"source"};
 const VIEWS=[
  {id:"funnel",label:"Today",icon:"M3 4h18l-7 8v6l-4 2v-8z",tab:1},
- {id:"agents",label:"Agents",icon:"M12 3a4 4 0 110 8 4 4 0 010-8zM4 21c0-4 4-6 8-6s8 2 8 6",tab:1},
+ {id:"agents",label:"Helpers",icon:"M12 3a4 4 0 110 8 4 4 0 010-8zM4 21c0-4 4-6 8-6s8 2 8 6",tab:1},
  {id:"calls",label:"Calls",icon:"M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z",tab:1},
  {id:"approvals",label:"Waiting",icon:"M4 6h16M4 12h10M4 18h7M17 15l2 2 4-4",tab:1},
  {id:"money",label:"Money",icon:"M12 3v18M17 7H9.5a3 3 0 000 6h5a3 3 0 010 6H6",tab:1},
@@ -337,7 +340,7 @@ function render(){
    </nav>
    <main id="main" tabindex="-1">
      <div class="top"><div class="brand">${tagSvg(30)}<div><b>Hanging Weight Co.</b><small>Owner's board</small></div></div>
-       <div class="who"><span>${S.user==="allen"?"Allen · Owner":"DJ · Admin"}</span><button data-act="logout">Switch</button></div></div>
+       <div class="who"><span>${S.user==="allen"?"Allen · Owner":"DJ · Setup"}</span><button data-act="logout">Switch</button></div></div>
      ${views[S.view]()}
    </main>
    <nav class="tabbar" aria-label="Sections">${tabs.map(v=>`<button data-go="${v.id}" ${curTab===v.id?'aria-current="page"':''}>${ico(v.icon)}<span>${v.label}</span>${badge(v.id)}</button>`).join("")}</nav>
@@ -358,7 +361,7 @@ function loginView(){return `<div class="gatepage"><div class="login">
   <p class="muted" style="margin:0">See how many ranchers came in, what your helpers did, and what's waiting for you. This is the demo, filled with sample numbers.</p>
   <div class="pick">
     <button data-who="allen"><span class="av">A</span><span><b>Open as Allen</b><br><span class="muted" style="font-size:13px">Owner · sees everything, approves, turns helpers on and off</span></span>${ico("M9 6l6 6-6 6")}</button>
-    <button data-who="dj"><span class="av" style="background:var(--tag);color:var(--tag-ink)">DJ</span><span><b>Open as DJ</b><br><span class="muted" style="font-size:13px">Admin · everything, plus the handover checklist</span></span>${ico("M9 6l6 6-6 6")}</button>
+    <button data-who="dj"><span class="av" style="background:var(--tag);color:var(--tag-ink)">DJ</span><span><b>Open as DJ</b><br><span class="muted" style="font-size:13px">Setup · everything, plus the handover checklist</span></span>${ico("M9 6l6 6-6 6")}</button>
   </div></div></div>`}
 function bindLogin(){document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{S.user=b.dataset.who;store.set("user",S.user);go(viewFromHash()||"funnel")})}
 const acts={
@@ -386,7 +389,7 @@ views.funnel=()=>{const t=W[NOW].t,l=W[NOW-1].t;const stages=stageList(t);
    ${stages.map((s,i)=>`${i?`<div class="gate">${i===stages.length-1?"Gate":"Gate"} ${i}: <b>${pct(s.n,stages[i-1].n)}%</b> go on <span class="lose">· ${fmt(stages[i-1].n-s.n)} stop here</span></div>`:""}
      <button class="stage" data-act="stage" data-i="${i}" aria-label="${s.name}: ${s.n}. Show who is here"><span><span class="nm">${s.name}</span><br><span class="sub">${s.sub}</span></span><span class="ct">${fmt(s.n)}</span><span class="bar"><i style="width:${Math.max(3,Math.sqrt(s.n/stages[0].n)*100)}%"></i></span></button>`).join("")}
    </div>
-   <div class="legend"><span><span class="tagmark"></span> a rancher</span><span>Bars use a square-root scale so small pens stay visible.</span></div>
+   <div class="legend"><span><span class="tagmark"></span> a rancher</span><span>Bar lengths are stretched so the small pens stay visible.</span></div>
  </section>
  <div class="grid" style="align-content:start">
    <section class="card"><div class="eyebrow">Today, do these 3 things</div>
@@ -408,8 +411,8 @@ function stageList(t){return [
  {name:"Started the $2,000 package",sub:"Paid the $1,000 to start",n:t.pkg,key:"pkg"}]}
 acts.stage=(b)=>{const i=+b.dataset.i;const st=stageList(W[NOW].t)[i];let body;
  if(i<2){body=`<p class="muted">Visitors stay anonymous until they leave an email, so this pen shows counts by where they came from.</p>${sourceTable(W[NOW].rows,i===0?"visits":"calc")}`}
- else{const n=Math.min(st.n,i===2?14:st.n);const rows=Array.from({length:n},(_,k)=>person(k+i*5));
-  body=`${i===2&&st.n>n?`<p class="muted">Showing the newest ${n} of ${st.n}.</p>`:""}<div class="list">${rows.map((p,k)=>`<div class="spread"><span><b>${esc(p.name)}</b> <span class="muted">· ${esc(p.ranch)}, ${esc(p.town)}</span><br><span class="muted" style="font-size:13px">${p.head} head · came from ${esc(p.src)}</span></span>${i===3?`<span class="pill warn">Call ${["Sat","Mon","Tue","Thu","Fri"][k%5]}</span>`:i===4?`<span class="pill good">Day ${[5,12,40][k%3]}</span>`:`<span class="pill off">Emailed</span>`}</div>`).join("")}</div>`}
+ else{const n=Math.min(st.n,i===2?14:st.n);const rows=i===3?CALLS.map(c=>c.p).concat(Array.from({length:Math.max(0,n-CALLS.length)},(_,k)=>person(k+30))):Array.from({length:n},(_,k)=>person(k+i*5));
+  body=`${i===2&&st.n>n?`<p class="muted">Showing the newest ${n} of ${st.n}.</p>`:""}<div class="list">${rows.map((p,k)=>`<div class="spread"><span><b>${esc(p.name)}</b> <span class="muted">· ${esc(p.ranch)}, ${esc(p.town)}</span><br><span class="muted" style="font-size:13px">${p.head} head · came from ${esc(p.src)}</span></span>${i===3?(k<CALLS.length?`<span class="pill warn">Call ${CALLS[k].day}</span>`:`<span class="pill good">Call done</span>`):i===4?`<span class="pill good">Day ${[1,2,3,5,6][k%5]}</span>`:`<span class="pill off">Emailed</span>`}</div>`).join("")}</div>`}
  sheet(`<div class="eyebrow">Pen ${i+1} of 5 · sample week</div><h2>${st.name}: ${fmt(st.n)}</h2>${body}`)};
 function sourceTable(rows,key){return `<div class="list">${rows.slice().sort((a,b)=>b[key]-a[key]).map(r=>`<div class="spread"><span class="row"><i style="width:10px;height:10px;border-radius:2px;background:${r.src.color};display:inline-block"></i>${esc(r.src.name)}</span><b class="num" style="font-size:20px">${fmt(r[key])}</b></div>`).join("")}</div>`}
 
@@ -485,7 +488,7 @@ views.agents=()=>{const on=AGENTS.flatMap(t=>t.items).filter(agentOn).length;
    <div class="agent"><div><div class="an">${a.name}</div><div class="meta">${a.when} · ${agentOn(a)?`Last ran ${a.last}`:"Turned off"}</div></div>
      <label class="switch" title="Turn ${a.name} on or off"><input type="checkbox" id="sw-${a.id}" data-act="toggle" data-id="${a.id}" ${agentOn(a)?"checked":""} aria-label="${a.name} on or off"><span></span></label>
      <div class="did">${agentOn(a)?esc(a.did):"Off. Turn it on to start again."}</div>
-     <div class="row" style="grid-column:1 / -1;flex-wrap:wrap;gap:6px">${agentOn(a)?`<span class="pill good"><span class="dot"></span>${esc(a.brought)}</span>`:`<span class="pill off">Off</span>`}<span class="pill off">Your OK: ${a.ok}</span></div></div>`:`
+     <div class="row" style="grid-column:1 / -1;flex-wrap:wrap;gap:6px">${agentOn(a)?`<span class="pill good"><span class="dot"></span>${esc(a.brought)}</span>`:`<span class="pill off">Off</span>`}<span class="pill off">${a.ok==="No"?"Runs on its own":a.ok}</span></div></div>`:`
    <div class="agent future"><div><div class="an">${a.name}</div><div class="meta">${a.when}</div></div>
      <label class="switch"><input type="checkbox" id="sw-${a.id}" disabled aria-label="${a.name}: coming in a future update"><span></span></label>
      <div class="did">Coming in a future update.</div></div>`).join("")}</div></div></section>`).join("")}`};
@@ -508,10 +511,10 @@ views.calls=()=>`<div class="section-head"><div><div class="eyebrow">$197 calls<
    <div class="row" style="gap:16px;margin-top:8px"><span><b class="num" style="font-size:24px">${c.orders}</b> <span class="muted" style="font-size:13px">HerdDirect orders</span></span><span><b class="num" style="font-size:24px">${c.deposits}</b> <span class="muted" style="font-size:13px">deposits</span></span></div></section>`).join("")}</div>`;
 acts.done=b=>{S.callsDone[b.dataset.i]=1;store.set("callsDone",S.callsDone);toast("Call marked done");render()};
 acts.offer=b=>{S.offered[b.dataset.i]=1;store.set("offered",S.offered);toast("Noted: you offered the $2,000 package");render()};
-acts.prep=b=>{const c=CALLS[b.dataset.i],p=c.p;const be=(4.4+((b.dataset.i*37)%60)/100).toFixed(2);
+acts.prep=b=>{const c=CALLS[b.dataset.i],p=c.p;const be=c.be;
  sheet(`<div class="eyebrow">Call prep · ${c.day} ${c.time} · sample</div><h2>${esc(p.name)}</h2><p class="muted" style="margin-top:2px">${esc(p.ranch)}, ${esc(p.town)} · ${p.head} head · came from ${esc(p.src)}</p>
  <div class="grid g2" style="margin-top:12px"><div class="card"><div class="eyebrow">Break-even (from calculator)</div><div class="num" style="font-size:30px;font-weight:700">$${be}<span class="muted" style="font-size:16px">/lb hanging</span></div></div>
- <div class="card"><div class="eyebrow">Sells</div><div style="font-size:16px;font-weight:600;margin-top:4px">Halves and quarters</div></div></div>
+ <div class="card"><div class="eyebrow">Sells</div><div style="font-size:16px;font-weight:600;margin-top:4px">${esc(c.sells)}</div></div></div>
  <h3 style="font-size:19px;margin-top:16px">Ask these 3 things</h3><ol style="padding-left:20px;display:flex;flex-direction:column;gap:6px"><li>Do you have processor dates booked for spring?</li><li>How do buyers find you today?</li><li>What's the hardest part of selling a whole beef?</li></ol>
  <h3 style="font-size:19px">When to mention the $2,000 package</h3><p>If he wants buyers lined up for him, not only a price. $197 counts toward it within 30 days.</p>`)};
 
@@ -543,7 +546,7 @@ views.money=()=>{const t=W[NOW].t;const used=1.5,budget=250/60;
   <div class="kpi"><div class="eyebrow">Package payments</div><div class="v num">${usd(t.pkg*1000)}</div><div class="d muted">$1,000 each</div></div>
   <div class="kpi"><div class="eyebrow">Last 8 weeks</div><div class="v num">${usd(W.reduce((a,x)=>a+x.t.rev,0))}</div><div class="d muted">sample total</div></div></div>
  <div class="grid g-wide" style="margin-top:14px">
- <section class="card"><div class="spread"><h3 style="font-size:20px">Recent payments</h3><span class="pill warn">Stripe test mode</span></div>
+ <section class="card"><div class="spread"><h3 style="font-size:20px">A few recent payments</h3><span class="pill warn">Stripe test mode</span></div>
   <div class="scroll" style="margin-top:6px"><table><thead><tr><th>Date</th><th>What</th><th>Who</th><th class="r">Amount</th></tr></thead><tbody>${SALES.map(s=>`<tr><td>${s.d}</td><td>${s.what}</td><td>${esc(s.who)}</td><td class="r num" style="font-size:17px">${usd(s.amt)}</td></tr>`).join("")}</tbody></table></div></section>
  <div class="grid" style="align-content:start">
   <section class="card"><div class="eyebrow">Help from DJ's team this month</div>
@@ -568,12 +571,12 @@ const HANDOVER=[
  ["Demo shown to Allen","DJ walks Allen through this board and the calculator."],
  ["Second $1,000 received","Code and helpers are handed over after this."],
  ["Repos moved to Allen's GitHub","hanging-weight-co already lives on Allen's account."],
- ["Six helpers set up in Allen's Claude account","Using the instructions in handover/agents."],
+ ["Six helpers set up in Allen's Claude account","Using the instructions in handover/helpers (also the tabs in Allen's guide)."],
  ["Gmail connected in Allen's Claude","So helpers can save drafts and send Allen his morning email."],
  ["Stripe links switched from test to live","$197 call and the $1,000 package deposit."],
  ["Board connected to live numbers","Mixpanel, Stripe and the helpers' daily log replace the samples."]
 ];
-views.handover=()=>{const hv=store.get("handover",{});return `<div class="section-head"><div><div class="eyebrow">Admin only</div><h2>Handover checklist</h2></div></div>
+views.handover=()=>{const hv=store.get("handover",{});return `<div class="section-head"><div><div class="eyebrow">DJ only</div><h2>Handover checklist</h2></div></div>
  <section class="card"><div class="list">${HANDOVER.map((h,i)=>`<label class="row" style="align-items:flex-start;cursor:pointer"><input type="checkbox" id="hv-${i}" data-hv="${i}" ${hv[i]?"checked":""} style="width:20px;height:20px;margin-top:2px;accent-color:var(--pine)"><span><b>${h[0]}</b><br><span class="muted" style="font-size:13px">${h[1]}</span></span></label>`).join("")}</div></section>`};
 document.addEventListener("change",e=>{const t=e.target;if(t.dataset&&t.dataset.hv!=null){const hv=store.get("handover",{});hv[t.dataset.hv]=t.checked;store.set("handover",hv)}});
 

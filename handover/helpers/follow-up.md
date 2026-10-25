@@ -44,7 +44,7 @@ Count days from the sign-up date (sign-up day = day 0).
 
 A) Calculator lead, day 0 or later, no "thanks" email from Allen yet:
 Subject: "Your beef price sheet – thanks, <first name>"
-Thank them for trying the calculator. If you have their numbers, mention one or two of them plainly (for example "a 1,250 lb steer with $1,400 calf value"). Do not do new math or claim what their price "should" be. Invite them, without pressure, to the $197 Price It Right call (what they leave with, the $197 credit, link hangingweightco.com/#session). Under 150 words.
+Thank them for trying the calculator. If they sent their price sheet in their own email ("My beef price sheet") and haven't had it back from the website, paste their price sheet text from that email into this reply so they have it. If you have their numbers, mention one or two of them plainly (for example "a 1,250 lb steer with $1,400 calf value"). Do not do new math or claim what their price "should" be. Invite them, without pressure, to the $197 Price It Right call (what they leave with, the $197 credit, link hangingweightco.com/#session). Under 150 words.
 
 B) Calculator lead, day 3 or later, Allen sent email A at least 3 days ago, no email B yet:
 Subject: "One pricing tip, <first name>"
@@ -61,8 +61,8 @@ Subject: "Last note from me, <first name>"
 A short, friendly last nudge: if they want help setting their price and a plan to sell their next 5 beef, the $197 call is there (link). Say this is the last follow-up and wish them a good season. Under 90 words. After C, never write to this person again unless they write first.
 
 D) $197 booking, no confirmation draft or email yet:
-Subject: "You're booked – 5 numbers before our call"
-Thank them and confirm the call (include the date/time only if you found it; otherwise say "I'll confirm the time with you"). Ask them to reply with 5 numbers before the call: 1) calf value or what they paid, 2) feed and hay cost per head, 3) processing cost (kill fee and cut and wrap), 4) hauling cost to the processor, 5) how many head they plan to sell this year. Tell them rough numbers are fine. Under 130 words.
+Subject: "You're booked – a few numbers before our call"
+Thank them and confirm the call (include the date/time only if you found it; otherwise say "I'll confirm the time with you"). Ask them to reply with 6 numbers before the call: 1) calf value or what they paid, 2) feed and hay cost per head, 3) processing cost (kill fee and cut and wrap), 4) hauling cost to the processor, 5) how many head they plan to sell this year, and 6) about how much a beef weighs hanging (or live, if that's what they know). Tell them rough numbers are fine. Under 130 words.
 
 Every draft ends with:
 Allen

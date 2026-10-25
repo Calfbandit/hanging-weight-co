@@ -555,7 +555,7 @@ function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel
     lines.push(usd(price,2) + "/lb hanging weight" + (custPays ? " + processing paid to the processor" : ", processing included"));
     lines.push("");
     selectedShares().forEach(([k,name,f])=>{
-      const h = hanging*f, yours = rancherTotal*f, p = custPays ? proc*f : 0;
+      const h = hanging*f, yours = Math.round(rancherTotal*f), p = custPays ? Math.round(proc*f) : 0;
       const total = yours + p;
       const deposit = Math.round(yours*depPct/100/25)*25;
       const note = custPays ? `<span class="note">${usd(yours)} to ranch + est. ${usd(p)} processing</span>` : `<span class="note">processing included</span>`;

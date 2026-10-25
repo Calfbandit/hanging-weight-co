@@ -18,7 +18,7 @@ All times are Central.
 Do this once for each helper. Each one takes about 5 minutes. Start with Daily Driver and Website Watchdog.
 
 1. Open Claude (claude.ai) on your computer and sign in.
-2. Make sure your Gmail is connected: click your name or picture (bottom left), then **Settings**, then **Connectors**. Find **Gmail** and click **Connect**. Sign in with the email you use for the business and click **Allow**. If you use Google Calendar for your calls, connect that too. You only do this once.
+2. Make sure your Gmail is connected: click your name or picture (bottom left), then **Settings**, then **Connectors**. Find **Gmail** and click **Connect**. Sign in with the Google account that gets your theherd@herddirect.net mail and your Stripe receipts, and click **Allow**. If theherd@herddirect.net isn't a Gmail or Google inbox, ask DJ to forward it into calfroperblue@gmail.com first. If you use Google Calendar for your calls, connect that too. You only do this once.
 3. In the left sidebar, click **Scheduled tasks** (it may be called **Tasks**).
 4. Click **New task**.
 5. Open the helper's page (for example `daily-driver.md`). Copy everything below the line that says **"Copy everything below this line into the scheduled task"**, and paste it into the big box.

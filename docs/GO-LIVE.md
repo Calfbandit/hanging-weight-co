@@ -12,7 +12,7 @@ Plain-English steps. You don't need to write any code. Where a step says "paste"
 
 **Who does this:** DJ or Allen only. Changing where the domain points affects the live site.
 
-**Before you start:** make sure the new pages are on the `main` branch (someone on the SA team merges them). If they're not on `main` yet, stop and ask.
+**Before you start:** the new pages are already on the `main` branch (done Oct 24, 2026).
 
 ---
 
@@ -90,7 +90,15 @@ Paste it between the two quote marks, like this:
 const PACKAGE_URL = "https://buy.stripe.com/your-link-here";
 ```
 
-Save, commit to `main`, and within a couple of minutes the $2,000 button opens the Stripe checkout instead of the interest form. (If you're not comfortable editing the file, send the link to the SA team and we'll do it.)
+To do it on the GitHub website (no software needed):
+
+1. Go to github.com/Calfbandit/hanging-weight-co and sign in.
+2. Click `index.html`, then the **pencil icon** (top right of the file) to edit it.
+3. Press Ctrl+F (Cmd+F on a Mac), type `PACKAGE_URL`, and paste the link between the two quote marks on that line.
+4. Click the green **Commit changes…** button, then **Commit changes** again.
+5. Do the same for `calculator/index.html` (click the `calculator` folder first).
+
+Within a couple of minutes the $2,000 button opens the Stripe checkout instead of the interest form. If you'd rather not edit the files, send the link to DJ and we'll do it.
 
 The $197 button already uses Allen's existing Stripe link (`SESSION_URL` in both files). Don't change it unless the price changes.
 
@@ -100,7 +108,7 @@ The $197 button already uses Allen's existing Stripe link (`SESSION_URL` in both
 
 Until the form's server is connected, both forms (the free "Email me my plan" form and the $2,000 interest form) open the visitor's own email app with a message to **theherd@herddirect.net** already filled in. The visitor taps Send.
 
-Once the SA team connects the server (the `CAPTURE_URL` setting), every calculator lead and every $2,000 interest form is saved and Allen gets an email automatically. These settings live in Supabase (**Project → Edge Functions → Secrets**), never in the website files. Names only:
+Once DJ connects the server (the `CAPTURE_URL` setting), every calculator lead and every $2,000 interest form is saved and Allen gets an email automatically. These settings live in Supabase (**Project → Edge Functions → Secrets**), never in the website files. Names only:
 
 | Setting name | What it is |
 |---|---|
@@ -121,7 +129,13 @@ Each one lists what the person entered: name, email, phone, head count, how they
 - [ ] hangingweightco.com shows the new home page on a phone.
 - [ ] The calculator opens at hangingweightco.com/calculator/ and "See my prices" shows a price sheet.
 - [ ] **Print price sheet** gives one clean black-and-white page.
-- [ ] The $197 button opens Stripe checkout for $197 (you can close it without paying).
+- [ ] The $197 button opens Stripe checkout for $197 (you can close it without paying), and the checkout page does **not** say "Test mode" at the top. If it does, the link is a test link: make a live one in Stripe and paste it into `SESSION_URL` the same way as step 4b.
 - [ ] The $2,000 button opens the interest form (or the $1,000 Stripe checkout, if you've done step 4).
 - [ ] Policies and contact email are still on the home page.
 - [ ] In Mixpanel, events like `calculator_opened` show up within a few minutes.
+
+---
+
+## 7. Your owner's board is private
+
+Your owner's board (the phone screen with your ranchers, helpers and money) is **not** part of the public website. DJ shares it with you as a private link; open that link and add it to your phone's home screen. The website settings in this repo keep the `dashboard`, `handover`, `docs` and `supabase` folders off hangingweightco.com.
