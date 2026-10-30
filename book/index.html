@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book a $197 call with Allen · Hanging Weight Co.</title>
+<meta name="description" content="Book a $197 Price It Right call with Allen, by phone or video call. Pick your times, then pay securely through Stripe.">
+<meta name="theme-color" content="#1F4A38">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 44'%3E%3Cpath d='M20 2a4 4 0 014 4v3h5a7 7 0 017 7v13c0 7-7 13-16 13S4 36 4 29V16a7 7 0 017-7h5V6a4 4 0 014-4z' fill='%23F2B705'/%3E%3Ccircle cx='20' cy='7' r='2.2' fill='%231F4A38'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/hw.css">
+<style>
+.bwrap{max-width:1080px}
+.top{background:var(--pine);color:var(--on-pine);position:relative}
+.top::after{content:"";position:absolute;inset:auto 0 0 0;height:8px;background:repeating-linear-gradient(-45deg,var(--tag) 0 14px,var(--tag-deep) 14px 28px)}
+.top .wrap{padding-block:30px 40px}
+.top .kicker{color:var(--tag)}
+.top h1{color:#fff;font-size:clamp(40px,10.5vw,72px)}
+.top .lede{color:var(--on-pine-muted);margin:14px 0 0}
+.layout{display:grid;gap:22px;padding-block:22px 64px}
+@media (min-width:960px){.layout{grid-template-columns:minmax(0,1fr) 330px;gap:32px;align-items:start;padding-top:32px}}
+
+/* progress */
+.prog{background:var(--raise);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px 18px}
+.prog .ptxt{display:flex;justify-content:space-between;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px}
+.prog .ptxt span:last-child{color:var(--muted)}
+.bar{height:10px;border-radius:6px;background:var(--pine-soft);overflow:hidden}
+.bar i{display:block;height:100%;width:33.33%;background:var(--pine);border-radius:6px;transition:width .3s ease}
+.bar i::after{content:"";display:block;height:100%;width:12px;margin-left:auto;background:var(--tag);border-radius:0 6px 6px 0}
+
+.panel{background:var(--raise);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 16px 24px;margin-top:14px}
+@media (min-width:600px){.panel{padding:30px}}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.panel legend,.panel .ph{font-family:var(--display);font-weight:700;font-size:clamp(32px,8vw,44px);line-height:1;text-transform:uppercase;padding:0;margin:0 0 8px}
+.panel .sub{color:var(--muted);margin:0 0 20px;font-size:16px}
+
+/* step 1 choice cards */
+.choices{display:grid;gap:12px}
+@media (min-width:640px){.choices{grid-template-columns:1fr 1fr}}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;width:1px;height:1px}
+.choice label{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:start;border:2px solid var(--line-strong);border-radius:var(--r-lg);padding:20px 18px;cursor:pointer;background:var(--raise);min-height:120px;height:100%}
+.choice .ic{grid-row:span 2;width:54px;height:54px;border-radius:12px;background:var(--pine-soft);display:grid;place-items:center;color:var(--pine)}
+.choice .ic svg{width:28px;height:28px}
+.choice .t{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;text-transform:uppercase}
+.choice .d{font-size:15.5px;color:var(--muted);line-height:1.45;align-self:start;padding-right:18px}
+.choice label{grid-template-rows:auto 1fr;align-content:start}
+.choice input:checked + label{border-color:var(--pine);background:color-mix(in srgb,var(--pine-soft) 60%,var(--raise));box-shadow:0 0 0 4px color-mix(in srgb,var(--tag) 75%,transparent)}
+.choice input:checked + label .ic{background:var(--pine);color:var(--tag)}
+.choice input:focus-visible + label{outline:3px solid var(--ink);outline-offset:3px}
+.choice label::after{content:"";position:absolute;top:16px;right:16px;width:24px;height:24px;border-radius:50%;border:2px solid var(--line-strong);background:var(--raise)}
+.choice input:checked + label::after{border-color:var(--pine);background:var(--pine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%23F2B705' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+
+/* step 2 */
+.tz{display:inline-flex;align-items:center;gap:8px;background:var(--pine-soft);color:var(--ink);font-weight:600;font-size:14px;border-radius:6px;padding:5px 10px;margin:0 0 16px}
+.panel legend.minor{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.15;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px;padding:0}
+.panel legend.field-l{font-family:var(--body);font-weight:600;font-size:16px;line-height:1.4;text-transform:none;letter-spacing:0;margin:0 0 8px}
+.days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.day{position:relative}
+.day input{position:absolute;opacity:0;width:1px;height:1px}
+.day label{display:grid;place-items:center;gap:0;min-height:68px;border:1.5px solid var(--line-strong);border-radius:var(--r);cursor:pointer;background:var(--raise);text-align:center;line-height:1.05;padding:6px 2px;position:relative}
+.day .dw{font-family:var(--display);font-weight:700;font-size:20px;text-transform:uppercase}
+.day .dd{font-size:13px;color:var(--muted);font-weight:600;white-space:nowrap}
+.day input:checked + label{background:var(--ink);border-color:var(--ink);color:#fff}
+.day input:checked + label .dd{color:#C9D3CD}
+.day input:focus-visible + label{outline:3px solid var(--tag);outline-offset:2px}
+.day label .dot{position:absolute;top:5px;right:5px;width:9px;height:9px;border-radius:50%;background:var(--tag);display:none}
+.day label.has .dot{display:block}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.slot{position:relative}
+.slot input{position:absolute;opacity:0;width:1px;height:1px}
+.slot label{display:grid;gap:2px;min-height:64px;align-content:center;border:1.5px solid var(--line-strong);border-radius:var(--r);padding:10px 14px;cursor:pointer;background:var(--raise)}
+.slot .sn{font-family:var(--display);font-weight:700;font-size:22px;text-transform:uppercase;line-height:1}
+.slot .st{font-size:14px;color:var(--muted)}
+.slot input:checked + label{background:var(--pine);border-color:var(--pine);color:#fff}
+.slot input:checked + label .st{color:var(--on-pine-muted)}
+.slot input:disabled + label{opacity:.45;cursor:not-allowed}
+.slot input:focus-visible + label{outline:3px solid var(--tag);outline-offset:2px}
+.picked{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}
+.picked .ph2{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px}
+.picked .ph2 b{font-family:var(--display);font-size:19px;letter-spacing:.1em;text-transform:uppercase}
+.picked ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.picked li{display:flex;justify-content:space-between;align-items:center;gap:10px;background:color-mix(in srgb,var(--tag) 22%,var(--raise));border:1px solid color-mix(in srgb,var(--tag) 60%,transparent);border-radius:var(--r);padding:6px 6px 6px 14px;font-weight:600}
+.picked li .n{font-family:var(--display);font-weight:700;font-size:16px;color:var(--tag-ink);background:var(--tag);border-radius:4px;padding:1px 7px;margin-right:8px}
+.rm{flex:none;min-height:44px;min-width:44px;padding:0 12px;border-radius:8px;border:1.5px solid var(--line-strong);background:var(--raise);color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.picked .none{color:var(--muted);font-size:15px;margin:0}
+
+/* step 3 */
+.fgrid{display:grid;gap:16px}
+.fgrid .two{display:grid;gap:16px}
+@media (min-width:600px){.fgrid .two{grid-template-columns:1fr 1fr}}
+.sells{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (min-width:600px){.sells{grid-template-columns:repeat(4,1fr)}}
+.ck{position:relative}
+.ck input{position:absolute;opacity:0;width:1px;height:1px}
+.ck label{display:flex;align-items:center;gap:10px;min-height:54px;border:1.5px solid var(--line-strong);border-radius:var(--r);padding:8px 12px;cursor:pointer;background:var(--raise);font-weight:600}
+.ck label::before{content:"";flex:none;width:22px;height:22px;border-radius:5px;border:2px solid var(--line-strong);background:var(--raise)}
+.ck input:checked + label{border-color:var(--pine);background:color-mix(in srgb,var(--pine-soft) 60%,var(--raise))}
+.ck input:checked + label::before{border-color:var(--pine);background:var(--pine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7.5' fill='none' stroke='%23F2B705' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat}
+.ck input:focus-visible + label{outline:3px solid var(--tag);outline-offset:2px}
+.fromcalc{display:flex;gap:12px;align-items:flex-start;background:var(--pine-soft);border-radius:var(--r);padding:12px 14px;font-size:15px}
+.fromcalc b{font-weight:700}
+
+.summary{margin-top:22px;border:2px solid var(--ink);border-radius:var(--r-lg);overflow:hidden}
+.summary h3{background:var(--ink);color:#fff;font-size:22px;text-transform:uppercase;letter-spacing:.06em;padding:10px 16px}
+.summary dl{margin:0;padding:6px 16px 10px;display:grid;grid-template-columns:auto 1fr;gap:0}
+.summary dt{padding-right:16px!important}
+.summary dt,.summary dd{padding:9px 0;border-bottom:1px dashed var(--line);margin:0;font-size:15.5px}
+.summary dt{color:var(--muted)}
+.summary dd{font-weight:600;text-align:right}
+.summary dt:last-of-type,.summary dd:last-of-type{border-bottom:0}
+.summary .tot{display:flex;justify-content:space-between;align-items:baseline;padding:12px 16px;background:color-mix(in srgb,var(--tag) 25%,var(--raise));border-top:1px solid var(--line)}
+.summary .tot span{font-weight:700}
+.summary .tot b{font-family:var(--display);font-size:40px;line-height:1}
+
+.navrow{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.navrow .btn{flex:1 1 200px}
+.navrow .btn.back{flex:0 0 auto}
+.trust{display:grid;gap:8px;margin-top:14px;font-size:14.5px;color:var(--muted)}
+.trust p{margin:0;display:flex;gap:10px}
+.trust svg{flex:none;width:18px;height:18px;margin-top:2px;color:var(--pine)}
+.errbox{margin-top:16px;border-left:5px solid var(--bad);background:color-mix(in srgb,var(--bad) 8%,var(--raise));padding:10px 14px;border-radius:0 8px 8px 0;font-weight:600;color:var(--ink)}
+
+/* side card */
+.side{display:grid;gap:14px}
+@media (min-width:960px){.side{position:sticky;top:84px}}
+.what{background:#17221D;color:#E4EAE5;border-radius:var(--r-lg);padding:22px 20px}
+.what .lab{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--tag);margin:0 0 4px}
+.what h2{font-size:30px;color:#fff;text-transform:uppercase}
+.what .amt{font-family:var(--display);font-weight:700;font-size:56px;line-height:1;margin:6px 0 12px;color:#fff}
+.what .amt small{font-family:var(--body);font-size:15px;font-weight:500;color:#AEBBB3;white-space:nowrap}
+.what ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px}
+.what li{display:grid;grid-template-columns:20px 1fr;gap:10px}
+.what li::before{content:"";width:18px;height:18px;margin-top:2px;border-radius:50%;background:var(--tag) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%2317221D' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat}
+.what .pol{margin:16px 0 0;padding-top:12px;border-top:1px solid #2F3D36;font-size:13.5px;color:#AEBBB3}
+.what .pol a{color:#fff}
+@media (max-width:959px){.what ul{display:none}.what{padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}.what .amt{margin:0;font-size:44px;text-align:right}.what .amt small{display:block;font-size:13px}.what .pol{display:none}.what h2{font-size:24px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#bookForm">Skip to the booking form</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Hanging Weight Co. home">
+      <svg viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2a4 4 0 014 4v3h5a7 7 0 017 7v13c0 7-7 13-16 13S4 36 4 29V16a7 7 0 017-7h5V6a4 4 0 014-4z" fill="#F2B705"/><circle cx="20" cy="7" r="2.2" fill="var(--bg)"/><text x="20" y="31" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="700" font-size="13" fill="#271F00">HWC</text></svg>
+      <span>Hanging Weight <span class="co">Co.</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="nl" href="../#faq">FAQ</a>
+      <a class="btn line" href="../calculator/" data-cta="calculator" data-from="book_header" style="box-shadow:none">Free calculator</a>
+    </nav>
+  </div>
+</header>
+
+<section class="top">
+  <div class="wrap bwrap">
+    <p class="kicker">"Price It Right" call · $197</p>
+    <h1>Book your call with Allen</h1>
+    <p class="lede">Three short steps, about a minute. Then you pay securely through Stripe and Allen confirms your time by email.</p>
+  </div>
+</section>
+
+<main class="wrap bwrap layout">
+  <div>
+    <div class="prog" aria-hidden="true">
+      <p class="ptxt"><span id="pName">How you'll talk</span><span id="pNum">Step 1 of 3</span></p>
+      <div class="bar"><i id="pBar"></i></div>
+    </div>
+
+    <form id="bookForm" novalidate>
+      <!-- STEP 1 -->
+      <section class="panel" id="st1" aria-labelledby="l1">
+        <fieldset>
+          <legend id="l1" tabindex="-1">How do you want to talk?</legend>
+          <p class="sub">Either way it's about 60 minutes with Allen.</p>
+          <div class="choices">
+            <div class="choice">
+              <input type="radio" name="how" id="howPhone" value="phone">
+              <label for="howPhone">
+                <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.7a2 2 0 01-.5 2.1L8 9.8a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.7.7a2 2 0 011.7 2z"/></svg></span>
+                <span class="t">Phone call</span>
+                <span class="d">Allen calls you at your number. Nothing to set up.</span>
+              </label>
+            </div>
+            <div class="choice">
+              <input type="radio" name="how" id="howVideo" value="video">
+              <label for="howVideo">
+                <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></svg></span>
+                <span class="t">Video call</span>
+                <span class="d">You get a Google Meet link. Works on your phone, no computer needed. Handy for looking at your numbers together.</span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+        <p class="errbox" id="e1" role="alert" hidden></p>
+        <div class="navrow">
+          <button type="button" class="btn" id="n1">Next: pick times <span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="panel" id="st2" aria-labelledby="l2" hidden>
+        <h2 class="ph" id="l2" tabindex="-1">When works?</h2>
+        <p class="sub">Pick up to 3 times that suit you. Allen confirms one of them by email.</p>
+        <p class="tz">All times are Central time</p>
+        <fieldset>
+          <legend class="minor">1. Pick a day</legend>
+          <div class="days" id="days"></div>
+        </fieldset>
+        <fieldset style="margin-top:20px">
+          <legend class="minor" id="slotLegend">2. Pick a time of day</legend>
+          <div class="slots" id="slots"></div>
+        </fieldset>
+        <div class="picked" aria-live="polite">
+          <div class="ph2"><b>Your times</b><span class="fine" id="pickCount">0 of 3 picked</span></div>
+          <p class="none" id="pickNone">None yet. Tap a day, then a time of day.</p>
+          <ul id="pickList"></ul>
+        </div>
+        <p class="errbox" id="e2" role="alert" hidden></p>
+        <div class="navrow">
+          <button type="button" class="btn line back" id="b2">← Back</button>
+          <button type="button" class="btn" id="n2">Next: about you <span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="panel" id="st3" aria-labelledby="l3" hidden>
+        <h2 class="ph" id="l3" tabindex="-1">About you</h2>
+        <p class="sub">So Allen can get ready for your call.</p>
+        <div class="fgrid">
+          <div class="fromcalc" id="fromCalc" hidden><span>From your calculator: break-even <b id="fcBe"></b>, fair price <b id="fcFair"></b>. Allen will see these.</span></div>
+          <div class="two">
+            <label class="field-l" for="bName">Your name<input id="bName" type="text" autocomplete="name" required></label>
+            <label class="field-l" for="bEmail">Email<input id="bEmail" type="email" autocomplete="email" inputmode="email" required aria-describedby="bEmailHelp"><span class="opt" id="bEmailHelp">Your confirmation and receipt go here.</span></label>
+          </div>
+          <div class="two">
+            <label class="field-l" for="bPhone">Phone <span class="opt" id="phoneOpt">(optional for video)</span><input id="bPhone" type="tel" autocomplete="tel" inputmode="tel"></label>
+            <label class="field-l" for="bRanch">Ranch name <span class="opt">(optional)</span><input id="bRanch" type="text" autocomplete="organization"></label>
+          </div>
+          <label class="field-l" for="bHeads" style="max-width:280px">Head per year <span class="opt">(rough guess is fine)</span><input id="bHeads" type="number" inputmode="numeric" min="0" step="1"></label>
+          <fieldset>
+            <legend class="field-l">How do you sell now? <span class="opt">Pick any that apply.</span></legend>
+            <div class="sells">
+              <div class="ck"><input type="checkbox" id="sWhole" name="sells" value="whole"><label for="sWhole">Whole</label></div>
+              <div class="ck"><input type="checkbox" id="sHalf" name="sells" value="half"><label for="sHalf">Half</label></div>
+              <div class="ck"><input type="checkbox" id="sQuarter" name="sells" value="quarter"><label for="sQuarter">Quarter</label></div>
+              <div class="ck"><input type="checkbox" id="sCut" name="sells" value="by the cut"><label for="sCut">By the cut</label></div>
+            </div>
+          </fieldset>
+          <label class="field-l" for="bNotes">Anything Allen should know? <span class="opt">(optional)</span><textarea id="bNotes" rows="3" placeholder="Your processor, how you sell now, what's not working…"></textarea></label>
+        </div>
+
+        <div class="summary" aria-labelledby="sumH">
+          <h3 id="sumH">Your booking</h3>
+          <dl>
+            <dt>Call</dt><dd id="sumHow">–</dd>
+            <dt>Preferred times</dt><dd id="sumTimes">–</dd>
+            <dt>Length</dt><dd>About 60 minutes</dd>
+          </dl>
+          <div class="tot"><span>"Price It Right" call</span><b>$197</b></div>
+        </div>
+
+        <p class="errbox" id="e3" role="alert" hidden></p>
+        <div class="navrow">
+          <button type="button" class="btn line back" id="b3">← Back</button>
+          <button type="submit" class="btn tag" id="payBtn">Continue to secure payment — $197</button>
+        </div>
+        <div class="trust">
+          <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg><span>Secure checkout by Stripe. Allen confirms your time by email within 24 hours. $197 is credited toward the $2,000 package within 30 days.</span></p>
+        </div>
+      </section>
+    </form>
+  </div>
+
+  <aside class="side" aria-label="What you get">
+    <div class="what">
+      <div>
+        <p class="lab">What you get</p>
+        <h2>"Price It Right" call</h2>
+      </div>
+      <div class="amt">$197 <small>one-time</small></div>
+      <ul>
+        <li>About 60 minutes with Allen, phone or video</li>
+        <li>Your break-even and price per lb</li>
+        <li>A whole / half / quarter price sheet with deposits</li>
+        <li>A plan to sell your next 5 beef</li>
+        <li>30 days of text and email follow-up</li>
+      </ul>
+      <p class="pol">Cancel at least 24 hours ahead for a full refund, or reschedule once free. <a href="../#policies">Policies</a></p>
+    </div>
+  </aside>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div><a class="brand" href="../"><svg viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2a4 4 0 014 4v3h5a7 7 0 017 7v13c0 7-7 13-16 13S4 36 4 29V16a7 7 0 017-7h5V6a4 4 0 014-4z" fill="#F2B705"/><circle cx="20" cy="7" r="2.2" fill="#17221D"/><text x="20" y="31" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="700" font-size="13" fill="#271F00">HWC</text></svg><span>Hanging Weight <span class="co">Co.</span></span></a></div>
+    <div><p class="h">Questions?</p><p>theherd@herddirect.net</p></div>
+    <div><p class="h">Fine print</p><p><a href="../#policies">Policies</a> · © 2026 Hanging Weight Co.</p></div>
+  </div>
+</footer>
+
+<script>
+// ---- CONFIG (never secrets) ----
+const HW_API = "https://hangingweight.startupagile.ai/api";   // the owner board's collector
+const SESSION_URL = "https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01"; // $197 "Price It Right" call (Stripe Payment Link)
+const PACKAGE_URL = "";   // $1,000 package start link, empty → interest form
+const MIXPANEL_TOKEN = "97e8474459e4737f5ff0963a2d3c4d7b"; // Mixpanel "Herd Direct" project, shared by all three sites
+</script>
+<script src="../assets/hw.js"></script>
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const HWx = window.HW || { store:{getJSON(){return null},setJSON(){},set(){}}, collect(){return Promise.resolve(null)}, track(){}, rid(){return Date.now().toString(36)}, emailOk: e => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e) };
+  const smooth = () => matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  const SLOTS = [["Morning","8–11"],["Midday","11–2"],["Afternoon","2–5"],["Evening","5–7"]];
+  const MAX = 3;
+  const NAMES = ["How you'll talk", "When works", "About you"];
+  let step = 1, startedSent = false, curDay = 0;
+  const picks = []; // ["Mon Nov 3 · Morning", ...] in the order picked
+
+  // ---- days: the next 10 days in Central time, starting tomorrow ----
+  const ctParts = Object.fromEntries(new Intl.DateTimeFormat("en-US", {timeZone: "America/Chicago", year:"numeric", month:"numeric", day:"numeric"})
+    .formatToParts(new Date()).filter(p => p.type !== "literal").map(p => [p.type, +p.value]));
+  const days = [];
+  for(let i = 1; i <= 10; i++){
+    const d = new Date(Date.UTC(ctParts.year, ctParts.month - 1, ctParts.day + i, 12));
+    const f = o => new Intl.DateTimeFormat("en-US", Object.assign({timeZone: "UTC"}, o)).format(d);
+    days.push({ wd: f({weekday:"short"}), md: f({month:"short", day:"numeric"}), long: f({weekday:"long", month:"long", day:"numeric"}) });
+  }
+  const label = (di, si) => days[di].wd + " " + days[di].md + " · " + SLOTS[si][0];
+
+  $("days").innerHTML = days.map((d, i) =>
+    `<div class="day"><input type="radio" name="day" id="day${i}" value="${i}"${i===0?" checked":""}>` +
+    `<label for="day${i}" id="dayL${i}"><span class="dot" aria-hidden="true"></span><span class="dw">${d.wd}</span><span class="dd">${d.md}</span><span class="sr" id="dayS${i}"></span></label></div>`).join("");
+  document.querySelectorAll('input[name="day"]').forEach(r => r.addEventListener("change", () => { curDay = +r.value; renderSlots(); }));
+
+  function renderSlots(){
+    $("slotLegend").textContent = "2. Pick a time of day for " + days[curDay].long;
+    const full = picks.length >= MAX;
+    $("slots").innerHTML = SLOTS.map((s, i) => {
+      const on = picks.includes(label(curDay, i));
+      return `<div class="slot"><input type="checkbox" id="slot${i}" value="${i}"${on?" checked":""}${(!on && full)?" disabled":""}>` +
+             `<label for="slot${i}"><span class="sn">${s[0]}</span><span class="st">${s[1]} Central</span></label></div>`;
+    }).join("");
+    $("slots").querySelectorAll("input").forEach(cb => cb.addEventListener("change", () => {
+      const l = label(curDay, +cb.value), at = picks.indexOf(l);
+      if(cb.checked && at < 0 && picks.length < MAX) picks.push(l);
+      if(!cb.checked && at >= 0) picks.splice(at, 1);
+      $("e2").hidden = true;
+      renderPicks(); renderSlots(); const again = $("slot" + cb.value); if(again) again.focus();
+    }));
+  }
+  function renderPicks(){
+    $("pickCount").textContent = picks.length + " of " + MAX + " picked" + (picks.length >= MAX ? " (that's the most)" : "");
+    $("pickNone").hidden = picks.length > 0;
+    $("pickList").innerHTML = picks.map((p, i) => `<li><span><span class="n">${i+1}</span>${p}</span><button type="button" class="rm" data-i="${i}" aria-label="Remove ${p}">Remove</button></li>`).join("");
+    $("pickList").querySelectorAll(".rm").forEach(b => b.addEventListener("click", () => { picks.splice(+b.dataset.i, 1); renderPicks(); renderSlots(); }));
+    days.forEach((d, i) => {
+      const n = picks.filter(p => p.startsWith(d.wd + " " + d.md + " ·")).length;
+      $("dayL" + i).classList.toggle("has", n > 0);
+      $("dayS" + i).textContent = n ? ", " + n + " time" + (n > 1 ? "s" : "") + " picked" : "";
+    });
+    summary();
+  }
+
+  // ---- step navigation ----
+  function go(n){
+    step = n;
+    [1,2,3].forEach(i => $("st" + i).hidden = i !== n);
+    $("pBar").style.width = (n / 3 * 100) + "%";
+    $("pNum").textContent = "Step " + n + " of 3"; $("pName").textContent = NAMES[n-1];
+    document.title = "Step " + n + " of 3: " + NAMES[n-1] + " · Book a $197 call · Hanging Weight Co.";
+    const h = $("l" + n);
+    const top = $("st" + n).getBoundingClientRect().top;
+    if(top < 70 || top > innerHeight * .5) document.querySelector(".prog").scrollIntoView({behavior: smooth(), block: "start"});
+    h.focus({preventScroll: true});
+  }
+  const how = () => (document.querySelector('input[name="how"]:checked') || {}).value || "";
+  function err(n, msg){ const e = $("e" + n); e.textContent = msg; e.hidden = !msg; }
+
+  document.querySelectorAll('input[name="how"]').forEach(r => r.addEventListener("change", () => {
+    err(1, "");
+    if(!startedSent){ startedSent = true; HWx.track("booking_started", {how: r.value}); }
+    const isPhone = r.value === "phone";
+    $("phoneOpt").textContent = isPhone ? "(Allen calls this number)" : "(optional for video)";
+    $("bPhone").required = isPhone;
+    summary();
+  }));
+  $("n1").addEventListener("click", () => { if(!how()){ err(1, "Pick phone call or video call to keep going."); return; } go(2); });
+  $("b2").addEventListener("click", () => go(1));
+  $("n2").addEventListener("click", () => { if(!picks.length){ err(2, "Pick at least one time that works for you. Tap a day, then a time of day."); return; } err(2, ""); go(3); });
+  $("b3").addEventListener("click", () => go(2));
+
+  function summary(){
+    $("sumHow").textContent = how() === "phone" ? "Phone call (Allen calls you)" : how() === "video" ? "Video call (Google Meet link)" : "–";
+    $("sumTimes").innerHTML = picks.length ? picks.map(p => p.replace(/&/g,"&amp;").replace(/</g,"&lt;")).join("<br>") + "<br><span class='fine'>Central time</span>" : "–";
+  }
+
+  // ---- pre-fill from the calculator ----
+  const calc = HWx.store.getJSON("hw_calc");
+  if(calc && typeof calc === "object"){
+    if(calc.heads) $("bHeads").value = Math.round(calc.heads);
+    (Array.isArray(calc.shares) ? calc.shares : []).forEach(s => { const m = {whole:"sWhole", half:"sHalf", quarter:"sQuarter"}[s]; if(m) $(m).checked = true; });
+    if(isFinite(calc.break_even) && isFinite(calc.fair_price) && calc.break_even > 0){
+      $("fcBe").textContent = "$" + (+calc.break_even).toFixed(2) + "/lb"; $("fcFair").textContent = "$" + (+calc.fair_price).toFixed(2) + "/lb";
+      $("fromCalc").hidden = false;
+    }
+  }
+  const prior = HWx.store.getJSON("hw_booking");
+  if(prior && typeof prior === "object"){
+    ["name:bName","email:bEmail","phone:bPhone","ranch:bRanch"].forEach(x => { const [k, id] = x.split(":"); if(prior[k] && !$(id).value) $(id).value = prior[k]; });
+  }
+
+  // ---- submit: save the booking, then go to Stripe. Never block the sale. ----
+  let sending = false;
+  $("bookForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    if(sending) return;
+    if(step !== 3){ return; }
+    const name = $("bName").value.trim(), email = $("bEmail").value.trim(), phone = $("bPhone").value.trim();
+    ["bName","bEmail","bPhone"].forEach(id => $(id).removeAttribute("aria-invalid"));
+    const bad = (id, msg) => { err(3, msg); $(id).setAttribute("aria-invalid", "true"); $(id).focus(); };
+    if(!how()){ go(1); err(1, "Pick phone call or video call to keep going."); return; }
+    if(!picks.length){ go(2); err(2, "Pick at least one time that works for you."); return; }
+    if(!name) return bad("bName", "Please add your name.");
+    if(!HWx.emailOk(email)) return bad("bEmail", "That email doesn't look right. Your confirmation goes there, so please check it.");
+    const digits = phone.replace(/\D/g, "").length;
+    if(how() === "phone" && digits < 10) return bad("bPhone", "Add a phone number with area code so Allen can call you.");
+    if(phone && digits < 10) return bad("bPhone", "That phone number looks short. Add the area code, or leave it blank for a video call.");
+    err(3, "");
+
+    const booking = {
+      name, email, phone, ranch: $("bRanch").value.trim(),
+      heads: $("bHeads").value.trim() ? Math.round(+$("bHeads").value) : null,
+      sells: Array.from(document.querySelectorAll('input[name="sells"]:checked')).map(c => c.value),
+      how: how(), times: picks.slice(), notes: $("bNotes").value.trim(),
+      calc: (calc && isFinite(calc.break_even) && isFinite(calc.fair_price)) ? { break_even: +calc.break_even, fair_price: +calc.fair_price } : null
+    };
+    sending = true; $("payBtn").disabled = true; $("payBtn").textContent = "Opening secure checkout…";
+    HWx.track("booking_submitted", {how: booking.how, times: booking.times.length, has_calc: !!booking.calc});
+    const res = await HWx.collect("booking", booking, 6000);
+    const synced = !!(res && res.id);
+    const id = synced ? String(res.id) : "hw-" + HWx.rid();
+    HWx.store.set("hw_booking_id", id);
+    HWx.store.setJSON("hw_booking", Object.assign({}, booking, { id, synced, created: new Date().toISOString() }));
+    HWx.track("stripe_checkout_opened", {from: "book", synced});
+    location.href = SESSION_URL + "?client_reference_id=" + encodeURIComponent(id) + "&prefilled_email=" + encodeURIComponent(email);
+    setTimeout(() => { sending = false; $("payBtn").disabled = false; $("payBtn").textContent = "Continue to secure payment — $197"; }, 8000);
+  });
+  // Enter key in a text field on steps 1–2 shouldn't submit
+  $("bookForm").addEventListener("keydown", e => { if(e.key === "Enter" && step !== 3 && e.target.tagName === "INPUT"){ e.preventDefault(); } });
+
+  renderSlots(); renderPicks();
+  addEventListener("pageshow", ev => { if(ev.persisted){ sending = false; $("payBtn").disabled = false; $("payBtn").textContent = "Continue to secure payment — $197"; } });
+})();
+</script>
+</body>
+</html>

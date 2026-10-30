@@ -5,201 +5,198 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Beef Price Calculator · Hanging Weight Co.</title>
 <meta name="description" content="Free beef price calculator for ranchers who sell direct. Find your break-even, your price per pound of hanging weight, and a whole, half and quarter price sheet.">
+<meta name="theme-color" content="#1F4A38">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 44'%3E%3Cpath d='M20 2a4 4 0 014 4v3h5a7 7 0 017 7v13c0 7-7 13-16 13S4 36 4 29V16a7 7 0 017-7h5V6a4 4 0 014-4z' fill='%23F2B705'/%3E%3Ccircle cx='20' cy='7' r='2.2' fill='%231F4A38'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/hw.css">
 <style>
-:root{
-  --bg:#F6F1E7; --surface:#FFFDF8; --panel:#EFE6D6; --ink:#2B1F17; --muted:#65544A; --line:#E0D4C1;
-  --accent:#A63E1B; --accent-ink:#FFF8F0; --accent-soft:#F7E4D8; --ok:#3D6B3A;
-  --display:"Zilla Slab", Georgia, "Times New Roman", serif;
-  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --r:12px;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --bg:#16110D; --surface:#211912; --panel:#2A2018; --ink:#F2E9DC; --muted:#BBA996; --line:#3B2F24;
-    --accent:#EC8B5E; --accent-ink:#1B0F08; --accent-soft:#3A2418; --ok:#93C48C;
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#16110D; --surface:#211912; --panel:#2A2018; --ink:#F2E9DC; --muted:#BBA996; --line:#3B2F24;
-  --accent:#EC8B5E; --accent-ink:#1B0F08; --accent-soft:#3A2418; --ok:#93C48C;
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
-[hidden]{display:none!important}
-a{color:var(--accent)}
-.wrap{max-width:880px;margin:0 auto;padding:0 16px 56px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0;border-bottom:2px solid var(--ink)}
-.brand{font-family:var(--display);font-weight:700;font-size:19px;color:var(--ink);text-decoration:none;letter-spacing:.01em}
-.top .home{font-size:14px;color:var(--muted)}
-header.intro{padding:28px 0 8px}
-.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 8px}
-h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,7vw,46px);line-height:1.05;margin:0 0 12px;text-wrap:balance}
-.intro p{margin:0;color:var(--muted);max-width:60ch;font-size:17px}
-h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,5vw,28px);line-height:1.15;margin:0 0 6px}
-h3{font-family:var(--display);font-weight:700;font-size:19px;margin:0 0 6px}
-.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 16px;margin-top:20px}
-@media (min-width:600px){.step{padding:24px}}
-.stephead{display:flex;gap:12px;align-items:baseline;margin-bottom:14px}
-.stepnum{flex:none;display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--bg);font-family:var(--display);font-weight:700;font-size:17px}
-.stephead p{margin:2px 0 0;color:var(--muted);font-size:14px}
-.q{display:grid;gap:8px;margin-bottom:18px}
-.q > label, .q > .qlabel{font-weight:600;font-size:16px}
-.q small{font-weight:400;color:var(--muted);font-size:13px}
-/* inputs */
-.field{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);min-height:52px;overflow:hidden}
-.field:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.field .u{font-family:var(--mono);font-size:15px;color:var(--muted);padding:0 12px;flex:none}
-.field input{width:100%;min-width:0;border:0;background:transparent;color:var(--ink);font-family:var(--mono);font-size:19px;padding:12px;text-align:right;font-variant-numeric:tabular-nums;outline:none}
-.field.left input{text-align:left;font-family:var(--body)}
-.stepper{display:grid;grid-template-columns:56px 1fr 56px;gap:8px;max-width:280px}
-.stepper button{min-height:52px;font-size:24px;padding:0}
-.stepper .field input{text-align:center;font-size:22px}
+.cwrap{max-width:900px}
+.intro{background:var(--pine);color:var(--on-pine);position:relative}
+.intro::after{content:"";position:absolute;inset:auto 0 0 0;height:8px;background:repeating-linear-gradient(-45deg,var(--tag) 0 14px,var(--tag-deep) 14px 28px)}
+.intro .wrap{padding-block:34px 46px}
+.intro h1{color:#fff;font-size:clamp(40px,10.5vw,72px)}
+.intro .kicker{color:var(--tag)}
+.intro p.lede{color:var(--on-pine-muted);margin:16px 0 0}
+.progress{display:flex;gap:6px;margin-top:22px;list-style:none;padding:0}
+.progress li{flex:1;font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-pine-muted);border-top:4px solid rgba(255,255,255,.22);padding-top:8px}
+.progress li.on{color:#fff;border-color:var(--tag)}
+
+.step{background:var(--raise);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 16px;margin-top:20px}
+@media (min-width:600px){.step{padding:30px 30px}}
+.stephead{display:flex;gap:14px;align-items:center;margin-bottom:20px}
+.stepnum{flex:none;width:44px;height:50px;font-size:26px;padding-top:9px}
+.stepnum::after{content:"";position:absolute;top:5px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:var(--raise)}
+.stephead h2{font-size:clamp(30px,7vw,40px)}
+.stephead p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.q{display:grid;gap:10px;margin:0 0 22px}
+.q > label,.q > .qlabel{font-weight:700;font-size:17px}
+.q small{font-weight:400;color:var(--muted);font-size:14px}
+fieldset.q{border:0;padding:0;min-width:0}
+fieldset.q legend{padding:0;margin-bottom:10px;font-weight:700;font-size:17px}
+
+.field{display:flex;align-items:center;border:1.5px solid var(--line-strong);border-radius:var(--r);background:var(--raise);min-height:54px;overflow:hidden}
+.field:focus-within{border-color:var(--pine);box-shadow:0 0 0 3px color-mix(in srgb,var(--tag) 70%,transparent)}
+.field .u{font-size:16px;font-weight:600;color:var(--muted);padding:0 12px;flex:none}
+.field input{width:100%;min-width:0;border:0;background:transparent;color:var(--ink);font-family:var(--body);font-weight:600;font-size:19px;padding:12px;text-align:right;font-variant-numeric:tabular-nums;outline:none}
+.field.left input{text-align:left;font-weight:500}
+.stepper{display:grid;grid-template-columns:58px 1fr 58px;gap:8px;max-width:300px}
+.stepper button{min-height:56px;font-size:28px;padding:0;border-radius:var(--r);border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer;font-weight:600}
+.stepper button:active{background:var(--pine-soft)}
+.stepper .field input{text-align:center;font-family:var(--display);font-weight:700;font-size:30px}
 .chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .chip{position:relative}
 .chip input{position:absolute;opacity:0;width:1px;height:1px}
-.chip label{display:grid;place-items:center;gap:0;min-height:56px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);cursor:pointer;font-weight:600;text-align:center;padding:6px;line-height:1.2}
-.chip label small{font-weight:400;font-size:12px;color:var(--muted)}
-.chip input:checked + label{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.chip input:checked + label small{color:var(--accent-ink);opacity:.85}
-.chip input:focus-visible + label{outline:3px solid var(--ink);outline-offset:2px}
+.chip label{display:grid;place-items:center;min-height:64px;border:1.5px solid var(--line-strong);border-radius:var(--r);background:var(--raise);cursor:pointer;text-align:center;padding:6px;line-height:1.1;font-family:var(--display);font-weight:700;font-size:22px;text-transform:uppercase;letter-spacing:.03em}
+.chip label small{font-family:var(--body);font-weight:500;font-size:13px;color:var(--muted);text-transform:none;letter-spacing:0;margin-top:2px}
+.chip input:checked + label{background:var(--pine);border-color:var(--pine);color:#fff}
+.chip input:checked + label small{color:var(--on-pine-muted)}
+.chip input:focus-visible + label{outline:3px solid var(--tag);outline-offset:2px}
+
+.badge{display:inline-flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--tag) 26%,var(--raise));color:var(--ink);border:1px solid color-mix(in srgb,var(--tag) 60%,transparent);border-radius:6px;padding:6px 10px;font-size:14px;font-weight:600;margin-bottom:16px}
+.badge::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--tag-deep)}
 .rows{display:grid;gap:12px}
 .row{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:12px;align-items:center}
-.row label{font-size:15px;font-weight:600;line-height:1.3}
-.row label small{display:block;font-weight:400}
-@media (max-width:420px){.row{grid-template-columns:minmax(0,1fr) 128px}}
-.group{border-top:1px dashed var(--line);padding-top:14px;margin-top:14px}
+.row label{font-size:16px;font-weight:600;line-height:1.3}
+.row label small{display:block;font-weight:400;color:var(--muted);font-size:13.5px}
+@media (max-width:420px){.row{grid-template-columns:minmax(0,1fr) 132px}}
+.group{border-top:1px solid var(--line);padding-top:18px;margin-top:18px}
 .group:first-of-type{border-top:0;padding-top:0;margin-top:0}
-.grouptitle{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px}
-.badge{display:inline-block;background:var(--panel);color:var(--ink);border-radius:6px;padding:4px 10px;font-size:13px;font-weight:600;margin-bottom:12px}
-.derived{display:flex;justify-content:space-between;gap:12px;background:var(--panel);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:15px}
-.derived b{font-family:var(--mono);font-weight:500}
-.toggle{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
+.grouptitle{font-family:var(--display);font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 12px}
+.derived{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--pine-soft);border-radius:var(--r);padding:12px 16px;margin-top:14px;font-size:16px;font-weight:600}
+.derived b{font-family:var(--display);font-weight:700;font-size:26px;font-variant-numeric:tabular-nums}
+.toggle{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--line-strong);border-radius:var(--r);overflow:hidden}
 .toggle input{position:absolute;opacity:0;width:1px;height:1px}
-.toggle label{padding:12px 8px;font-size:14px;text-align:center;cursor:pointer;background:var(--bg);font-weight:600;line-height:1.25}
-.toggle input:checked + label{background:var(--ink);color:var(--bg)}
-.toggle input:focus-visible + label{outline:3px solid var(--accent);outline-offset:-3px}
-details.more{margin-top:16px;border:1px solid var(--line);border-radius:10px;padding:0 14px;background:var(--bg)}
-details.more summary{cursor:pointer;padding:14px 0;font-weight:600;min-height:48px}
-details.more[open]{padding-bottom:14px}
-/* buttons */
-button,.btn{font:inherit;font-weight:700;font-size:17px;border-radius:10px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);padding:14px 20px;min-height:52px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;line-height:1.2}
-button.ghost,.btn.ghost{background:transparent;color:var(--accent)}
-button.plain{background:var(--surface);color:var(--ink);border-color:var(--line)}
-button:focus-visible,.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-button:disabled{opacity:.6;cursor:default}
-.next{width:100%;margin-top:6px}
+.toggle label{padding:14px 8px;font-size:15px;text-align:center;cursor:pointer;background:var(--raise);font-weight:600;line-height:1.25;min-height:54px;display:grid;place-items:center}
+.toggle input:checked + label{background:var(--pine);color:#fff}
+.toggle input:focus-visible + label{outline:3px solid var(--tag);outline-offset:-3px}
+details.more{margin-top:18px;border:1px solid var(--line);border-radius:var(--r);padding:0 16px;background:var(--surface)}
+details.more summary{cursor:pointer;padding:15px 0;font-weight:700;min-height:52px}
+details.more[open]{padding-bottom:16px}
+.next{width:100%;margin-top:8px}
 @media (min-width:600px){.next{width:auto}}
-.fine{font-size:13px;color:var(--muted)}
+
 /* results */
-.be{display:grid;gap:4px;background:var(--ink);color:var(--bg);border-radius:var(--r);padding:20px}
-.be .k{font-size:14px;opacity:.85}
-.be .big{font-family:var(--display);font-weight:700;font-size:clamp(46px,13vw,64px);line-height:1;font-variant-numeric:tabular-nums}
-.be .big small{font-family:var(--body);font-size:16px;font-weight:500;opacity:.85}
-.be .sub{font-size:14px;opacity:.85}
-.tiers{display:grid;gap:10px;margin-top:16px}
+#results{scroll-margin-top:70px}
+.reshead{display:flex;gap:14px;align-items:center;margin:34px 0 16px}
+.be{display:grid;gap:6px;background:#17221D;color:#EEF2EE;border-radius:var(--r-lg);padding:22px 20px;position:relative;overflow:hidden}
+@media (min-width:600px){.be{padding:28px}}
+.be::after{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--tag)}
+.be .k{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:.12em;text-transform:uppercase;color:var(--tag)}
+.be .big{font-family:var(--display);font-weight:700;font-size:clamp(64px,18vw,92px);line-height:.9;font-variant-numeric:tabular-nums;color:#fff}
+.be .big small{font-family:var(--body);font-size:17px;font-weight:500;color:#AEBBB3}
+.be .sub{font-size:15px;color:#AEBBB3}
+.tierlead{font-weight:700;font-size:17px;margin:22px 0 0}
+.tiers{display:grid;gap:10px;margin-top:10px}
 @media (min-width:700px){.tiers{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .tier{position:relative}
 .tier input{position:absolute;opacity:0;width:1px;height:1px}
-.tier label{display:grid;gap:6px;border:2px solid var(--line);border-radius:var(--r);padding:16px;background:var(--surface);cursor:pointer;height:100%}
-.tier input:checked + label{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.tier input:focus-visible + label{outline:3px solid var(--ink);outline-offset:2px}
-.tier .name{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.tier input:checked + label .name{color:var(--accent)}
-.tier .pick{font-size:11px;letter-spacing:.06em;border:1.5px solid currentColor;border-radius:99px;padding:2px 8px;visibility:hidden}
+.tier label{display:grid;gap:6px;border:2px solid var(--line);border-radius:var(--r-lg);padding:18px;background:var(--raise);cursor:pointer;height:100%}
+.tier input:checked + label{border-color:var(--pine);box-shadow:0 0 0 4px color-mix(in srgb,var(--tag) 75%,transparent)}
+.tier input:focus-visible + label{outline:3px solid var(--ink);outline-offset:3px}
+.tier .name{display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tier input:checked + label .name{color:var(--pine)}
+.tier .pick{font-family:var(--body);font-size:12px;letter-spacing:.04em;font-weight:700;background:var(--tag);color:var(--tag-ink);border-radius:99px;padding:3px 9px;visibility:hidden;text-transform:uppercase}
 .tier input:checked + label .pick{visibility:visible}
-.tier .price{font-family:var(--display);font-weight:700;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
-.tier .price small{font-family:var(--body);font-size:14px;font-weight:500;color:var(--muted)}
-.tier dl{display:grid;grid-template-columns:1fr auto;gap:4px 10px;margin:4px 0 0;font-size:14px}
+.tier .price{font-family:var(--display);font-weight:700;font-size:52px;line-height:.95;font-variant-numeric:tabular-nums}
+.tier .price small{font-family:var(--body);font-size:15px;font-weight:500;color:var(--muted)}
+.tier dl{display:grid;grid-template-columns:1fr auto;gap:4px 10px;margin:4px 0 0;font-size:14.5px;border-top:1px dashed var(--line);padding-top:10px}
 .tier dt{color:var(--muted)}
-.tier dd{margin:0;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
-.tier .desc{font-size:13px;color:var(--muted);margin:0}
-.est{font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--muted)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 16px;margin-top:16px}
-@media (min-width:600px){.card{padding:22px 24px}}
-.sheethead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
-.sheetmeta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
-@media (max-width:420px){.sheetmeta{grid-template-columns:1fr}}
-.sheetmeta label{font-size:14px;font-weight:600;display:grid;gap:4px}
-table.sheet{width:100%;border-collapse:collapse;font-size:15px;margin-top:6px}
-.sheet th,.sheet td{padding:10px 6px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;vertical-align:top}
-.sheet th{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.tier dd{margin:0;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.tier .desc{font-size:14px;color:var(--muted);margin:0}
+.est{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.card{background:var(--raise);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px 16px;margin-top:16px}
+@media (min-width:600px){.card{padding:26px 28px}}
+.card h2{font-size:clamp(28px,6.4vw,36px)}
+.card h3{text-transform:uppercase}
+.sheetmeta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 8px}
+@media (max-width:460px){.sheetmeta{grid-template-columns:1fr}}
+.sheetmeta label{font-size:15px;font-weight:600;display:grid;gap:6px}
+.sheetmeta > label > input{width:100%;padding:12px 14px;min-height:52px;border:1.5px solid var(--line-strong);border-radius:var(--r);background:var(--raise);color:var(--ink);font:inherit;font-weight:400}
+.sheetmeta > label > input:focus{outline:none;border-color:var(--pine);box-shadow:0 0 0 3px color-mix(in srgb,var(--tag) 70%,transparent)}
+table.sheet{width:100%;border-collapse:collapse;font-size:16px;margin-top:6px}
+.sheet th,.sheet td{padding:12px 6px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;vertical-align:top}
+.sheet th{font-family:var(--display);font-size:16px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .sheet th:first-child,.sheet td:first-child{text-align:left}
-.sheet td{font-family:var(--mono)}
-.sheet td:first-child{font-family:var(--display);font-weight:700;font-size:19px}
-.sheet td.tot{color:var(--accent);font-weight:500}
-.sheet td .note{display:block;font-family:var(--body);font-size:12px;color:var(--muted)}
+.sheet td{font-weight:600}
+.sheet td:first-child{font-family:var(--display);font-weight:700;font-size:24px;text-transform:uppercase}
+.sheet td.tot{color:var(--pine);font-weight:700}
+.sheet td .note{display:block;font-size:12.5px;font-weight:400;color:var(--muted)}
 @media (max-width:599px){
   .sheet thead{display:none}
   .sheet, .sheet tbody, .sheet tr, .sheet td{display:block;width:100%}
-  .sheet tr{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px;background:var(--bg)}
-  .sheet td{display:flex;justify-content:space-between;gap:10px;border:0;padding:5px 0;text-align:right}
-  .sheet td::before{content:attr(data-label);font-family:var(--body);font-size:14px;color:var(--muted);text-align:left}
-  .sheet td:first-child{display:block;font-size:21px;padding-bottom:6px;border-bottom:1px dashed var(--line);margin-bottom:4px}
+  .sheet tr{border:1px solid var(--line);border-radius:var(--r);padding:10px 14px;margin-bottom:10px;background:var(--surface)}
+  .sheet td{display:flex;justify-content:space-between;gap:10px;border:0;padding:6px 0;text-align:right}
+  .sheet td::before{content:attr(data-label);font-size:15px;font-weight:500;color:var(--muted);text-align:left}
+  .sheet td:first-child{display:block;font-size:26px;padding-bottom:6px;border-bottom:1px dashed var(--line);margin-bottom:4px}
   .sheet td:first-child::before{content:none}
   .sheet td.tot{flex-wrap:wrap}
   .sheet td.tot::before{flex:1 0 auto}
   .sheet td .note{flex:0 0 100%;text-align:right;margin-top:2px}
 }
-.sheetfoot{font-size:13px;color:var(--muted);margin:10px 0 0}
-.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
-.status{font-size:14px;color:var(--muted)}
-.take{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:10px}
-.take div{background:var(--panel);border-radius:10px;padding:12px}
-.take .k{display:block;font-size:13px;color:var(--muted)}
-.take .v{display:block;font-family:var(--display);font-weight:700;font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
+.sheetfoot{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.actions .btn{min-height:52px;font-size:19px}
+.take{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.take div{background:var(--pine-soft);border-radius:var(--r);padding:14px}
+.take .k{display:block;font-size:14px;color:var(--muted);font-weight:500}
+.take .v{display:block;font-family:var(--display);font-weight:700;font-size:38px;line-height:1.05;font-variant-numeric:tabular-nums}
 details.math{margin-top:16px}
-details.math summary{cursor:pointer;font-weight:600;min-height:44px;padding:10px 0}
-.mathlist{font-family:var(--mono);font-size:13px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;margin:0;white-space:pre-wrap;overflow-x:auto}
-/* doors */
-.doors{margin-top:28px}
-.doorgrid{display:grid;gap:12px;margin-top:14px}
-@media (min-width:760px){.doorgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.door{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:10px;align-content:start}
-.door.featured{border:2px solid var(--accent)}
-.door .tagline{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);margin:0}
-.door .amt{font-family:var(--display);font-weight:700;font-size:34px;line-height:1}
-.door .amt small{font-family:var(--body);font-size:14px;font-weight:500;color:var(--muted)}
-.door ul{margin:0;padding-left:20px;display:grid;gap:4px;font-size:15px}
-.door p{margin:0;font-size:15px}
-.door .btn,.door button{width:100%;margin-top:4px}
-.door .fine{margin:0}
-.pull{font-family:var(--display);font-weight:700;font-size:22px;margin:22px 0 0;text-align:center}
-/* email form */
-.emailform{display:grid;gap:10px}
-.emailform .erow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media (max-width:520px){.emailform .erow{grid-template-columns:1fr}}
-.emailform label,.dform label{display:grid;gap:4px;font-size:14px;font-weight:600}
-.emailform input,.dform input,.sheetmeta > label > input{width:100%;padding:12px;min-height:48px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;font-weight:400}
-.emailform input:focus,.dform input:focus,.sheetmeta > label > input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-#sheetText{width:100%;margin-top:10px;font-family:var(--mono);font-size:13px;min-height:140px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:10px}
-dialog{border:0;border-radius:var(--r);padding:0;max-width:440px;width:calc(100% - 32px);background:var(--surface);color:var(--ink)}
-dialog::backdrop{background:rgba(20,12,6,.55)}
-.dform{display:grid;gap:12px;padding:22px 18px}
-.dform .dact{display:flex;gap:10px;flex-wrap:wrap}
-.dform .dact button{flex:1 1 140px}
-footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:grid;gap:6px}
-footer p{margin:0}
+details.math summary{cursor:pointer;font-weight:700;min-height:48px;padding:12px 0;color:var(--pine)}
+.mathlist{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:0;white-space:pre-wrap;overflow-x:auto}
+#sheetText{width:100%;margin-top:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;min-height:140px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink);padding:10px}
+
+/* three doors */
+.doors{margin-top:44px;padding-top:36px;border-top:4px solid var(--ink)}
+.doors > .kicker{margin-bottom:8px}
+.doors > h2{font-size:clamp(38px,9vw,56px)}
+.doors > p.lede{margin:12px 0 22px}
+.door{border-radius:var(--r-lg);padding:22px 18px;margin-top:14px;display:grid;gap:14px;border:1px solid var(--line);background:var(--raise)}
+@media (min-width:600px){.door{padding:28px}}
+.door .dtop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.door .lab{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.door h3{font-size:clamp(30px,7vw,38px);text-transform:uppercase;line-height:.95}
+.door .amt{font-family:var(--display);font-weight:700;font-size:48px;line-height:.9;font-variant-numeric:tabular-nums;text-align:right;flex:none}
+.door .amt small{display:block;font-family:var(--body);font-size:13px;font-weight:500;color:var(--muted);margin-top:4px}
+.door p{margin:0}
+.door .ticks{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:16px}
+.door .ticks li{display:grid;grid-template-columns:22px 1fr;gap:10px}
+.door .ticks li::before{content:"";width:20px;height:20px;margin-top:1px;border-radius:50%;background:var(--pine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%23F2B705' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+.door.feat{background:var(--pine);border-color:var(--pine);color:var(--on-pine);box-shadow:0 26px 50px -28px rgba(15,40,28,.7)}
+.door.feat .lab{color:var(--tag)}
+.door.feat .amt small,.door.feat .fine{color:var(--on-pine-muted)}
+.door.feat .ticks li::before{background-color:var(--tag);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%231F4A38' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.yours{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:var(--r);padding:12px 14px;font-size:15.5px;color:#fff}
+.yours b{font-family:var(--display);font-size:22px;color:var(--tag);font-weight:700;letter-spacing:.02em}
+.emailform{display:grid;gap:12px}
+@media (max-width:440px){#sessionBtn{font-size:19px;padding-inline:14px}#sessionBtn .arr{display:none}}
+.emailform .erow{display:grid;grid-template-columns:1.6fr 1fr;gap:12px}
+@media (max-width:420px){.emailform .erow{grid-template-columns:1fr}}
+.pull{font-family:var(--display);font-weight:700;font-size:clamp(26px,6vw,34px);line-height:1;margin:30px 0 0;text-transform:uppercase;padding-left:16px;border-left:6px solid var(--tag)}
+.calc-foot{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);display:grid;gap:8px;padding-bottom:40px}
+.calc-foot p{margin:0}
 .printonly{display:none}
+.sbrows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.sbrows div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.sbrows div:last-child{background:var(--pine-soft);border-color:transparent}
+.sbrows .k{display:block;font-size:14px;color:var(--muted);font-weight:500}
+.sbrows .v{display:block;font-family:var(--display);font-weight:700;font-size:38px;line-height:1.05;font-variant-numeric:tabular-nums}
+.sbline{margin:14px 0 0;font-size:17px;font-weight:600}
+.sbline b{background:linear-gradient(transparent 60%,var(--tag) 60%);padding:0 2px}
+
 /* print: just the price sheet, black on white, one page */
 @media print{
   @page{margin:14mm}
   *{background:#fff!important;color:#000!important;box-shadow:none!important}
   body{font-size:12pt}
-  .wrap > *:not(#results), #results > *:not(#sheetCard){display:none!important}
+  .np, .site-head, .intro, #calc, .calc-foot, dialog, #results > *:not(#sheetCard){display:none!important}
   #results{display:block!important}
   .wrap{padding:0;max-width:none}
   #sheetCard{border:0;padding:0;margin:0;break-inside:avoid}
-  #sheetCard .noprint, #sheetCard .sheetmeta, #sheetCard .actions, #sheetCard #sheetText, #sheetCard .emailform{display:none!important}
+  #sheetCard .noprint, #sheetCard .sheetmeta, #sheetCard .actions, #sheetCard #sheetText{display:none!important}
   .printonly{display:block}
-  .printtitle{font-family:var(--display);font-size:26pt;font-weight:700;margin:0 0 4pt}
+  .printtitle{font-family:var(--display);font-size:28pt;font-weight:700;margin:0 0 4pt;text-transform:uppercase}
   .printsub{font-size:12pt;margin:0 0 14pt}
   .sheet thead{display:table-header-group!important}
   table.sheet{display:table!important}
@@ -207,43 +204,58 @@ footer p{margin:0}
   .sheet tr{display:table-row!important;border:0!important}
   .sheet th,.sheet td{display:table-cell!important;border-bottom:1pt solid #000!important;padding:8pt 6pt!important;font-size:12pt}
   .sheet td::before{content:none!important}
-  .sheet td:first-child{font-size:14pt}
+  .sheet td:first-child{font-size:15pt}
   .sheet td .note{display:block!important;font-size:9pt}
   .printfoot{margin-top:16pt;font-size:11pt;line-height:1.6}
 }
 </style>
 </head>
 <body>
+<a class="skip" href="#calc">Skip to the calculator</a>
 
-<div class="wrap">
-  <div class="top">
-    <a class="brand" href="../">Hanging Weight Co.</a>
-    <a class="home" href="../">Home</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Hanging Weight Co. home">
+      <svg viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2a4 4 0 014 4v3h5a7 7 0 017 7v13c0 7-7 13-16 13S4 36 4 29V16a7 7 0 017-7h5V6a4 4 0 014-4z" fill="#F2B705"/><circle cx="20" cy="7" r="2.2" fill="var(--bg)"/><text x="20" y="31" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="700" font-size="13" fill="#271F00">HWC</text></svg>
+      <span>Hanging Weight <span class="co">Co.</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="nl" href="../#offers">Prices</a>
+      <a class="nl" href="../#faq">FAQ</a>
+      <a class="btn line" href="../book/" data-cta="book" data-from="calculator_header" style="box-shadow:none">Book a call</a>
+    </nav>
   </div>
+</header>
 
-  <header class="intro">
-    <p class="eyebrow">Free beef price calculator · For ranchers who sell direct</p>
+<section class="intro">
+  <div class="wrap cwrap">
+    <p class="kicker">Free beef price calculator</p>
     <h1>What should you charge per pound of hanging weight?</h1>
-    <p>About 60 seconds. Tell us how many head and how you sell. We fill in Texas starting estimates for your costs; change any of them to yours.</p>
-  </header>
+    <p class="lede">About 60 seconds. Tell us how many head and how you sell. We fill in Texas starting estimates for your costs; change any of them to yours.</p>
+    <ol class="progress" aria-label="Progress">
+      <li class="on" id="pg1">Your beef</li><li id="pg2">Your costs</li><li id="pg3">Your prices</li>
+    </ol>
+  </div>
+</section>
 
+<div class="wrap cwrap">
   <form id="calc" autocomplete="off" novalidate>
     <!-- STEP 1 -->
     <section class="step" aria-labelledby="s1h">
-      <div class="stephead"><span class="stepnum" aria-hidden="true">1</span><div><h2 id="s1h">Your beef</h2><p>Three quick questions.</p></div></div>
+      <div class="stephead"><span class="eartag stepnum" aria-hidden="true">1</span><div><h2 id="s1h">Your beef</h2><p>Three quick questions.</p></div></div>
 
       <div class="q">
         <label for="heads">How many head will you sell this year?</label>
         <div class="stepper">
-          <button type="button" class="plain" id="headsMinus" aria-label="One fewer head">−</button>
+          <button type="button" id="headsMinus" aria-label="One fewer head">−</button>
           <div class="field"><input id="heads" type="number" inputmode="numeric" min="1" step="1" value="5" aria-describedby="headsHelp"></div>
-          <button type="button" class="plain" id="headsPlus" aria-label="One more head">+</button>
+          <button type="button" id="headsPlus" aria-label="One more head">+</button>
         </div>
         <small id="headsHelp">Your best guess is fine.</small>
       </div>
 
-      <fieldset class="q" style="border:0;padding:0;margin:0 0 18px">
-        <legend class="qlabel" style="padding:0;margin-bottom:8px;font-weight:600">How do you sell? <small>Pick any that apply.</small></legend>
+      <fieldset class="q">
+        <legend>How do you sell? <small>Pick any that apply.</small></legend>
         <div class="chips">
           <div class="chip"><input type="checkbox" id="sellWhole" name="sell" value="whole" checked><label for="sellWhole">Whole<small>1 buyer</small></label></div>
           <div class="chip"><input type="checkbox" id="sellHalf" name="sell" value="half" checked><label for="sellHalf">Half<small>2 buyers</small></label></div>
@@ -251,17 +263,17 @@ footer p{margin:0}
         </div>
       </fieldset>
 
-      <div class="q" style="max-width:280px">
+      <div class="q" style="max-width:300px">
         <label for="zip">ZIP code <small>(optional)</small></label>
         <div class="field left"><input id="zip" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" autocomplete="postal-code" placeholder="e.g. 76801"></div>
       </div>
 
-      <button type="button" class="next" id="toStep2">Next: your costs →</button>
+      <button type="button" class="btn next" id="toStep2">Next: your costs <span class="arr" aria-hidden="true">→</span></button>
     </section>
 
     <!-- STEP 2 -->
     <section class="step" id="step2" aria-labelledby="s2h" hidden>
-      <div class="stephead"><span class="stepnum" aria-hidden="true">2</span><div><h2 id="s2h">Your costs per head</h2><p>Count everything, including what the calf was worth if you'd sold it at weaning.</p></div></div>
+      <div class="stephead"><span class="eartag stepnum" aria-hidden="true">2</span><div><h2 id="s2h">Your costs per head</h2><p>Count everything, including what the calf was worth if you'd sold it at weaning.</p></div></div>
       <span class="badge">Texas starting estimates — change to yours</span>
 
       <div class="group">
@@ -284,7 +296,7 @@ footer p{margin:0}
           <div class="row"><label for="cut">Cut and wrap<small>per lb of hanging weight</small></label><div class="field"><span class="u">$</span><input id="cut" type="number" inputmode="decimal" min="0" step="0.05" value="1.05"></div></div>
           <div class="row"><label for="hang">Hanging weight<small>whole animal, per head</small></label><div class="field"><input id="hang" type="number" inputmode="decimal" min="0" step="10" value="750"><span class="u">lb</span></div></div>
         </div>
-        <div class="q" style="margin:14px 0 0">
+        <div class="q" style="margin:16px 0 0">
           <span class="qlabel" id="whoLbl">Who pays the processor?</span>
           <div role="radiogroup" aria-labelledby="whoLbl" class="toggle">
             <input type="radio" name="who" id="whoCust" value="customer" checked><label for="whoCust">Buyer pays processor</label>
@@ -292,6 +304,23 @@ footer p{margin:0}
           </div>
         </div>
         <div class="derived"><span>Est. processing per head</span><b id="procOut">$888</b></div>
+      </div>
+
+      <div class="group" id="sbGroup">
+        <p class="grouptitle">Sale barn check <span style="text-transform:none;letter-spacing:0;font-family:var(--body);font-weight:500;font-size:14px">(optional)</span></p>
+        <fieldset class="q" style="margin-bottom:12px">
+          <legend>What would this animal bring at the sale barn? <small>Leave it blank if you're not sure.</small></legend>
+          <div role="radiogroup" aria-label="Sale barn price is" class="toggle" style="margin-bottom:10px">
+            <input type="radio" name="sbUnit" id="sbCwt" value="cwt" checked><label for="sbCwt">$ per cwt (live)</label>
+            <input type="radio" name="sbUnit" id="sbHead" value="head"><label for="sbHead">$ per head</label>
+          </div>
+          <div class="row" style="grid-template-columns:minmax(0,1fr) 150px">
+            <label for="sb" id="sbLbl">Sale barn price<small id="sbHelp">per 100 lb live weight</small></label>
+            <div class="field"><span class="u">$</span><input id="sb" type="number" inputmode="decimal" min="0" step="1" aria-describedby="sbLive"></div>
+          </div>
+          <small id="sbLive">Est. live weight: 1,250 lb (your hanging weight ÷ 0.60).</small>
+        </fieldset>
+        <p class="fine" style="margin:0"><a href="https://mymarketnews.ams.usda.gov/" target="_blank" rel="noopener">See this week's Texas auction prices</a> on USDA Market News.</p>
       </div>
 
       <details class="more">
@@ -304,22 +333,21 @@ footer p{margin:0}
         </div>
       </details>
 
-      <button type="button" class="next" id="toResults" style="margin-top:18px">See my prices →</button>
+      <button type="button" class="btn tag next" id="toResults" style="margin-top:22px">See my prices <span class="arr" aria-hidden="true">→</span></button>
     </section>
   </form>
 
   <!-- RESULTS -->
   <section id="results" aria-labelledby="rh" hidden>
-    <div class="step" style="border:0;background:transparent;padding:0">
-      <div class="stephead"><span class="stepnum" aria-hidden="true">3</span><div><h2 id="rh" tabindex="-1">Your estimated prices</h2><p>Change any number above and these update.</p></div></div>
-    </div>
+    <div class="reshead"><span class="eartag stepnum" aria-hidden="true">3</span><div><h2 id="rh" tabindex="-1" style="font-size:clamp(30px,7vw,40px)">Your estimated prices</h2><p class="fine" style="margin:4px 0 0">Change any number above and these update.</p></div></div>
 
     <div class="be" aria-live="polite">
-      <span class="k">Estimated break-even, per lb of hanging weight</span>
+      <span class="k">Your break-even, per lb of hanging weight</span>
       <span class="big"><span id="beOut">$3.47</span> <small>/ lb hanging</small></span>
       <span class="sub" id="beSub">Below this you lose money on every head.</span>
     </div>
 
+    <p class="tierlead">Pick the price for your price sheet:</p>
     <div class="tiers" role="radiogroup" aria-label="Pick a price for your price sheet">
       <div class="tier"><input type="radio" name="tier" id="tFloor" value="floor"><label for="tFloor">
         <span class="name">Floor <span class="pick">On sheet</span></span>
@@ -343,7 +371,7 @@ footer p{margin:0}
         <dl><dt>Profit per head</dt><dd id="premProf">$1,000</dd><dt id="premHerdK">Profit, 5 head</dt><dd id="premHerd">$5,000</dd></dl>
       </label></div>
     </div>
-    <p class="fine" id="procNote" style="margin:10px 0 0">Prices are per lb of hanging weight, rounded up to the nearest $0.05. Buyer also pays the processor.</p>
+    <p class="fine" id="procNote" style="margin:12px 0 0">Prices are per lb of hanging weight, rounded up to the nearest $0.05. Buyer also pays the processor.</p>
 
     <div class="card" id="sheetCard">
       <div class="printonly">
@@ -351,11 +379,11 @@ footer p{margin:0}
         <p class="printsub" id="printSub"></p>
       </div>
       <div class="sheethead noprint">
-        <div><h2 style="margin:0">Your price sheet</h2><p class="fine" style="margin:4px 0 0" id="sheetTierNote">Using your Fair price. Tap a price above to switch.</p></div>
+        <h2>Your price sheet</h2><p class="fine" style="margin:4px 0 0" id="sheetTierNote">Using your Fair price. Tap a price above to switch.</p>
       </div>
       <div class="sheetmeta">
         <label for="ranchName">Ranch name (prints on the sheet)<input id="ranchName" type="text" autocomplete="organization" placeholder="e.g. Double R Ranch"></label>
-        <label for="depPct">Deposit to reserve a share<span class="field" style="min-height:48px"><input id="depPct" type="number" inputmode="decimal" min="0" max="100" step="5" value="30"><span class="u">%</span></span></label>
+        <label for="depPct">Deposit to reserve a share<span class="field" style="min-height:52px"><input id="depPct" type="number" inputmode="decimal" min="0" max="100" step="5" value="30"><span class="u">%</span></span></label>
       </div>
       <table class="sheet">
         <thead><tr><th scope="col">Share</th><th scope="col">Est. hanging</th><th scope="col">Price / lb</th><th scope="col">Est. total</th><th scope="col">Deposit</th></tr></thead>
@@ -366,8 +394,8 @@ footer p{margin:0}
         Call or text: ______________________ &nbsp;&nbsp; Pickup / delivery: ______________________
       </div>
       <div class="actions">
-        <button type="button" id="printBtn">Print price sheet</button>
-        <button type="button" class="ghost" id="copyBtn">Copy as text</button>
+        <button type="button" class="btn" id="printBtn">Print price sheet</button>
+        <button type="button" class="btn line" id="copyBtn">Copy as text</button>
         <span class="status" id="copyStatus" aria-live="polite"></span>
       </div>
       <textarea id="sheetText" readonly hidden aria-label="Price sheet text"></textarea>
@@ -375,7 +403,7 @@ footer p{margin:0}
 
     <div class="card">
       <h3>What your buyer takes home</h3>
-      <p class="fine" style="margin:0">Roughly 60–65% of hanging weight ends up as packaged beef in the freezer (bone, fat and trim come off). Using <span id="yieldTxt">62%</span> and your <span id="tierTxt">Fair</span> price, for a half:</p>
+      <p class="fine" style="margin:6px 0 0">Roughly 60–65% of hanging weight ends up as packaged beef in the freezer (bone, fat and trim come off). Using <span id="yieldTxt">62%</span> and your <span id="tierTxt">Fair</span> price, for a half:</p>
       <div class="take">
         <div><span class="k">Est. packaged beef, half</span><span class="v" id="takeLb">233 lb</span></div>
         <div><span class="k">Est. cost to buyer, per lb take-home</span><span class="v" id="takePer">$8.84</span></div>
@@ -386,117 +414,126 @@ footer p{margin:0}
       </details>
     </div>
 
+    <div class="card sbcard" id="sbCard">
+      <h3>Sale barn check <span class="est" style="vertical-align:middle">Estimated</span></h3>
+      <div id="sbEmpty"><p class="fine" style="margin:6px 0 0">Want to see if selling direct beats the sale barn? <button type="button" class="textbtn" id="sbJump">Add a sale barn price</button> in your costs above.</p></div>
+      <div id="sbFull" hidden>
+        <div class="sbrows">
+          <div><span class="k">Sale barn, est. per head</span><span class="v" id="sbBarn">$0</span></div>
+          <div><span class="k">Direct at your Fair price, est. per head</span><span class="v" id="sbDirect">$0</span></div>
+        </div>
+        <p class="sbline" id="sbLine"></p>
+        <p class="fine" style="margin:8px 0 0" id="sbNote"></p>
+      </div>
+    </div>
+
     <!-- THREE DOORS -->
     <section class="doors" aria-labelledby="doorsH">
-      <h2 id="doorsH">What's next?</h2>
-      <p class="fine" style="margin:0;font-size:15px">Three ways to go from here. Talk with Allen by phone or video call, your choice.</p>
-      <div class="doorgrid">
-        <div class="door" id="door-email">
-          <p class="tagline">Free</p>
-          <h3>Email me my plan</h3>
-          <form id="emailForm" class="emailform" novalidate>
-            <p class="fine" style="margin:0">We'll send your numbers so you have them, plus a few short notes on selling direct. Unsubscribe any time.</p>
-            <label for="leadName">Your name<input id="leadName" type="text" autocomplete="name" required></label>
-            <label for="leadEmail">Email<input id="leadEmail" type="email" autocomplete="email" required></label>
-            <div class="erow">
-              <label for="leadRanch">Ranch name <small style="font-weight:400">(optional)</small><input id="leadRanch" type="text" autocomplete="organization"></label>
-              <label for="leadState">State<input id="leadState" type="text" autocomplete="address-level1" maxlength="2" value="TX"></label>
-            </div>
-            <div class="hp" aria-hidden="true"><label for="leadWebsite">Leave this empty</label><input id="leadWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
-            <button type="submit" id="emailBtn">Send my price sheet</button>
-            <span class="status" id="emailStatus" aria-live="polite"></span>
-          </form>
-        </div>
+      <p class="kicker">What's next</p>
+      <h2 id="doorsH">You've got your numbers. Now sell the beef.</h2>
+      <p class="lede">Three ways to go from here. Pick one, or start free and come back.</p>
 
-        <div class="door featured" id="door-session">
-          <p class="tagline">Have Allen dial it in</p>
-          <h3>"Price It Right" call</h3>
-          <div class="amt">$197 <small>one-time</small></div>
-          <p>About 60 minutes with Allen, by phone or video call (you pick when you book). You leave with:</p>
-          <ul>
-            <li>Your break-even and price per lb</li>
-            <li>A whole / half / quarter price sheet with deposits</li>
-            <li>A plan to sell your next 5 beef</li>
-            <li>30 days of text and email follow-up</li>
-          </ul>
-          <a class="btn" id="sessionBtn" href="#" target="_blank" rel="noopener">Have Allen dial it in — $197</a>
-          <p class="fine">Secure checkout by Stripe. The $197 is credited toward the $2,000 package if you upgrade within 30 days.</p>
+      <div class="door feat" id="door-session">
+        <div class="dtop">
+          <div><p class="lab">Have Allen dial it in</p><h3>Book a $197 call with Allen</h3></div>
+          <div class="amt">$197<small>one-time</small></div>
         </div>
+        <p class="yours" id="yourNums">Allen checks your <b id="ynFair">$4.30</b> fair price and <b id="ynBe">$3.47</b> break-even against your real costs.</p>
+        <ul class="ticks">
+          <li>About 60 minutes, by phone or video call on your phone</li>
+          <li>Your whole / half / quarter price sheet, checked and finished</li>
+          <li>A plan to sell your next 5 beef</li>
+          <li>30 days of text and email follow-up</li>
+        </ul>
+        <a class="btn tag block" id="sessionBtn" href="../book/" data-cta="book" data-from="calculator">Book a $197 call with Allen <span class="arr" aria-hidden="true">→</span></a>
+        <p class="fine">Your numbers from this page come with you. Secure checkout by Stripe. Credited toward the $2,000 package if you upgrade within 30 days.</p>
+      </div>
 
-        <div class="door" id="door-package">
-          <p class="tagline">Do it all for me</p>
-          <h3>Ranch Store in a Box</h3>
-          <div class="amt">$2,000 <small>90 days</small></div>
-          <ul>
-            <li>Your ranch storefront on HerdDirect with your real photos and story</li>
-            <li>Deposit checkout</li>
-            <li>Automated order reminders</li>
-            <li>Your own buyer list with a sign-up link and QR code</li>
-            <li>A launch push to your contacts and local buyers</li>
-            <li>A monthly one-page report</li>
-          </ul>
-          <button type="button" class="ghost" id="packageBtn">Do it all for me — $2,000</button>
-          <p class="fine">$1,000 to start, $1,000 after kickoff. We promise the work, not a sales number.</p>
+      <div class="door" id="door-email">
+        <div class="dtop">
+          <div><p class="lab">Free</p><h3>Email me my plan</h3></div>
+          <div class="amt">$0</div>
         </div>
+        <form id="emailForm" class="emailform" novalidate>
+          <p class="fine">Your price sheet and numbers, plus a few short notes on selling direct. Unsubscribe any time.</p>
+          <label class="field-l" for="leadName">Your name<input id="leadName" type="text" autocomplete="name" required></label>
+          <label class="field-l" for="leadEmail">Email<input id="leadEmail" type="email" autocomplete="email" inputmode="email" required></label>
+          <div class="erow">
+            <label class="field-l" for="leadRanch">Ranch name <span class="opt">(optional)</span><input id="leadRanch" type="text" autocomplete="organization"></label>
+            <label class="field-l" for="leadState">State<input id="leadState" type="text" autocomplete="address-level1" maxlength="2" value="TX"></label>
+          </div>
+          <div class="hp" aria-hidden="true"><label for="leadWebsite">Leave this empty</label><input id="leadWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <button type="submit" class="btn block" id="emailBtn">Email me my plan</button>
+          <p class="status" id="emailStatus" role="status" aria-live="polite" style="margin:0"></p>
+        </form>
+      </div>
+
+      <div class="door" id="door-package">
+        <div class="dtop">
+          <div><p class="lab">Do it all for me</p><h3>Ranch Store in a Box</h3></div>
+          <div class="amt">$2,000<small>90 days</small></div>
+        </div>
+        <ul class="ticks">
+          <li>Kickoff call plus 4 coaching calls with Allen</li>
+          <li>Your HerdDirect storefront with deposit checkout</li>
+          <li>Google and USDA listings, QR flyer, local outreach</li>
+          <li>Weekly posts, order reminders, day 30/60/90 reports</li>
+        </ul>
+        <button type="button" class="btn line block" id="packageBtn" data-cta="package" data-from="calculator">Do it all for me — $2,000</button>
+        <p class="fine">$1,000 to start, $1,000 after kickoff. We promise the work, not a sales number. <a href="../#box">See everything in the box</a>.</p>
       </div>
       <p class="pull">You raise the beef. We'll handle the computer.</p>
     </section>
   </section>
 
-  <dialog id="pkgDialog" aria-labelledby="pkgH">
-    <form class="dform" id="pkgForm" novalidate>
-      <h3 id="pkgH" style="margin:0">Tell Allen you're interested</h3>
-      <p class="fine" style="margin:0">Ranch Store in a Box, $2,000 over 90 days. Allen will call or text you to talk it through. No payment now.</p>
-      <label for="pkgName">Your name<input id="pkgName" type="text" autocomplete="name" required></label>
-      <label for="pkgPhone">Phone<input id="pkgPhone" type="tel" autocomplete="tel" inputmode="tel" required></label>
-      <label for="pkgEmail">Email<input id="pkgEmail" type="email" autocomplete="email"></label>
-      <label for="pkgHeads">Head count<input id="pkgHeads" type="number" inputmode="numeric" min="0" step="1"></label>
-      <div class="hp" aria-hidden="true"><label for="pkgWebsite">Leave this empty</label><input id="pkgWebsite" type="text" tabindex="-1" autocomplete="off"></div>
-      <span class="status" id="pkgStatus" aria-live="polite"></span>
-      <div class="dact">
-        <button type="submit" id="pkgSend">Send to Allen</button>
-        <button type="button" class="plain" id="pkgClose">Close</button>
-      </div>
-    </form>
-  </dialog>
-
-  <footer>
+  <footer class="calc-foot">
     <p>Every number on this page is an estimate. Hanging weight, take-home yield and processing fees vary by animal and processor. The starting numbers are examples, not market quotes.</p>
-    <p><b>Hanging Weight Co.</b> · Questions? <a href="mailto:info@hangingweightco.com">info@hangingweightco.com</a> · <a href="../#policies">Policies</a></p>
+    <p><b>Hanging Weight Co.</b> · Questions? <a href="mailto:theherd@herddirect.net">theherd@herddirect.net</a> · <a href="../#policies">Policies</a></p>
   </footer>
 </div>
 
+<dialog id="pkgDialog" class="hwdlg" aria-labelledby="pkgH">
+  <form class="dform" id="pkgForm" novalidate>
+    <div class="dhead">
+      <div><p class="kicker" style="margin-bottom:6px">Ranch Store in a Box</p><h2 id="pkgH">Tell Allen you're interested</h2></div>
+      <button type="button" class="xbtn" id="pkgClose" aria-label="Close">×</button>
+    </div>
+    <p class="fine" style="margin:0">$2,000 over 90 days. Allen will call or text you to talk it through. No payment now.</p>
+    <label class="field-l" for="pkgName">Your name<input id="pkgName" type="text" autocomplete="name" required></label>
+    <div class="row2">
+      <label class="field-l" for="pkgPhone">Phone<input id="pkgPhone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+      <label class="field-l" for="pkgHeads">Head per year <span class="opt">(optional)</span><input id="pkgHeads" type="number" inputmode="numeric" min="0" step="1"></label>
+    </div>
+    <label class="field-l" for="pkgEmail">Email <span class="opt">(optional)</span><input id="pkgEmail" type="email" autocomplete="email"></label>
+    <label class="field-l" for="pkgMsg">Anything Allen should know? <span class="opt">(optional)</span><textarea id="pkgMsg" rows="3"></textarea></label>
+    <div class="hp" aria-hidden="true"><label for="pkgWebsite">Leave this empty</label><input id="pkgWebsite" type="text" tabindex="-1" autocomplete="off"></div>
+    <p class="status" id="pkgStatus" role="status" aria-live="polite" style="margin:0"></p>
+    <button type="submit" class="btn block" id="pkgSend">Send to Allen</button>
+  </form>
+</dialog>
+
 <script>
-// Lane C config. Fill these in once the Supabase function and Mixpanel project exist.
-// Leave CAPTURE_URL empty and both forms fall back to a pre-filled email to theherd@herddirect.net (Allen's inbox).
-const CAPTURE_URL = "";
+// ---- CONFIG (never secrets) ----
+const HW_API = "https://hangingweight.startupagile.ai/api";   // the owner board's collector
+const SESSION_URL = "https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01"; // $197 "Price It Right" call (Stripe Payment Link). Booked through ../book/ first.
+const PACKAGE_URL = "";   // $1,000 package start link, empty → interest form
 const MIXPANEL_TOKEN = "97e8474459e4737f5ff0963a2d3c4d7b"; // Mixpanel "Herd Direct" project, shared by all three sites
-// The $197 "Price It Right" call (Stripe Payment Link, same as the home page).
-const SESSION_URL = "https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01";
-// The $2,000 "Ranch Store in a Box" $1,000 deposit link. Empty = button opens the "Tell Allen you're interested" form.
-const PACKAGE_URL = "";
+const CAPTURE_URL = "";   // optional backup for the email form (old Supabase capture-lead). Empty = email-app fallback.
 </script>
+<script src="../assets/hw.js"></script>
 <script>
 (function(){
-  if(!MIXPANEL_TOKEN) return;
-  (function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
-  mixpanel.init(MIXPANEL_TOKEN, {track_pageview: "url-with-path", persistence: "localStorage", autocapture: false, record_sessions_percent: 0});
-  mixpanel.register({ site: "hanging_weight" });
-})();
-function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel.track(name, props||{}); }catch(e){} }
-</script>
-<script>
-(function(){
+  const track = (n, p) => window.HW ? HW.track(n, p) : null;
+  const collect = (t, d, ms) => window.HW ? HW.collect(t, d, ms) : Promise.resolve(null);
   const $ = id => document.getElementById(id);
   const num = id => { const v = parseFloat($(id).value); return isFinite(v) ? v : 0; };
   const usd = (v, d=0) => (v<0?"-":"") + "$" + Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
   const lb = v => Math.round(v).toLocaleString("en-US") + " lb";
-  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   // Price per lb, rounded UP to the nearest $0.05 (same rule as calculator v1 and capture-lead).
   const roundUp05 = x => Math.ceil(x*20 - 1e-9)/20;
   const TIERS = [["floor","Floor","pFloor"],["fair","Fair","profit"],["premium","Premium","pPrem"]];
   const SHARES = [["whole","Whole",1],["half","Half",.5],["quarter","Quarter",.25]];
-  const DRESS = 60; // only used to send a live weight to capture-lead, which still expects live x dressing %
+  const DRESS = 60; // only used to send a live weight to capture-lead (backup), which still expects live x dressing %
   let sheetPlain = "", last = null;
 
   const selectedTier = () => (document.querySelector('input[name="tier"]:checked')||{}).value || "fair";
@@ -591,25 +628,70 @@ function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel
     ].join("\n");
 
     last = {heads, hanging, costs, proc, custPays, be, tiers, tier: selectedTier(), price, depPct};
+    afterCalc(last);
     return last;
   }
 
+  // The rancher's answers, kept for the booking page (pre-fills the $197 booking form) and shown in door 2.
+  const calcSummary = r => ({ heads: r.heads, shares: selectedShares().map(s=>s[0]), break_even: +r.be.toFixed(2), fair_price: r.tiers.fair.price });
+  const withBarn = o => Object.assign(o, { sale_barn: sbLast });
+  // Sale barn check: compares what the animal would bring at the barn with what the ranch keeps selling direct at the Fair price.
+  // Live weight = hanging ÷ 0.60 (the calculator asks hanging weight, not live). Direct per head = Fair price x hanging
+  // (the ranch's share) minus the costs that only come with selling direct: processing if the rancher pays it, hauling to the
+  // processor, and marketing/selling time. Raising costs (calf, feed, pasture, vet) are spent either way, so they're left out of both.
+  const LIVE_FROM_HANGING = 0.60;
+  let sbLast = null;
+  function saleBarn(r){
+    const hanging = num("hang"), live = hanging > 0 ? hanging / LIVE_FROM_HANGING : 0;
+    const perCwt = $("sbCwt").checked, raw = $("sb").value.trim(), v = parseFloat(raw);
+    $("sbHelp").textContent = perCwt ? "per 100 lb live weight" : "for the whole animal";
+    $("sbLive").textContent = perCwt ? "Est. live weight: " + lb(live) + " (your hanging weight ÷ 0.60)." : "What the barn would pay you for this animal, before commission.";
+    if(!r || !raw || !isFinite(v) || v <= 0 || hanging <= 0){
+      sbLast = null; $("sbEmpty").hidden = false; $("sbFull").hidden = true; return null;
+    }
+    const barn = perCwt ? v * live / 100 : v;
+    const directCosts = (r.custPays ? 0 : r.proc) + num("haul") + num("mkt");
+    const direct = r.tiers.fair.price * hanging - directCosts;
+    const diff = direct - barn;
+    $("sbEmpty").hidden = true; $("sbFull").hidden = false;
+    $("sbBarn").textContent = usd(barn); $("sbDirect").textContent = usd(direct);
+    $("sbLine").innerHTML = "Sale barn: about " + usd(barn) + " per head. Selling direct at your Fair price: about " + usd(direct) +
+      " per head (after your processing and costs). " +
+      (diff >= 0 ? "That's about <b>" + usd(diff) + " more per head</b>." : "That's about <b>" + usd(-diff) + " less per head</b>, so check your numbers or your price.");
+    $("sbNote").textContent = "Estimated. Sale barn: " + (perCwt ? usd(v,2) + "/cwt x " + lb(live) + " est. live weight" : usd(v) + " per head") +
+      ". Direct: " + usd(r.tiers.fair.price,2) + "/lb x " + lb(hanging) + " hanging, minus " + (r.custPays ? "" : "processing, ") +
+      "hauling and selling costs (" + usd(directCosts) + "). Feed, calf and pasture costs are the same either way, so they're left out. Sale barn commission isn't counted.";
+    sbLast = { unit: perCwt ? "cwt" : "head", input: v, live_weight: Math.round(live), barn_per_head: Math.round(barn), direct_per_head: Math.round(direct), diff_per_head: Math.round(diff) };
+    return sbLast;
+  }
+  function afterCalc(r){
+    saleBarn(r);
+    if(!r) return;
+    $("ynFair").textContent = usd(r.tiers.fair.price,2) + "/lb";
+    $("ynBe").textContent = usd(r.be,2) + "/lb";
+    if(!$("results").hidden && window.HW) HW.store.setJSON("hw_calc", calcSummary(r));
+  }
+
   // Step navigation
+  const smooth = () => matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  const progress = n => [1,2,3].forEach(i => $("pg"+i).classList.toggle("on", i <= n));
   let completedSent = false;
   $("toStep2").addEventListener("click", ()=>{
-    $("step2").hidden = false; calc();
-    $("step2").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
+    $("step2").hidden = false; calc(); progress(2);
+    $("step2").scrollIntoView({behavior: smooth(), block:"start"});
     $("calf").focus({preventScroll:true});
   });
   $("toResults").addEventListener("click", ()=>{
-    $("step2").hidden = false; $("results").hidden = false;
+    $("step2").hidden = false; $("results").hidden = false; progress(3);
     const r = calc();
-    $("rh").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
+    $("rh").scrollIntoView({behavior: smooth(), block:"start"});
     $("rh").focus({preventScroll:true});
     if(!completedSent && r){
       completedSent = true;
-      track("calculator_completed", {heads: r.heads, shares: selectedShares().map(s=>s[0]).join(","), has_zip: !!$("zip").value.trim(),
-        break_even: +r.be.toFixed(2), fair_price: r.tiers.fair.price, cust_pays_processing: r.custPays});
+      const s = calcSummary(r);
+      track("calculator_completed", {heads: r.heads, shares: s.shares.join(","), has_zip: !!$("zip").value.trim(),
+        break_even: s.break_even, fair_price: s.fair_price, cust_pays_processing: r.custPays});
+      collect("calc_done", withBarn(Object.assign({}, s)));
     }
   });
   $("headsMinus").addEventListener("click", ()=>{ $("heads").value = Math.max(1, Math.round(num("heads"))-1); calc(); });
@@ -636,10 +718,8 @@ function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel
     }catch(e){ fallback(); }
   });
 
-  // Lane C: email capture.
-  // capture-lead still expects the v1 keys (live x dress = hanging). Send live = hanging / 60% so its math matches this page,
-  // and profit = the price chosen for the sheet. Extra fields (heads, shares, zip, tier, deposit) are ignored by the function today.
-  const snapshot = () => {
+  // Door 1: email capture. Main path: Allen's board (HW_API). Backup: CAPTURE_URL (old capture-lead). Last resort: email app.
+  const legacySnapshot = () => {
     const r = last || calc();
     const t = r ? r.tiers[r.tier] : {target: num("profit")};
     const inputs = {
@@ -658,78 +738,54 @@ function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel
     const name = $("leadName").value.trim(), email = $("leadEmail").value.trim();
     const ranch = $("leadRanch").value.trim(), state = $("leadState").value.trim().toUpperCase();
     const st = $("emailStatus");
-    if(!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ st.textContent = "Add your name and a real email address."; return; }
-    const payload = Object.assign({ name, email, ranch, state, website: $("leadWebsite").value, source: "calculator", page: location.href }, snapshot());
-    $("emailBtn").disabled = true; st.textContent = "Sending…";
-    if(!CAPTURE_URL){
-      const r0 = last || calc();
+    $("leadName").removeAttribute("aria-invalid"); $("leadEmail").removeAttribute("aria-invalid");
+    st.className = "status err";
+    if(!name){ st.textContent = "Please add your name."; $("leadName").setAttribute("aria-invalid","true"); $("leadName").focus(); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ st.textContent = "That email doesn't look right. Check it and try again."; $("leadEmail").setAttribute("aria-invalid","true"); $("leadEmail").focus(); return; }
+    if($("leadWebsite").value){ st.className = "status ok"; st.textContent = "Got it."; return; }
+    const r0 = last || calc();
+    const lead = { name, email, ranch, state, heads: Math.round(num("heads")),
+      break_even: r0 ? +r0.be.toFixed(2) : null, fair_price: r0 ? r0.tiers.fair.price : null, sheet_text: sheetPlain, sale_barn: sbLast };
+    $("emailBtn").disabled = true; st.className = "status"; st.textContent = "Sending…";
+    const ok = via => {
+      st.className = "status ok";
+      st.textContent = "Got it. Allen has your numbers and will email your plan to " + email + ". Print or copy your sheet above so you have it today.";
+      track("email_captured", {via, state}); $("emailForm").reset(); $("leadState").value = "TX";
+    };
+    try{
+      const res = await collect("lead", lead, 8000);
+      if(res){ ok("api"); return; }
+      if(CAPTURE_URL){
+        try{
+          const payload = Object.assign({ name, email, ranch, state, website: "", source: "calculator", page: location.href }, legacySnapshot());
+          const r = await fetch(CAPTURE_URL, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
+          if(r.ok){ ok("capture"); return; }
+        }catch(err){}
+      }
       const body = "Name: " + name + "\nEmail: " + email + "\nRanch: " + ranch + "\nState: " + state +
         "\nHead count: " + Math.round(num("heads")) + "\nSells: " + selectedShares().map(s=>s[1]).join(", ") + "\nZIP: " + $("zip").value.trim() +
         (r0 ? "\nEst. break-even: " + usd(r0.be,2) + "/lb hanging" : "") +
         "\n\n" + sheetPlain + "\n\nPlease email me this price sheet.";
       location.href = "mailto:theherd@herddirect.net?subject=" + encodeURIComponent("My beef price sheet") + "&body=" + encodeURIComponent(body);
-      st.textContent = "Your email app should open with the sheet filled in. Hit send and it's on its way.";
-      track("email_captured", {via: "mailto"}); $("emailBtn").disabled = false; return;
-    }
-    try{
-      const r = await fetch(CAPTURE_URL, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
-      const data = await r.json().catch(() => ({}));
-      if(r.status === 400 && data.error){ st.textContent = data.error; return; }
-      if(!r.ok) throw new Error("bad status " + r.status);
-      st.textContent = data.emailed
-        ? "Check your inbox. Your price sheet is on its way."
-        : "We saved your details, but the email didn't go out. Use Copy as text above to keep your numbers, or email info@hangingweightco.com and we'll resend it.";
-      track("email_captured", {via: "api", state, emailed: !!data.emailed}); $("emailForm").reset();
-    }catch(err){
-      st.textContent = "That didn't go through. Email info@hangingweightco.com and we'll send it by hand.";
+      st.className = "status"; st.textContent = "Your email app should open with the sheet filled in. Hit send and it's on its way.";
+      track("email_captured", {via: "mailto"});
     }finally{ $("emailBtn").disabled = false; }
   });
 
-  // Door 2: $197 call
-  $("sessionBtn").href = SESSION_URL || "../#session";
-  $("sessionBtn").addEventListener("click", ()=>{
-    track("session_cta_clicked", {from: "calculator"});
-    if(SESSION_URL) track("stripe_checkout_opened", {from: "calculator"});
-  });
+  // Door 2: $197 call → booking page (it reads hw_calc from this page).
+  $("sessionBtn").addEventListener("click", ()=>{ const r = last || calc(); if(r && window.HW) HW.store.setJSON("hw_calc", calcSummary(r)); });
 
-  // Door 3: $2,000 package. No checkout link yet = interest form, never a fake checkout.
-  const dlg = $("pkgDialog");
-  $("packageBtn").addEventListener("click", ()=>{
-    track("upgrade_cta_clicked", {from: "calculator", has_link: !!PACKAGE_URL});
-    if(PACKAGE_URL){ track("package_checkout_opened", {from: "calculator"}); window.open(PACKAGE_URL, "_blank", "noopener"); return; }
+  // Door 3: $2,000 package (dialog wiring is in assets/hw.js). Pre-fill what we already know.
+  window.HW_PKG_PREFILL = () => {
     $("pkgHeads").value = Math.round(num("heads")) || "";
     if($("leadName").value && !$("pkgName").value) $("pkgName").value = $("leadName").value;
     if($("leadEmail").value && !$("pkgEmail").value) $("pkgEmail").value = $("leadEmail").value;
-    $("pkgStatus").textContent = "";
-    if(typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open","");
-    $("pkgName").focus();
-  });
-  $("pkgClose").addEventListener("click", ()=>{ if(dlg.close) dlg.close(); else dlg.removeAttribute("open"); });
-  $("pkgForm").addEventListener("submit", async (e)=>{
-    e.preventDefault();
-    const name = $("pkgName").value.trim(), phone = $("pkgPhone").value.trim(), email = $("pkgEmail").value.trim(), heads = $("pkgHeads").value.trim();
-    const st = $("pkgStatus");
-    if(!name || phone.replace(/\D/g,"").length < 10){ st.textContent = "Add your name and a phone number Allen can call or text."; return; }
-    if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ st.textContent = "That email doesn't look right. Fix it or leave it blank."; return; }
-    const mailto = () => {
-      const body = "I'm interested in Ranch Store in a Box ($2,000).\n\nName: " + name + "\nPhone: " + phone + "\nEmail: " + email + "\nHead count: " + heads + "\nZIP: " + $("zip").value.trim() + "\n\nPlease call or text me.";
-      location.href = "mailto:theherd@herddirect.net?subject=" + encodeURIComponent("Ranch Store in a Box - interested") + "&body=" + encodeURIComponent(body);
-      st.textContent = "Your email app should open with this filled in. Hit send and Allen will reach out.";
-      track("package_interest_sent", {via: "mailto", from: "calculator"});
-    };
-    if(!CAPTURE_URL){ mailto(); return; }
-    $("pkgSend").disabled = true; st.textContent = "Sending…";
-    try{
-      const payload = Object.assign(snapshot(), { type: "package_interest", source: "package_interest", name, phone, email, heads, website: $("pkgWebsite").value, page: location.href });
-      const r = await fetch(CAPTURE_URL, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
-      if(!r.ok) throw new Error("bad status " + r.status);
-      st.textContent = "Got it. Allen will call or text you.";
-      track("package_interest_sent", {via: "api", from: "calculator"}); $("pkgForm").reset();
-    }catch(err){ mailto(); }
-    finally{ $("pkgSend").disabled = false; }
-  });
+  };
+
+  $("sbJump").addEventListener("click", ()=>{ $("sbGroup").scrollIntoView({behavior: smooth(), block:"center"}); $("sb").focus({preventScroll:true}); });
 
   track("calculator_opened");
+  collect("calc_open", {});
   calc();
 })();
 </script>

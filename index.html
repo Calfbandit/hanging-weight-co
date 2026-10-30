@@ -3,344 +3,579 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Hanging Weight Co.</title>
-<meta name="description" content="Free beef price calculator and pricing help for Texas ranchers who sell beef direct by the whole, half and quarter.">
+<title>Hanging Weight Co. · Price and sell your beef direct</title>
+<meta name="description" content="Free beef price calculator and hands-on help for Texas ranchers who sell beef by the whole, half and quarter. Know your price, then sell out.">
+<meta name="theme-color" content="#1F4A38">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 44'%3E%3Cpath d='M20 2a4 4 0 014 4v3h5a7 7 0 017 7v13c0 7-7 13-16 13S4 36 4 29V16a7 7 0 017-7h5V6a4 4 0 014-4z' fill='%23F2B705'/%3E%3Ccircle cx='20' cy='7' r='2.2' fill='%231F4A38'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/hw.css">
 <style>
-:root{
-  --bg:#F6F1E7; --surface:#FFFDF8; --panel:#EFE6D6; --ink:#2B1F17; --muted:#65544A; --line:#E0D4C1;
-  --accent:#A63E1B; --accent-ink:#FFF8F0; --accent-soft:#F7E4D8;
-  --tag:#EAD9B8; --tag-ink:#3B2A12;
-  --display:"Zilla Slab", Georgia, "Times New Roman", serif;
-  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --r:12px;
+/* ---------- hero ---------- */
+.hero{background:var(--pine);color:var(--on-pine);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:10px;background:repeating-linear-gradient(-45deg,var(--tag) 0 14px,var(--tag-deep) 14px 28px)}
+.hero .wrap{display:grid;gap:40px;padding-block:44px 64px;align-items:center}
+@media (min-width:940px){.hero .wrap{grid-template-columns:minmax(0,1.45fr) minmax(0,.85fr);gap:48px;padding-block:80px 96px}.hero h1{font-size:clamp(64px,7.4vw,88px)}}
+.hero .kicker{color:var(--tag)}
+.hero h1{color:#fff}
+.hero h1 .y{color:var(--tag);display:block}
+.hero .lede{color:var(--on-pine-muted);margin:20px 0 28px}
+.hero .lede b{color:#fff;font-weight:600}
+.ctas{display:grid;gap:12px}
+@media (min-width:560px){.ctas{display:flex;flex-wrap:wrap}}
+.assure{display:flex;flex-wrap:wrap;gap:6px 18px;margin:18px 0 0;padding:0;list-style:none;font-size:15px;color:var(--on-pine-muted)}
+.assure li{display:flex;align-items:center;gap:8px}
+.assure li::before{content:"";width:7px;height:7px;background:var(--tag);border-radius:2px;flex:none}
+
+/* hang ticket (example) */
+.ticket{background:#FBFAF4;color:#17221D;border-radius:6px;padding:0;max-width:400px;width:100%;justify-self:center;box-shadow:0 30px 60px -24px rgba(0,0,0,.55),0 2px 0 rgba(0,0,0,.15);position:relative;transform:rotate(1.5deg)}
+.ticket::before{content:"";position:absolute;top:-1px;left:50%;width:24px;height:24px;margin-left:-12px;margin-top:14px;border-radius:50%;background:var(--pine);box-shadow:inset 0 2px 3px rgba(0,0,0,.35)}
+.ticket .th{display:flex;justify-content:space-between;align-items:flex-end;padding:52px 22px 14px;border-bottom:2px solid #17221D}
+.ticket .th .t{font-family:var(--display);font-weight:700;font-size:30px;line-height:.95;text-transform:uppercase}
+.ticket .th .t small{display:block;font-size:15px;letter-spacing:.14em;color:#4F5D55;font-weight:600;margin-bottom:4px}
+.ticket .ex{font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.14em;background:var(--tag);color:#271F00;padding:4px 8px;border-radius:4px}
+.ticket dl{margin:0;padding:8px 22px 4px;display:grid;grid-template-columns:1fr auto;font-size:15px}
+.ticket dt,.ticket dd{padding:9px 0;border-bottom:1px dashed #C9D2CB;margin:0}
+.ticket dt{color:#3E4C44}
+.ticket dd{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.ticket dt.hl,.ticket dd.hl{border-bottom:0;padding-top:12px}
+.ticket dd.hl{font-family:var(--display);font-size:34px;line-height:1;color:var(--pine)}
+.ticket .tf{padding:10px 22px 18px;font-size:13px;color:#4F5D55;line-height:1.45}
+@media (max-width:420px){.ticket{transform:none}}
+
+/* ---------- how it works ---------- */
+.path{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:p}
+@media (min-width:860px){.path{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}}
+.path li{position:relative;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:20px;background:var(--raise);border:1px solid var(--line);border-radius:var(--r-lg)}
+@media (min-width:860px){
+  .path li{grid-template-columns:1fr;border-radius:0;border-right-width:0;padding:28px 28px 30px}
+  .path li:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg)}
+  .path li:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0;border-right-width:1px}
+  .path li:not(:last-child)::after{content:"";position:absolute;right:-13px;top:44px;width:24px;height:24px;background:var(--raise);border-top:1px solid var(--line);border-right:1px solid var(--line);transform:rotate(45deg);z-index:1}
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --bg:#16110D; --surface:#211912; --panel:#2A2018; --ink:#F2E9DC; --muted:#BBA996; --line:#3B2F24;
-    --accent:#EC8B5E; --accent-ink:#1B0F08; --accent-soft:#3A2418; --tag:#2E2718; --tag-ink:#F0DDB0;
-  }
+.path .n{counter-increment:p;width:46px;height:52px;font-size:28px;padding-top:10px}
+.path .n::before{content:counter(p)}
+.path .n::after{content:"";position:absolute;top:6px;left:50%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--raise)}
+.path h3{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:8px}
+.price-chip{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.04em;background:var(--pine-soft);color:var(--pine);padding:2px 8px;border-radius:5px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .price-chip{color:#8FD0AE}}
+.path p{margin:0;color:var(--muted);font-size:16px}
+
+/* ---------- offers ---------- */
+.offers{display:grid;gap:18px;align-items:stretch}
+@media (min-width:960px){.offers{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.offer{background:var(--raise);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px 22px 24px;display:flex;flex-direction:column;gap:14px;position:relative}
+@media (min-width:600px){.offer{padding:30px 28px 28px}}
+.offer .lab{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+.offer h3{font-size:34px;text-transform:uppercase;line-height:.95}
+.offer .amt{display:flex;align-items:baseline;gap:8px;font-family:var(--display);font-weight:700;font-size:64px;line-height:.9;font-variant-numeric:tabular-nums;margin:2px 0}
+.offer .amt small{font-family:var(--body);font-size:16px;font-weight:500;color:var(--muted)}
+.offer .what{margin:0;font-size:16px;color:var(--muted)}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:16px;line-height:1.4}
+.ticks li{display:grid;grid-template-columns:22px 1fr;gap:10px}
+.ticks li::before{content:"";width:20px;height:20px;margin-top:1px;border-radius:50%;background:var(--pine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%23F2B705' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+.offer .foot{margin-top:auto;display:grid;gap:10px;padding-top:8px}
+.offer .foot .fine{margin:0}
+.offer.feat{background:var(--pine);color:var(--on-pine);border-color:var(--pine);box-shadow:0 26px 50px -28px rgba(15,40,28,.7)}
+.offer.feat .lab{color:var(--tag)}
+.offer.feat .amt small,.offer.feat .what,.offer.feat .fine{color:var(--on-pine-muted)}
+.offer.feat .ticks li::before{background-color:var(--tag);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%231F4A38' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.flag{position:absolute;top:-14px;left:22px;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.12em;text-transform:uppercase;background:var(--tag);color:var(--tag-ink);padding:5px 10px;border-radius:5px}
+.offer .more{color:var(--pine);font-weight:700;font-size:16px;text-align:center;padding:6px 0;text-underline-offset:3px}
+.callout{margin:26px 0 0;font-family:var(--display);font-weight:700;font-size:clamp(26px,6vw,36px);line-height:1;text-transform:uppercase;text-align:center}
+.callout span{background:linear-gradient(transparent 62%,var(--tag) 62%);padding:0 4px}
+
+/* ---------- ranch store in a box ---------- */
+.box{background:#17221D;color:#E4EAE5}
+.box h2{color:#fff}
+.box .kicker{color:var(--tag)}
+.box .lede{color:#AEBBB3}
+.box-cols{display:grid;gap:18px;margin-top:8px}
+@media (min-width:900px){.box-cols{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}}
+.col{border:1px solid #2F3D36;border-radius:var(--r-lg);padding:24px 20px;background:#1C2923}
+@media (min-width:600px){.col{padding:28px}}
+.col h3{color:#fff;text-transform:uppercase;font-size:28px;display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.col .who{width:40px;height:44px;font-size:17px;padding-top:9px;flex:none}
+.col .who::after{content:"";position:absolute;top:5px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#1C2923}
+.col > p{color:#AEBBB3;font-size:16px;margin:0 0 18px}
+.col .ticks{gap:12px}
+.col .ticks li::before{background-color:var(--tag);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%2317221D' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.col .ticks b{color:#fff;font-weight:600}
+.dfy{display:grid;gap:12px}
+@media (min-width:600px){.dfy.ticks{grid-template-columns:1fr 1fr;column-gap:22px}}
+
+/* 90-day ruler */
+.ruler-wrap{margin-top:22px;border:1px solid #2F3D36;border-radius:var(--r-lg);padding:24px 20px;background:#1C2923}
+@media (min-width:600px){.ruler-wrap{padding:28px}}
+.ruler-wrap h3{color:#fff;text-transform:uppercase;font-size:26px;margin-bottom:18px}
+.ruler{list-style:none;margin:0;padding:0 0 0 22px;position:relative;display:grid;gap:14px}
+.ruler::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:3px;background:#2F3D36;border-radius:2px}
+.ruler li{position:relative;font-size:15px;color:#C8D2CB;line-height:1.35}
+.ruler li::before{content:"";position:absolute;left:-22px;top:4px;width:13px;height:13px;border-radius:50%;background:var(--tag);box-shadow:0 0 0 3px #1C2923}
+.ruler li.rep::before{background:#1C2923;border:3px solid #8FD0AE}
+.ruler .w{display:block;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--tag)}
+.ruler li.rep .w{color:#8FD0AE}
+.ruler-legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px;font-size:14px;color:#AEBBB3}
+.ruler-legend span{display:inline-flex;align-items:center;gap:8px}
+.ruler-legend i{width:12px;height:12px;border-radius:50%;background:var(--tag);display:inline-block}
+.ruler-legend i.r{background:transparent;border:3px solid #8FD0AE}
+.ruler-legend i.p{border-radius:2px;width:16px;height:4px;background:#5D7268}
+@media (min-width:900px){
+  .ruler{padding:64px 0 92px;display:block;height:188px;margin:0 6px}
+  .ruler::before{left:0;right:0;top:92px;bottom:auto;width:auto;height:4px;background:repeating-linear-gradient(90deg,#5D7268 0 3px,transparent 3px calc(100%/13)) ,#2F3D36;background-size:auto,auto}
+  .ruler li{position:absolute;left:calc(var(--d) / 90 * 100%);top:0;width:150px;transform:translateX(-50%);text-align:center}
+  .ruler li::before{left:50%;top:84px;margin-left:-10px;width:20px;height:20px}
+  .ruler li.rep{top:118px}
+  .ruler li.rep::before{top:-34px}
+  .ruler li.edge-l{transform:none;text-align:left}
+  .ruler li.edge-l::before{left:0;margin-left:-10px}
+  .ruler li.edge-r{transform:translateX(-100%);text-align:right}
+  .ruler li.edge-r::before{left:auto;right:0;margin-right:-10px}
 }
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#16110D; --surface:#211912; --panel:#2A2018; --ink:#F2E9DC; --muted:#BBA996; --line:#3B2F24;
-  --accent:#EC8B5E; --accent-ink:#1B0F08; --accent-soft:#3A2418; --tag:#2E2718; --tag-ink:#F0DDB0;
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
-img{max-width:100%}
-[hidden]{display:none!important}
-.wrap{max-width:1040px;margin:0 auto;padding-inline:16px}
-@media (min-width:600px){.wrap{padding-inline:24px}}
-a{color:var(--accent)}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:16px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
-.brand{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.01em}
-.top nav{display:flex;gap:16px;font-size:14px;flex-wrap:wrap}
-.top nav a{color:var(--muted);text-decoration:none;padding:6px 0}
-.top nav a:hover,.top nav a:focus-visible{color:var(--ink);text-decoration:underline}
-@media (max-width:600px){.top nav .hide-sm{display:none}}
-.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:48px 40px}
-@media (max-width:780px){.hero{grid-template-columns:1fr;gap:32px;padding-block:32px}}
-.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 10px}
-h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,7vw,56px);line-height:1.04;margin:0 0 16px;text-wrap:balance}
-.lede{font-size:18px;color:var(--muted);max-width:52ch;margin:0 0 24px}
-.btn{font:inherit;font-weight:700;font-size:17px;border-radius:10px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);padding:14px 22px;min-height:54px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;line-height:1.2}
-.btn.ghost{background:transparent;color:var(--accent)}
-.btn.plain{background:var(--surface);color:var(--ink);border-color:var(--line)}
-.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-.btn:disabled{opacity:.6}
-.hero .btn{width:100%}
-@media (min-width:600px){.hero .btn{width:auto}}
-.cta-note{display:block;margin-top:10px;font-size:14px;color:var(--muted)}
-/* carcass tag */
-.tag{background:var(--tag);color:var(--tag-ink);border-radius:10px;padding:22px 22px 20px;position:relative;font-family:var(--mono);font-size:14px;max-width:340px;justify-self:center;width:100%;transform:rotate(-2deg)}
-@media (prefers-reduced-motion:no-preference){.tag{transition:transform .3s}.tag:hover{transform:rotate(0)}}
-.tag::before{content:"";position:absolute;top:14px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--tag-ink) 30%,transparent)}
-.tag h3{font-family:var(--display);font-size:18px;margin:18px 0 12px;text-align:center;letter-spacing:.04em}
-.tag dl{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin:0}
-.tag dt{opacity:.85}
-.tag dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
-.tag .rule{grid-column:1/-1;border-top:1px dashed color-mix(in srgb,var(--tag-ink) 40%,transparent);margin:4px 0}
-.tag .big{font-weight:500;font-size:16px}
-.tag small{display:block;margin-top:12px;font-size:11px;opacity:.85;text-align:center;font-family:var(--body)}
-section{padding-block:44px;border-top:1px solid var(--line)}
-h2{font-family:var(--display);font-size:clamp(26px,5vw,34px);line-height:1.12;margin:0 0 10px;text-wrap:balance}
-h3{font-family:var(--display);font-size:20px;margin:0 0 6px}
-.prose{max-width:65ch}
-.prose p{margin:0 0 12px}
-.sub{color:var(--muted);margin:0 0 4px;max-width:60ch}
-/* three doors */
-.doorgrid{display:grid;gap:14px;margin-top:20px}
-@media (min-width:820px){.doorgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.door{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start}
-.door.featured{border:2px solid var(--accent)}
-.door .tagline{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);margin:0}
-.door h3{margin:0}
-.door .amt{font-family:var(--display);font-weight:700;font-size:38px;line-height:1}
-.door .amt small{font-family:var(--body);font-size:14px;font-weight:500;color:var(--muted)}
-.door ul{margin:0;padding-left:20px;display:grid;gap:4px;font-size:15px}
-.door p{margin:0;font-size:15px}
-.door .btn{width:100%;margin-top:6px}
-.fine{font-size:13px;color:var(--muted)}
-.pull{font-family:var(--display);font-weight:700;font-size:24px;margin:26px 0 0;text-align:center}
-ol.steps{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:s}
-@media (max-width:780px){ol.steps{grid-template-columns:1fr 1fr}}
-@media (max-width:440px){ol.steps{grid-template-columns:1fr}}
-ol.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:4px;align-content:start}
-ol.steps li::before{content:counter(s);font-family:var(--display);font-weight:700;font-size:24px;color:var(--accent)}
-ol.steps b{font-weight:700}
-ol.steps span{font-size:14px;color:var(--muted)}
-.contact{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
-.email{font-family:var(--mono);font-size:16px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px;user-select:all;word-break:break-all}
-button.copy{font:inherit;font-size:15px;font-weight:700;padding:10px 16px;min-height:46px;border-radius:8px;border:2px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
-button.copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
-#copyMsg{font-size:14px;color:var(--muted)}
-.policies{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
-@media (max-width:780px){.policies{grid-template-columns:1fr}}
-.policies h3{font-size:18px}
-.policies p{margin:0;font-size:14px;color:var(--muted)}
-footer{border-top:1px solid var(--line);padding-block:24px 40px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-/* interest dialog */
-dialog{border:0;border-radius:var(--r);padding:0;max-width:440px;width:calc(100% - 32px);background:var(--surface);color:var(--ink)}
-dialog::backdrop{background:rgba(20,12,6,.55)}
-.dform{display:grid;gap:12px;padding:22px 18px}
-.dform label{display:grid;gap:4px;font-size:14px;font-weight:600}
-.dform input{width:100%;padding:12px;min-height:48px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;font-weight:400}
-.dform input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.dform .dact{display:flex;gap:10px;flex-wrap:wrap}
-.dform .dact .btn{flex:1 1 140px}
-.status{font-size:14px;color:var(--muted)}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.terms{display:grid;gap:18px;margin-top:22px}
+@media (min-width:900px){.terms{grid-template-columns:1.1fr .9fr}}
+.pay{background:var(--tag);color:var(--tag-ink);border-radius:var(--r-lg);padding:24px 22px;display:grid;gap:14px}
+@media (min-width:600px){.pay{padding:28px}}
+.pay h3{text-transform:uppercase;font-size:28px}
+.pay .split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay .split div{background:rgba(255,255,255,.45);border-radius:var(--r);padding:12px 14px}
+.pay .split b{display:block;font-family:var(--display);font-size:clamp(36px,9vw,46px);line-height:1;font-variant-numeric:tabular-nums}
+.pay .split span{font-size:15px;font-weight:600}
+.pay p{margin:0;font-size:16px}
+.promise{border:2px solid #F2B705;border-radius:var(--r-lg);padding:24px 22px;display:grid;gap:12px;align-content:start}
+@media (min-width:600px){.promise{padding:28px}}
+.promise .q{font-family:var(--display);font-weight:700;font-size:clamp(30px,7vw,40px);line-height:1;text-transform:uppercase;color:#fff;margin:0}
+.promise p{margin:0;color:#C8D2CB;font-size:16px}
+.promise .limit{display:flex;gap:12px;align-items:center;border-top:1px solid #2F3D36;padding-top:14px;color:#fff;font-weight:600}
+.promise .limit b{font-family:var(--display);font-size:44px;line-height:1;color:var(--tag)}
+.box .btn.tag{margin-top:6px}
+
+/* ---------- about ---------- */
+.about{display:grid;gap:22px;align-items:stretch}
+@media (min-width:860px){.about{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:36px}}
+.ph{border:2px dashed var(--line-strong);border-radius:var(--r-lg);background:repeating-linear-gradient(-45deg,transparent 0 12px,color-mix(in srgb,var(--line) 55%,transparent) 12px 13px),var(--surface);display:grid;place-items:center;text-align:center;color:var(--muted);font-family:var(--display);font-weight:700;letter-spacing:.12em;font-size:20px;min-height:260px;aspect-ratio:4/5;max-height:440px;width:100%}
+@media (max-width:859px){.ph{aspect-ratio:auto;min-height:220px}}
+.about-body{display:grid;gap:16px;align-content:center}
+.ph-text{border:2px dashed var(--line-strong);border-radius:var(--r);padding:18px;color:var(--muted);font-style:italic;background:var(--surface);margin:0}
+.facts{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.facts li{display:flex;gap:12px;align-items:baseline;font-size:17px}
+.facts li b{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);min-width:92px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .facts li b{color:#8FD0AE}}
+.pull{font-family:var(--display);font-weight:700;font-size:clamp(28px,6.6vw,40px);line-height:1;text-transform:uppercase;margin:6px 0 0;padding-left:16px;border-left:6px solid var(--tag)}
+
+/* ---------- faq ---------- */
+.faq{display:grid;gap:10px;max-width:860px}
+.faq details{background:var(--raise);border:1px solid var(--line);border-radius:var(--r)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 20px;font-weight:700;font-size:18px;min-height:60px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:28px;height:28px;border-radius:50%;background:var(--pine-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Cpath d='M9 12l5 5 5-5' fill='none' stroke='%231F4A38' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(180deg)}
+.faq .a{padding:0 20px 20px;color:var(--muted);font-size:16.5px;max-width:68ch}
+.faq .a p:last-child{margin:0}
+
+/* ---------- contact + policies ---------- */
+.cp{display:grid;gap:22px}
+@media (min-width:900px){.cp{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px}}
+.contact-card{background:var(--pine);color:var(--on-pine);border-radius:var(--r-lg);padding:26px 22px;display:grid;gap:14px;align-content:start}
+@media (min-width:600px){.contact-card{padding:32px}}
+.contact-card h2{color:#fff}
+.contact-card p{margin:0;color:var(--on-pine-muted)}
+.contact-card .addr{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3);color:#fff}
+.contact-card #copyMsg{color:var(--tag);font-weight:600}
+.contact-card a{color:#fff}
+.pol{display:grid;gap:0}
+.pol h2{margin-bottom:14px}
+.pol div{padding:16px 0;border-top:1px solid var(--line)}
+.pol h3{font-size:22px;text-transform:uppercase;margin-bottom:4px}
+.pol p{margin:0;color:var(--muted);font-size:15.5px}
+
+/* sticky phone CTA */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--surface);border-top:1px solid var(--line);padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:1.3fr 1fr;gap:8px;transform:translateY(110%);transition:transform .25s ease;box-shadow:0 -10px 30px -18px rgba(0,0,0,.4)}
+.dock.on{transform:none}
+.dock .btn{min-height:50px;font-size:18px;padding:8px 10px;box-shadow:none}
+@media (min-width:900px){.dock{display:none}}
+@media (max-width:899px){.site-foot{padding-bottom:120px}}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<div class="wrap">
-  <div class="top">
-    <div class="brand">Hanging Weight Co.</div>
-    <nav aria-label="Page sections">
-      <a href="calculator/">Free price calculator</a>
-      <a href="#options">Get help</a>
-      <a href="#how" class="hide-sm">How it works</a>
-      <a href="#contact">Contact</a>
-      <a href="#policies" class="hide-sm">Policies</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Hanging Weight Co. home">
+      <svg viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2a4 4 0 014 4v3h5a7 7 0 017 7v13c0 7-7 13-16 13S4 36 4 29V16a7 7 0 017-7h5V6a4 4 0 014-4z" fill="#F2B705"/><circle cx="20" cy="7" r="2.2" fill="var(--bg)"/><text x="20" y="31" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="700" font-size="13" fill="#271F00">HWC</text></svg>
+      <span>Hanging Weight <span class="co">Co.</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="nl" href="#how">How it works</a>
+      <a class="nl" href="#offers">Prices</a>
+      <a class="nl" href="#box">Ranch Store in a Box</a>
+      <a class="nl" href="#faq">FAQ</a>
+      <a class="btn tag" href="calculator/" data-cta="calculator" data-from="home_header">Free calculator</a>
     </nav>
   </div>
+</header>
 
-  <div class="hero">
-    <div>
-      <p class="eyebrow">For Texas ranchers who sell beef direct</p>
-      <h1>What should you charge for a half beef?</h1>
-      <p class="lede">Find out in about 60 seconds. The free Beef Price Calculator shows your break-even per pound of hanging weight, three prices to pick from, and a whole, half and quarter price sheet with deposits you can print.</p>
-      <a class="btn" href="calculator/" data-track="calculator">Price my beef — free</a>
-      <span class="cta-note">No sign-up needed. Starts with Texas estimates; change them to yours.</span>
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="heroH">
+    <div class="wrap">
+      <div>
+        <p class="kicker">For Texas ranchers who sell beef direct</p>
+        <h1 id="heroH">Know your price. <span class="y">Sell out your beef.</span></h1>
+        <p class="lede">Figure your <b>break-even per pound of hanging weight</b> and a whole, half and quarter price sheet in about a minute. Then, if you want, Allen helps you fill your freezer list.</p>
+        <div class="ctas">
+          <a class="btn tag" href="calculator/" data-cta="calculator" data-from="home_hero">Price my beef — free <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn line-light" href="book/" data-cta="book" data-from="home_hero">Book a $197 call</a>
+        </div>
+        <ul class="assure">
+          <li>No sign-up</li><li>Works on your phone</li><li>Texas starting numbers you can change</li>
+        </ul>
+      </div>
+
+      <figure class="ticket" aria-label="Example price for a half beef using the calculator's starting numbers" style="margin:0">
+        <div class="th">
+          <div class="t"><small>Half beef</small>What to charge</div>
+          <span class="ex">Example</span>
+        </div>
+        <dl>
+          <dt>Est. hanging weight</dt><dd>375 lb</dd>
+          <dt>Your break-even</dt><dd>$3.47 / lb</dd>
+          <dt>Ranch price, half</dt><dd>$1,613</dd>
+          <dt>Processing (buyer pays)</dt><dd>~$444</dd>
+          <dt>Deposit to reserve</dt><dd>$475</dd>
+          <dt class="hl">Fair price</dt><dd class="hl">$4.30<span style="font-size:.5em"> /lb</span></dd>
+        </dl>
+        <figcaption class="tf">Example only, using the calculator's Texas starting numbers. Your price depends on your costs.</figcaption>
+      </figure>
     </div>
-    <div class="tag" aria-label="Example price tag for a half beef, estimated">
-      <h3>HALF BEEF · EXAMPLE</h3>
-      <dl>
-        <dt>Est. hanging weight</dt><dd>375 lb</dd>
-        <dt>Price per lb hanging</dt><dd>$4.30</dd>
-        <dt>Est. processing (to processor)</dt><dd>~$444</dd>
-        <div class="rule" role="presentation"></div>
-        <dt class="big">Est. customer total</dt><dd class="big">~$2,057</dd>
-        <dt>Est. take-home beef</dt><dd>~233 lb</dd>
-        <dt>Est. cost per lb in the freezer</dt><dd>~$8.84</dd>
-      </dl>
-      <small>Estimated, using the calculator's starting numbers. Your numbers depend on your costs.</small>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="band tight surface" id="how" aria-labelledby="howH">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">How it works</p>
+        <h2 id="howH">Start free. Go as far as you want.</h2>
+      </div>
+      <ol class="path">
+        <li>
+          <span class="eartag n" aria-hidden="true"></span>
+          <div><h3>Run the calculator <span class="price-chip">Free</span></h3>
+          <p>Your break-even, three prices to pick from, and a price sheet you can print or text.</p></div>
+        </li>
+        <li>
+          <span class="eartag n" aria-hidden="true"></span>
+          <div><h3>Talk it through with Allen <span class="price-chip">$197</span></h3>
+          <p>About an hour by phone or video call. You leave with your price and a plan to sell your next 5 beef.</p></div>
+        </li>
+        <li>
+          <span class="eartag n" aria-hidden="true"></span>
+          <div><h3>Let us build your store <span class="price-chip">$2,000</span></h3>
+          <p>Ranch Store in a Box: 90 days of coaching plus the store, listings and outreach done for you.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="band" id="offers" aria-labelledby="offH">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Prices</p>
+        <h2 id="offH">Three ways to get your price right</h2>
+        <p class="lede">Every option is one-time. No subscriptions, no contracts.</p>
+      </div>
+
+      <div class="offers">
+        <article class="offer" aria-labelledby="o1">
+          <p class="lab">Do it yourself</p>
+          <h3 id="o1">Beef Price Calculator</h3>
+          <div class="amt">$0</div>
+          <p class="what">About 60 seconds on your phone. You get:</p>
+          <ul class="ticks">
+            <li>Your break-even per lb of hanging weight</li>
+            <li>Floor, fair and premium prices to pick from</li>
+            <li>Whole, half and quarter price sheet with deposits</li>
+            <li>Print it, copy it into a text, or email it to yourself</li>
+          </ul>
+          <div class="foot">
+            <a class="btn line block" href="calculator/" data-cta="calculator" data-from="home_offer">Price my beef — free</a>
+            <p class="fine">No sign-up needed.</p>
+          </div>
+        </article>
+
+        <article class="offer feat" id="session" aria-labelledby="o2">
+          <span class="flag">Best first step</span>
+          <p class="lab">Have Allen dial it in</p>
+          <h3 id="o2">"Price It Right" call</h3>
+          <div class="amt">$197 <small>one-time</small></div>
+          <p class="what">About 60 minutes with Allen, by phone or video call. You pick. You leave with:</p>
+          <ul class="ticks">
+            <li>Your break-even and price per lb, checked against your real costs</li>
+            <li>A whole / half / quarter price sheet with deposits</li>
+            <li>A plan to sell your next 5 beef</li>
+            <li>30 days of text and email follow-up</li>
+          </ul>
+          <div class="foot">
+            <a class="btn tag block" href="book/" data-cta="book" data-from="home_offer">Book a $197 call <span class="arr" aria-hidden="true">→</span></a>
+            <p class="fine">Pick your times, then pay securely through Stripe. Credited toward the $2,000 package if you upgrade within 30 days.</p>
+          </div>
+        </article>
+
+        <article class="offer" id="package" aria-labelledby="o3">
+          <p class="lab">Do it all for me</p>
+          <h3 id="o3">Ranch Store in a Box</h3>
+          <div class="amt">$2,000 <small>90 days</small></div>
+          <p class="what">Allen coaches you; we build and run the selling side:</p>
+          <ul class="ticks">
+            <li>Kickoff call plus 4 coaching calls with Allen</li>
+            <li>Your HerdDirect storefront with deposit checkout</li>
+            <li>Google and USDA listings, QR flyer, local outreach</li>
+            <li>Weekly posts, order reminders, day 30/60/90 reports</li>
+          </ul>
+          <div class="foot">
+            <button type="button" class="btn line block" data-cta="package" data-from="home_offer">Do it all for me — $2,000</button>
+            <a class="more" href="#box">See everything in the box ↓</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- suggested breakdown: Allen to confirm -->
+  <section class="band box" id="box" aria-labelledby="boxH">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Ranch Store in a Box · $2,000 · 90 days</p>
+        <h2 id="boxH">Everything in the box</h2>
+        <p class="lede">Two halves. Allen works with you on price and selling. We build your store and keep it running for 90 days.</p>
+      </div>
+
+      <div class="box-cols">
+        <div class="col">
+          <h3><span class="eartag who" aria-hidden="true">AL</span>Allen's part</h3>
+          <p>One-on-one coaching, by phone or video call.</p>
+          <ul class="ticks">
+            <li><span><b>Kickoff call</b> to set your price, plan your first sale and get you started.</span></li>
+            <li><span><b>4 coaching calls</b> at weeks 3, 6, 9 and 12.</span></li>
+            <li><span><b>A 90-day text and email line</b> to Allen for questions in between.</span></li>
+            <li><span><b>Price, processor and cut-sheet help</b>, so buyers know what they're getting.</span></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3><span class="eartag who" aria-hidden="true">WE</span>Done for you</h3>
+          <p>The computer work, built and run by our team.</p>
+          <ul class="ticks dfy">
+            <li><span><b>HerdDirect storefront</b> with your photos, your story, your shares and deposit checkout.</span></li>
+            <li><span><b>Free Google Business Profile</b> and <b>USDA Local Food Directory</b> listing, both pointing to your store.</span></li>
+            <li><span><b>QR flyer</b> for your truck window and the feed store board.</span></li>
+            <li><span><b>Launch message</b> to your own contacts.</span></li>
+            <li><span><b>Local group outreach</b>: churches, gyms, offices and co-ops near you.</span></li>
+            <li><span><b>Weekly posts</b> for all 90 days.</span></li>
+            <li><span><b>Order reminders</b> to buyers for deposit, cut sheet, balance and pickup.</span></li>
+            <li><span><b>Day 30, 60 and 90 reports</b> on what went out and what came in.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ruler-wrap">
+        <h3>Your 90 days</h3>
+        <ol class="ruler" aria-label="90-day schedule">
+          <li class="edge-l" style="--d:0"><span class="w">Start</span>Kickoff call</li>
+          <li style="--d:21"><span class="w">Week 3</span>Coaching call</li>
+          <li class="rep" style="--d:30"><span class="w">Day 30</span>Report</li>
+          <li style="--d:42"><span class="w">Week 6</span>Coaching call</li>
+          <li class="rep" style="--d:60"><span class="w">Day 60</span>Report</li>
+          <li style="--d:63"><span class="w">Week 9</span>Coaching call</li>
+          <li class="edge-r" style="--d:84"><span class="w">Week 12</span>Coaching call</li>
+          <li class="rep edge-r" style="--d:90"><span class="w">Day 90</span>Report</li>
+        </ol>
+        <div class="ruler-legend" aria-hidden="true"><span><i></i>Call with Allen</span><span><i class="r"></i>Report</span><span><i class="p"></i>Weekly posts, every week</span></div>
+      </div>
+
+      <div class="terms">
+        <div class="pay">
+          <h3>How you pay</h3>
+          <div class="split">
+            <div><b>$1,000</b><span>to start</span></div>
+            <div><b>$1,000</b><span>after kickoff</span></div>
+          </div>
+          <p>Already had the $197 call? It's credited toward the package if you upgrade within 30 days.</p>
+        </div>
+        <div class="promise">
+          <p class="q">We promise the work, not a sales number.</p>
+          <p>Every item above gets done, on schedule. Nobody can honestly promise how many shares you'll sell, so we won't. Your reports show exactly what went out and what came back.</p>
+          <p class="limit"><b>5</b> new ranches a month. That's how many we can do right.</p>
+        </div>
+      </div>
+      <div style="margin-top:26px;display:grid;gap:12px;max-width:520px">
+        <button type="button" class="btn tag block" data-cta="package" data-from="home_box">Do it all for me — $2,000</button>
+        <p class="fine" style="color:#AEBBB3;margin:0">No payment now. Tell Allen you're interested and he'll call or text you to talk it through.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="band" id="about" aria-labelledby="aboutH">
+    <div class="wrap about">
+      <!-- placeholder: replace with Allen's photo (e.g. <img src="assets/allen.jpg" alt="Allen on his ranch">) -->
+      <div class="ph" role="img" aria-label="Photo of Allen coming soon">[ALLEN'S PHOTO]</div>
+      <div class="about-body">
+        <p class="kicker">Who you'll talk to</p>
+        <h2 id="aboutH">About Allen</h2>
+        <!-- placeholder: Allen's own words go here -->
+        <p class="ph-text">[Allen's short bio — needs his words]</p>
+        <ul class="facts">
+          <li><b>Who</b><span>A Texas rancher</span></li>
+          <li><b>Helps</b><span>Other Texas ranchers price their beef and sell it direct by the whole, half and quarter</span></li>
+          <li><b>Talks</b><span>By phone or video call, around your chores</span></li>
+        </ul>
+        <p class="pull">You raise the beef. We'll handle the computer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="band surface" id="faq" aria-labelledby="faqH">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Straight answers</p>
+        <h2 id="faqH">Questions ranchers ask</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>What is hanging weight?</summary>
+          <div class="a"><p>It's the weight of the carcass hanging in the processor's cooler, after slaughter and before it's cut and wrapped. Most ranchers who sell by the whole, half or quarter charge by the pound of hanging weight.</p>
+          <p>Your buyer takes home less than that, roughly 60–65%, because bone, fat and trim come off. The calculator shows both, so you can explain it to your buyers.</p></div>
+        </details>
+        <details>
+          <summary>Do I need a computer?</summary>
+          <div class="a"><p>No. The calculator works on your phone. The call with Allen can be a regular phone call, or a video call on your phone if you'd like to look at your numbers together. No computer needed.</p></div>
+        </details>
+        <details>
+          <summary>What happens after I book the $197 call?</summary>
+          <div class="a"><p>You pick phone or video and up to 3 times that suit you, then pay through Stripe. Allen confirms your time by email within 24 hours. Before the call, jot down your rough numbers: what a calf is worth, feed and hay, processing, hauling and how many head.</p></div>
+        </details>
+        <details>
+          <summary>What if I don't sell?</summary>
+          <div class="a"><p>We promise the work, not a sales number. On Ranch Store in a Box, everything in the box gets done on schedule: the store, the listings, the flyer, the outreach, the posts, the reminders and the reports. Nobody can honestly promise how many shares you'll sell. Your day 30, 60 and 90 reports show you exactly what went out and what came back, so you and Allen can adjust.</p></div>
+        </details>
+        <details>
+          <summary>Can I cancel or reschedule the call?</summary>
+          <div class="a"><p>Yes. Cancel at least 24 hours before your scheduled call for a full refund. You can reschedule once at no cost with 24 hours' notice. Calls missed without notice are not refunded.</p></div>
+        </details>
+        <details>
+          <summary>Is my information shared?</summary>
+          <div class="a"><p>No. We use your name, email and ranch information only to deliver your call and follow up about it. We do not sell or share your information.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT + POLICIES -->
+  <section class="band" aria-label="Contact and policies">
+    <div class="wrap cp">
+      <div class="contact-card" id="contact">
+        <p class="kicker">Contact</p>
+        <h2>Ask Allen anything</h2>
+        <p>Questions, or ready to get started? Email us. We reply within one business day.</p>
+        <div class="copyrow">
+          <span class="addr" id="emailAddr">theherd@herddirect.net</span>
+          <button type="button" class="btn tag" data-copy="emailAddr" data-copy-msg="copyMsg" style="min-height:50px;font-size:18px;padding:8px 18px">Copy email</button>
+        </div>
+        <span id="copyMsg" aria-live="polite"></span>
+        <p class="fine" style="color:var(--on-pine-muted)">You can also reach Hanging Weight Co. at <a href="mailto:info@hangingweightco.com">info@hangingweightco.com</a>.</p>
+      </div>
+      <div class="pol" id="policies">
+        <h2>Policies</h2>
+        <div>
+          <h3>Refunds and cancellations</h3>
+          <p>Cancel at least 24 hours before your scheduled session for a full refund. You can reschedule once at no cost with 24 hours' notice. Sessions missed without notice are not refunded.</p>
+          <!-- placeholder: refund terms for the package need Allen's OK -->
+          <p style="margin-top:8px">Ranch Store in a Box: the $1,000 start payment covers setup work that begins right away; [refund terms — Allen to confirm].</p>
+        </div>
+        <div>
+          <h3>Payments</h3>
+          <p>Payments are processed securely by Stripe. Hanging Weight Co. never sees or stores your full card number. Charges appear on your statement as HANGINGWEIGHT CO.</p>
+        </div>
+        <div>
+          <h3>Privacy</h3>
+          <p>We use your name, email and ranch information only to deliver your session and follow up about it. We do not sell or share your information.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="./"><svg viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2a4 4 0 014 4v3h5a7 7 0 017 7v13c0 7-7 13-16 13S4 36 4 29V16a7 7 0 017-7h5V6a4 4 0 014-4z" fill="#F2B705"/><circle cx="20" cy="7" r="2.2" fill="#17221D"/><text x="20" y="31" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="700" font-size="13" fill="#271F00">HWC</text></svg><span>Hanging Weight <span class="co">Co.</span></span></a>
+      <p style="margin-top:12px">Pricing and direct-sales help for Texas ranchers.</p>
+    </div>
+    <div>
+      <p class="h">Start</p>
+      <p><a href="calculator/">Free beef price calculator</a></p>
+      <p><a href="book/">Book a $197 call</a></p>
+      <p><a href="#box">Ranch Store in a Box</a></p>
+    </div>
+    <div>
+      <p class="h">Reach us</p>
+      <p>theherd@herddirect.net</p>
+      <p>info@hangingweightco.com</p>
+      <p><a href="#policies">Policies</a> · © 2026 Hanging Weight Co.</p>
     </div>
   </div>
+</footer>
 
-  <section id="options" aria-labelledby="optH">
-    <h2 id="optH">Three ways to get your price right</h2>
-    <p class="sub">Start free. Get help if you want it. Talk with Allen by phone or video call, your choice.</p>
-    <div class="doorgrid">
-      <div class="door">
-        <p class="tagline">Free</p>
-        <h3>Email me my plan</h3>
-        <p>Run the calculator, then have your price sheet emailed to you, plus a few short notes on selling direct. Unsubscribe any time.</p>
-        <a class="btn ghost" href="calculator/" data-track="calculator">Start the free calculator</a>
-      </div>
-
-      <div class="door featured" id="session">
-        <p class="tagline">Have Allen dial it in</p>
-        <h3>"Price It Right" call</h3>
-        <div class="amt">$197 <small>one-time</small></div>
-        <p>About 60 minutes with Allen, by phone or video call (you pick when you book). You leave with:</p>
-        <ul>
-          <li>Your break-even and price per lb</li>
-          <li>A whole / half / quarter price sheet with deposits</li>
-          <li>A plan to sell your next 5 beef</li>
-          <li>30 days of text and email follow-up</li>
-        </ul>
-        <a class="btn" id="sessionBtn" href="https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01" target="_blank" rel="noopener">Have Allen dial it in — $197</a>
-        <p class="fine">Secure checkout by Stripe. The $197 is credited toward the $2,000 package if you upgrade within 30 days.</p>
-      </div>
-
-      <div class="door" id="package">
-        <p class="tagline">Do it all for me</p>
-        <h3>Ranch Store in a Box</h3>
-        <div class="amt">$2,000 <small>90 days</small></div>
-        <ul>
-          <li>Your ranch storefront on HerdDirect with your real photos and story</li>
-          <li>Deposit checkout</li>
-          <li>Automated order reminders</li>
-          <li>Your own buyer list with a sign-up link and QR code</li>
-          <li>A launch push to your contacts and local buyers</li>
-          <li>A monthly one-page report</li>
-        </ul>
-        <button type="button" class="btn ghost" id="packageBtn">Do it all for me — $2,000</button>
-        <p class="fine">$1,000 to start, $1,000 after kickoff. We promise the work, not a sales number.</p>
-      </div>
-    </div>
-    <p class="pull">You raise the beef. We'll handle the computer.</p>
-  </section>
-
-  <section id="how">
-    <h2>How the $197 call works</h2>
-    <ol class="steps">
-      <li><b>Reserve</b><span>Pay securely by card through Stripe. It takes about a minute.</span></li>
-      <li><b>Pick a time</b><span>Right after paying, pick a time that works around chores and choose phone call or video call. You get a confirmation email with a link to change it.</span></li>
-      <li><b>Talk for about an hour</b><span>By phone or video call, your choice. Video works on a phone too, no computer needed. Bring your rough costs; we build the price and the plan together.</span></li>
-      <li><b>Get your plan</b><span>Your price sheet and sales plan arrive by email, then 30 days of text and email follow-up.</span></li>
-    </ol>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="prose">
-      <p>Questions, or ready to get started? Email Allen. We reply within one business day.</p>
-    </div>
-    <div class="contact">
-      <span class="email" id="emailAddr">theherd@herddirect.net</span>
-      <button type="button" class="copy" id="copyBtn">Copy email</button>
-      <span id="copyMsg" aria-live="polite"></span>
-    </div>
-    <p class="fine" style="margin-top:12px">You can also reach Hanging Weight Co. at <a href="mailto:info@hangingweightco.com">info@hangingweightco.com</a>.</p>
-  </section>
-
-  <section id="policies">
-    <h2>Policies</h2>
-    <div class="policies">
-      <div>
-        <h3>Refunds and cancellations</h3>
-        <p>Cancel at least 24 hours before your scheduled session for a full refund. You can reschedule once at no cost with 24 hours' notice. Sessions missed without notice are not refunded.</p>
-      </div>
-      <div>
-        <h3>Payments</h3>
-        <p>Payments are processed securely by Stripe. Hanging Weight Co. never sees or stores your full card number. Charges appear on your statement as HANGINGWEIGHT CO.</p>
-      </div>
-      <div>
-        <h3>Privacy</h3>
-        <p>We use your name, email and ranch information only to deliver your session and follow up about it. We do not sell or share your information.</p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <span>© 2026 Hanging Weight Co.</span>
-    <span>theherd@herddirect.net · info@hangingweightco.com</span>
-  </footer>
+<div class="dock" id="dock" aria-hidden="true">
+  <a class="btn tag" href="calculator/" data-cta="calculator" data-from="home_dock" tabindex="-1">Price my beef — free</a>
+  <a class="btn" href="book/" data-cta="book" data-from="home_dock" tabindex="-1">$197 call</a>
 </div>
 
-<dialog id="pkgDialog" aria-labelledby="pkgH">
+<dialog id="pkgDialog" class="hwdlg" aria-labelledby="pkgH">
   <form class="dform" id="pkgForm" novalidate>
-    <h3 id="pkgH" style="margin:0">Tell Allen you're interested</h3>
-    <p class="fine" style="margin:0">Ranch Store in a Box, $2,000 over 90 days. Allen will call or text you to talk it through. No payment now.</p>
-    <label for="pkgName">Your name<input id="pkgName" type="text" autocomplete="name" required></label>
-    <label for="pkgPhone">Phone<input id="pkgPhone" type="tel" autocomplete="tel" inputmode="tel" required></label>
-    <label for="pkgEmail">Email<input id="pkgEmail" type="email" autocomplete="email"></label>
-    <label for="pkgHeads">Head count<input id="pkgHeads" type="number" inputmode="numeric" min="0" step="1"></label>
-    <div class="hp" aria-hidden="true"><label for="pkgWebsite">Leave this empty</label><input id="pkgWebsite" type="text" tabindex="-1" autocomplete="off"></div>
-    <span class="status" id="pkgStatus" aria-live="polite"></span>
-    <div class="dact">
-      <button type="submit" class="btn" id="pkgSend">Send to Allen</button>
-      <button type="button" class="btn plain" id="pkgClose">Close</button>
+    <div class="dhead">
+      <div><p class="kicker" style="margin-bottom:6px">Ranch Store in a Box</p><h2 id="pkgH">Tell Allen you're interested</h2></div>
+      <button type="button" class="xbtn" id="pkgClose" aria-label="Close">×</button>
     </div>
+    <p class="fine" style="margin:0">$2,000 over 90 days. Allen will call or text you to talk it through. No payment now.</p>
+    <label class="field-l" for="pkgName">Your name<input id="pkgName" type="text" autocomplete="name" required></label>
+    <div class="row2">
+      <label class="field-l" for="pkgPhone">Phone<input id="pkgPhone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+      <label class="field-l" for="pkgHeads">Head per year <span class="opt">(optional)</span><input id="pkgHeads" type="number" inputmode="numeric" min="0" step="1"></label>
+    </div>
+    <label class="field-l" for="pkgEmail">Email <span class="opt">(optional)</span><input id="pkgEmail" type="email" autocomplete="email"></label>
+    <label class="field-l" for="pkgMsg">Anything Allen should know? <span class="opt">(optional)</span><textarea id="pkgMsg" rows="3"></textarea></label>
+    <div class="hp" aria-hidden="true"><label for="pkgWebsite">Leave this empty</label><input id="pkgWebsite" type="text" tabindex="-1" autocomplete="off"></div>
+    <p class="status" id="pkgStatus" role="status" aria-live="polite" style="margin:0"></p>
+    <button type="submit" class="btn block" id="pkgSend">Send to Allen</button>
   </form>
 </dialog>
 
 <script>
-document.getElementById("copyBtn").addEventListener("click", function(){
-  var addr = "theherd@herddirect.net", msg = document.getElementById("copyMsg");
-  function fallback(){
-    var el = document.getElementById("emailAddr"), r = document.createRange();
-    r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-    msg.textContent = "Selected. Copy it with your device's copy command.";
-  }
-  try{
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(addr).then(function(){ msg.textContent = "Copied."; }, fallback);
-    } else fallback();
-  }catch(e){ fallback(); }
-});
-</script>
-
-<script>
-// Lane C config: Mixpanel project token (one project for all three South Creek sites). Empty = tracking off.
+// ---- CONFIG (never secrets) ----
+const HW_API = "https://hangingweight.startupagile.ai/api";   // the owner board's collector
+const SESSION_URL = "https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01"; // $197 "Price It Right" call (Stripe Payment Link). Booked through book/ first.
+const PACKAGE_URL = "";   // $1,000 package start link, empty → interest form
 const MIXPANEL_TOKEN = "97e8474459e4737f5ff0963a2d3c4d7b"; // Mixpanel "Herd Direct" project, shared by all three sites
-// Same capture-lead function URL as calculator/index.html. Empty = the interest form opens a pre-filled email to theherd@herddirect.net.
-const CAPTURE_URL = "";
-// The $197 "Price It Right" call (Stripe Payment Link).
-const SESSION_URL = "https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01";
-// The $2,000 "Ranch Store in a Box" $1,000 deposit link. Empty = button opens the "Tell Allen you're interested" form.
-const PACKAGE_URL = "";
+const CAPTURE_URL = "";   // optional backup for forms (old Supabase capture-lead). Empty = email fallback.
+</script>
+<script src="assets/hw.js"></script>
+<script>
 (function(){
-  if(!MIXPANEL_TOKEN) return;
-  (function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
-  mixpanel.init(MIXPANEL_TOKEN, {track_pageview: "url-with-path", persistence: "localStorage", autocapture: false, record_sessions_percent: 0});
-  mixpanel.register({ site: "hanging_weight" });
+  // Phone dock: shows after the hero scrolls away, hides near the footer.
+  var dock = document.getElementById("dock"), hero = document.querySelector(".hero"), foot = document.querySelector(".site-foot");
+  if(!("IntersectionObserver" in window) || !dock) return;
+  var heroOut = false, footIn = false;
+  function upd(){ var on = heroOut && !footIn; dock.classList.toggle("on", on); dock.setAttribute("aria-hidden", on ? "false" : "true");
+    dock.querySelectorAll("a").forEach(function(a){ a.tabIndex = on ? 0 : -1; }); }
+  new IntersectionObserver(function(e){ heroOut = !e[0].isIntersecting; upd(); }).observe(hero);
+  new IntersectionObserver(function(e){ footIn = e[0].isIntersecting; upd(); }).observe(foot);
 })();
-function track(name, props){ try{ if(window.mixpanel && MIXPANEL_TOKEN) mixpanel.track(name, props||{}); }catch(e){} }
-document.addEventListener("DOMContentLoaded", function(){
-  const $ = id => document.getElementById(id);
-  document.querySelectorAll('a[href^="calculator"]').forEach(a => a.addEventListener("click", () => track("calculator_link_clicked")));
-
-  // Door 2: $197 call
-  if(SESSION_URL) $("sessionBtn").href = SESSION_URL;
-  $("sessionBtn").addEventListener("click", () => {
-    track("session_cta_clicked", {from: "home"});
-    track("stripe_checkout_opened", {from: "home"});
-  });
-
-  // Door 3: $2,000 package. No checkout link yet = interest form, never a fake checkout.
-  const dlg = $("pkgDialog");
-  $("packageBtn").addEventListener("click", () => {
-    track("upgrade_cta_clicked", {from: "home", has_link: !!PACKAGE_URL});
-    if(PACKAGE_URL){ track("package_checkout_opened", {from: "home"}); window.open(PACKAGE_URL, "_blank", "noopener"); return; }
-    $("pkgStatus").textContent = "";
-    if(typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open","");
-    $("pkgName").focus();
-  });
-  $("pkgClose").addEventListener("click", () => { if(dlg.close) dlg.close(); else dlg.removeAttribute("open"); });
-  $("pkgForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const name = $("pkgName").value.trim(), phone = $("pkgPhone").value.trim(), email = $("pkgEmail").value.trim(), heads = $("pkgHeads").value.trim();
-    const st = $("pkgStatus");
-    if(!name || phone.replace(/\D/g,"").length < 10){ st.textContent = "Add your name and a phone number Allen can call or text."; return; }
-    if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ st.textContent = "That email doesn't look right. Fix it or leave it blank."; return; }
-    const mailto = () => {
-      const body = "I'm interested in Ranch Store in a Box ($2,000).\n\nName: " + name + "\nPhone: " + phone + "\nEmail: " + email + "\nHead count: " + heads + "\n\nPlease call or text me.";
-      location.href = "mailto:theherd@herddirect.net?subject=" + encodeURIComponent("Ranch Store in a Box - interested") + "&body=" + encodeURIComponent(body);
-      st.textContent = "Your email app should open with this filled in. Hit send and Allen will reach out.";
-      track("package_interest_sent", {via: "mailto", from: "home"});
-    };
-    if(!CAPTURE_URL){ mailto(); return; }
-    $("pkgSend").disabled = true; st.textContent = "Sending…";
-    try{
-      const payload = { type: "package_interest", source: "package_interest", name, phone, email, heads, website: $("pkgWebsite").value, page: location.href };
-      const r = await fetch(CAPTURE_URL, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
-      if(!r.ok) throw new Error("bad status " + r.status);
-      st.textContent = "Got it. Allen will call or text you.";
-      track("package_interest_sent", {via: "api", from: "home"}); $("pkgForm").reset();
-    }catch(err){ mailto(); }
-    finally{ $("pkgSend").disabled = false; }
-  });
-});
 </script>
 </body>
 </html>
