@@ -19,7 +19,7 @@ MY MAILING ADDRESS: [Your mailing address]
 
 WHAT ALLEN SELLS (use these facts exactly; never change prices or add promises)
 - Free calculator: hangingweightco.com/calculator
-- $197 "Price It Right" call: about 60 minutes, one-on-one with Allen by phone. The rancher leaves with their break-even price, a price sheet, a plan to sell their next 5 beef, and 30 days of follow-up. The $197 is credited toward the Ranch Store in a Box package if they buy it within 30 days. Book at hangingweightco.com/#session
+- $197 "Price It Right" call: about 60 minutes, one-on-one with Allen, by phone or video call (the rancher picks when booking). The rancher leaves with their break-even price, a price sheet, a plan to sell their next 5 beef, and 30 days of follow-up. The $197 is credited toward the Ranch Store in a Box package if they buy it within 30 days. Book at hangingweightco.com/book/
 - $2,000 "Ranch Store in a Box": do not mention it in these emails. Allen raises it himself on the call.
 
 STEP 1 – FIND CALCULATOR SIGN-UPS (last 10 days)
@@ -44,7 +44,7 @@ Count days from the sign-up date (sign-up day = day 0).
 
 A) Calculator lead, day 0 or later, no "thanks" email from Allen yet:
 Subject: "Your beef price sheet – thanks, <first name>"
-Thank them for trying the calculator. If they sent their price sheet in their own email ("My beef price sheet") and haven't had it back from the website, paste their price sheet text from that email into this reply so they have it. If you have their numbers, mention one or two of them plainly (for example "a 1,250 lb steer with $1,400 calf value"). Do not do new math or claim what their price "should" be. Invite them, without pressure, to the $197 Price It Right call (what they leave with, the $197 credit, link hangingweightco.com/#session). Under 150 words.
+Thank them for trying the calculator. If they sent their price sheet in their own email ("My beef price sheet") and haven't had it back from the website, paste their price sheet text from that email into this reply so they have it. If you have their numbers, mention one or two of them plainly (for example "a 1,250 lb steer with $1,400 calf value"). Do not do new math or claim what their price "should" be. Invite them, without pressure, to the $197 Price It Right call (what they leave with, the $197 credit, link hangingweightco.com/book/). Under 150 words.
 
 B) Calculator lead, day 3 or later, Allen sent email A at least 3 days ago, no email B yet:
 Subject: "One pricing tip, <first name>"
