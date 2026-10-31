@@ -40,14 +40,14 @@ Body, in plain words:
 - What's wrong, which page, and the time you checked (Central time).
 - What it means for customers, in one sentence.
 - What to do:
-  - DOWN (hangingweightco.com or the calculator): "Try opening the page on your phone. If it's still down in an hour, call DJ."
-  - DOWN (herddirect.net): "Try opening the site on your phone. If it's still down in an hour, call DJ."
-  - OPEN (farm-dashboard or outreach): "This is urgent. Private farm details or the email tool can be reached by anyone. Call DJ today. Don't share the link with anyone."
-  - CHANGED: "Have a look at the page yourself. If it looks wrong to you too, call DJ."
+  - DOWN (hangingweightco.com or the calculator): "Try opening the page on your phone. If it's still down in an hour, ask Claude Code or whoever runs your website to fix it."
+  - DOWN (herddirect.net): "Try opening the site on your phone. If it's still down in an hour, ask Claude Code or whoever runs your website to fix it."
+  - OPEN (farm-dashboard or outreach): "This is urgent. Private farm details or the email tool can be reached by anyone. Get it fixed today: ask Claude Code or whoever runs HerdDirect to put the page behind a login. Don't share the link with anyone."
+  - CHANGED: "Have a look at the page yourself. If it looks wrong to you too, ask Claude Code or whoever runs your website to fix it."
 Keep it under 120 words. One email covering all problems found in this check.
 
 If every page is OK or COULDN'T TELL, send nothing.
-Exception: if you can't tell whether pages 4 and 5 ask for a login, and you have not sent a "Website alert – please check the private HerdDirect pages" email in the last 30 days, send one with that subject asking Allen to open https://herddirect.net/farm-dashboard and https://herddirect.net/outreach himself in a private (incognito) browser window, without logging in, and call DJ if either one shows farm details or an email tool instead of a login. Send this at most once every 30 days.
+Exception: if you can't tell whether pages 4 and 5 ask for a login, and you have not sent a "Website alert – please check the private HerdDirect pages" email in the last 30 days, send one with that subject asking Allen to open https://herddirect.net/farm-dashboard and https://herddirect.net/outreach himself in a private (incognito) browser window, without logging in, and get it fixed the same day if either one shows farm details or an email tool instead of a login. Send this at most once every 30 days.
 
 RULES
 - Only ever email Allen at theherd@herddirect.net. Never email anyone else.

@@ -35,7 +35,7 @@ Body, under 200 words, in this order, short lines:
 - Website: "All good" or the alert in one line
 - Replies waiting for you: <names, or "none">
 Then a heading "Today, do these 3 things:" and three numbered, plain actions, most important first. Pick from what's real today, in this order of priority:
-1. Anything urgent from a website alert (for example "Call DJ – the farm dashboard is open").
+1. Anything urgent from a website alert (for example "Urgent – the farm dashboard is open").
 2. Prepare for and take today's calls ("Read the call prep for <name> before your 10 AM call").
 3. Answer ranchers who replied, especially anyone asking about the package.
 4. Open Gmail, go to the "Ready to send" label, read the <n> drafts and press Send on the ones you like.

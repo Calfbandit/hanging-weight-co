@@ -10,7 +10,7 @@ Plain-English steps. You don't need to write any code. Where a step says "paste"
 - **This repo** (github.com/Calfbandit/hanging-weight-co) holds the new home page, the Beef Price Calculator (version 2), the $197 booking page (`book/`) and the "You're booked" page (`book/thanks/`). It already has a file called `CNAME` that says `hangingweightco.com`, so GitHub knows which domain it belongs to.
 - Going live means two things: turn on GitHub Pages for this repo, then point the domain at GitHub instead of at the Claude page.
 
-**Who does this:** DJ or Allen only. Changing where the domain points affects the live site.
+**Who does this:** Allen, or someone Allen trusts with the domain. Changing where the domain points affects the live site.
 
 **Before you start:** the new pages are already on the `main` branch (done Oct 24, 2026).
 
@@ -118,7 +118,7 @@ To do it on the GitHub website (no software needed):
 4. Click the green **Commit changes…** button, then **Commit changes** again.
 5. Do the same for the other three files (click the `calculator` or `book` folder first; `thanks` is inside `book`).
 
-Within a couple of minutes the $2,000 button opens the Stripe checkout instead of the interest form. If you'd rather not edit the files, send the link to DJ and we'll do it.
+Within a couple of minutes the $2,000 button opens the Stripe checkout instead of the interest form. If you'd rather not edit the files, open Claude Code (claude.ai/code), pick this repo, and say: "Put this link in PACKAGE_URL in all four pages: <your link>".
 
 The $197 booking page already uses Allen's existing Stripe link (`SESSION_URL`, same in every file). Don't change it unless the price changes.
 
@@ -126,7 +126,7 @@ The $197 booking page already uses Allen's existing Stripe link (`SESSION_URL`, 
 
 ## 6. Where leads and bookings show up: Allen's board
 
-Everything people send from the website goes to **Allen's board at hangingweight.startupagile.ai** (sign in with your board username and password):
+Everything people send from the website goes to **Allen's board** (at the address in `HW_API`; today that's hangingweight.startupagile.ai, so change it to your own board's address when you set the board up) (sign in with your board username and password):
 
 - **Visits** and **calculator use** (opened, finished, with their break-even and price)
 - **"Email me my plan"** requests (name, email, ranch, state, head count, their price sheet)
@@ -137,9 +137,9 @@ The website setting for this is `HW_API` at the top of each page. It's already f
 
 **If the board is down,** nobody gets stuck:
 - The $197 booking still goes to Stripe, so the sale isn't lost. The booking is kept on the rancher's phone and sent to the board when they reach the "You're booked" page.
-- The free plan form and the $2,000 form open the rancher's own email app with a message to **theherd@herddirect.net** already filled in (or use the old Supabase form server if DJ ever fills in `CAPTURE_URL`).
+- The free plan form and the $2,000 form open the rancher's own email app with a message to **theherd@herddirect.net** already filled in (or the old Supabase form server, if `CAPTURE_URL` is ever filled in).
 
-**For DJ (one-time, technical):** the board's collector at `/api/collect` must accept requests from `https://hangingweightco.com` (and `www.`). The pages send JSON, so the browser asks first with an `OPTIONS` request; the collector should answer it with `Access-Control-Allow-Origin` for those two addresses and `Access-Control-Allow-Headers: Content-Type`.
+**For whoever sets up the board (one-time, technical):** the board's collector at `/api/collect` must accept requests from `https://hangingweightco.com` (and `www.`). The pages send JSON, so the browser asks first with an `OPTIONS` request; the collector should answer it with `Access-Control-Allow-Origin` for those two addresses and `Access-Control-Allow-Headers: Content-Type`.
 
 ---
 
@@ -159,4 +159,4 @@ The website setting for this is `HW_API` at the top of each page. It's already f
 
 ## 8. Your owner's board is private
 
-Your owner's board (the phone screen with your ranchers, helpers and money) is **not** part of the public website. DJ shares it with you as a private link; open that link and add it to your phone's home screen. The website settings in this repo keep the `dashboard`, `handover`, `docs` and `supabase` folders off hangingweightco.com.
+Your owner's board (the phone screen with your ranchers, helpers and money) is **not** part of the public website. Once it's set up on a server, open its address and add it to your phone's home screen. The website settings in this repo keep the `dashboard`, `handover`, `docs` and `supabase` folders off hangingweightco.com.

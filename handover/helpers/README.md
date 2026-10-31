@@ -55,7 +55,7 @@ All times are Central.
 Do this once for each helper. Each one takes about 5 minutes. Start with Daily Driver and Website Watchdog.
 
 1. Open Claude (claude.ai) on your computer and sign in.
-2. Make sure your Gmail is connected: click your name or picture (bottom left), then **Settings**, then **Connectors**. Find **Gmail** and click **Connect**. Sign in with the Google account that gets your theherd@herddirect.net mail and your Stripe receipts, and click **Allow**. If theherd@herddirect.net isn't a Gmail or Google inbox, ask DJ to forward it into calfroperblue@gmail.com first. If you use Google Calendar for your calls, connect that too. You only do this once.
+2. Make sure your Gmail is connected: click your name or picture (bottom left), then **Settings**, then **Connectors**. Find **Gmail** and click **Connect**. Sign in with the Google account that gets your theherd@herddirect.net mail and your Stripe receipts, and click **Allow**. If theherd@herddirect.net isn't a Gmail or Google inbox, set it to forward into the Gmail you use (for example calfroperblue@gmail.com) first. If you use Google Calendar for your calls, connect that too. You only do this once.
 3. In the left sidebar, click **Scheduled tasks** (it may be called **Tasks**).
 4. Click **New task**.
 5. Open the helper's page (for example `daily-driver.md`). Copy everything below the line that says **"Copy everything below this line into the scheduled task"**, and paste it into the big box.
@@ -65,7 +65,7 @@ Do this once for each helper. Each one takes about 5 minutes. Start with Daily D
 9. If it asks what it can use, turn on **Gmail** and **Web search** (and **Google Calendar** for Booking, Call Prep and Daily Driver, if you connected it).
 10. Click **Save**.
 
-The buttons may be named a little differently or sit in a different spot by the time you read this. If you get stuck, call DJ.
+The buttons may be named a little differently or sit in a different spot by the time you read this. If you get stuck, ask Claude in a new chat: tell it which step you're on and what you see.
 
 ## Your daily 10 minutes
 
@@ -74,7 +74,7 @@ The buttons may be named a little differently or sit in a different spot by the 
 3. **Read each email.** If one starts with a line that says **"ALLEN:"**, do what that line says and delete the line. Change anything you like. Press **Send** on the ones you're happy with. Delete any you don't like.
 4. **Before each $197 call, read the "Call prep" email** for that rancher.
 5. **After each $197 call, email yourself your notes** with the subject **Call notes – <rancher's name>**. Call Recap turns them into his written plan.
-6. If you get an email starting **"Website alert"**, do what it says. If it says urgent, call DJ that day.
+6. If you get an email starting **"Website alert"**, do what it says. If it says urgent, deal with it that day: ask your Claude (or whoever runs your website) to fix it.
 
 Once a week you'll also get an article draft, three post drafts for your Facebook page, and your Monday numbers. Use what you like.
 

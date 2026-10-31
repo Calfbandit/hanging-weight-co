@@ -1,12 +1,11 @@
-# Hanging Weight Co. — repo rules (lane C)
+# Hanging Weight Co. — rules for Claude when changing this site
 
-Read ../CLAUDE.md first (the shared South Creek rules). This repo is lane C.
+This repo is Allen's website for Hanging Weight Co. (hangingweightco.com). Allen is not technical: explain in plain English and tell him exactly what you changed.
 
 - Plain HTML/CSS/JS, no build step, no framework. Served by GitHub Pages at hangingweightco.com (CNAME present).
-- Branch for lane C: lane-c/capture. Status Oct 1: calculator moved to calculator/index.html; email capture form,
-  Mixpanel events, supabase/functions/capture-lead and supabase/migrations/0001_leads.sql are committed.
-- Config lives in two constants, never secrets: CAPTURE_URL and MIXPANEL_TOKEN (both pages). Empty CAPTURE_URL = mailto fallback.
-- Function secrets are set in Supabase: SENDGRID_API_KEY, MAILING_ADDRESS. Never commit them.
-- Don't change prices, the Stripe link, or policy text without DJ's OK (Allen owns the offer).
-- Any copy change that makes a claim about beef (grass-fed, organic, health) is refused; see the shared rules.
-- After a change: syntax-check every <script> block, open both pages in a browser, test the form once, then commit with a plain-English message.
+- Pages: index.html (home), calculator/index.html, book/index.html ($197 booking), book/thanks/index.html. Shared files in assets/.
+- Settings at the top of each page (keep them the same in all four): HW_API (Allen's board), SESSION_URL ($197 Stripe link), PACKAGE_URL ($1,000 package link; empty = interest form), MIXPANEL_TOKEN, CAPTURE_URL. Never put passwords, API keys or secret tokens in this repo.
+- Only Allen decides prices, the Stripe links and the policy text. Change them only when he asks.
+- Never add claims about beef (grass-fed, organic, health), made-up reviews, testimonials, stats or stories.
+- The agents' instructions live in handover/helpers/. Going-live steps are in docs/GO-LIVE.md.
+- After a change: check every <script> block still parses, open the changed pages in a browser at phone width, test the calculator and the booking form once, then commit with a plain-English message.

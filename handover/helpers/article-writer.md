@@ -58,7 +58,7 @@ STEP 4 – EMAIL ALLEN
 Send ONE email to theherd@herddirect.net.
 Subject: Article draft – <the question> – <today's date, for example Oct 27, 2026>
 Body, in this order:
-1. One line: "Here's this week's article draft. Read it over and change anything that doesn't sound like you. It isn't posted anywhere. If you'd like it on your website, forward this email to DJ."
+1. One line: "Here's this week's article draft. Read it over and change anything that doesn't sound like you. It isn't posted anywhere. If you'd like it on your website, ask Claude Code to add it as a page on hangingweightco.com."
 2. NUMBERS CHECK: a short list of every number in the article and the link it came from.
 3. The article (title, text, Sources).
 

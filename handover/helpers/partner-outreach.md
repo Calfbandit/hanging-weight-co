@@ -8,7 +8,7 @@
 
 **Before you save it:**
 1. Find the line that says `MY MAILING ADDRESS: [Your mailing address]` in the instructions below and type your business mailing address in place of `[Your mailing address]` (the same address you put in Outreach). Until you fill it in, this helper won't write any notes and will remind you instead.
-2. Make sure you have a stack of calculator flyers with the QR code, because these notes offer to drop some off or mail them. If you don't have any yet, ask DJ for the flyer file before you turn this helper on.
+2. Make sure you have a stack of calculator flyers with the QR code, because these notes offer to drop some off or mail them. If you don't have any yet, ask your Claude: "Make me a one-page printable flyer for my free beef price calculator at hangingweightco.com/calculator, with a QR code to it." Print a stack before you turn this helper on.
 
 **Copy everything below this line into the scheduled task:**
 

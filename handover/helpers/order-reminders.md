@@ -6,7 +6,7 @@
 
 **What it needs connected:** Gmail (Allen's).
 
-**Before you save it:** this helper can only see orders that land in your Gmail. Make sure HerdDirect order and deposit emails for your clients' ranches come to the Gmail you connected. If they go only to the rancher, ask DJ to copy them to you.
+**Before you save it:** this helper can only see orders that land in your Gmail. Make sure HerdDirect order and deposit emails for your clients' ranches come to the Gmail you connected. If they go only to the rancher, ask the rancher to add your email address to his HerdDirect order notices.
 
 **Copy everything below this line into the scheduled task:**
 
