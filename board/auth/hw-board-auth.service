@@ -1,0 +1,18 @@
+[Unit]
+Description=Hanging Weight Co. board sign-in (auth/server.js)
+After=network.target
+
+[Service]
+User=hwboard
+Group=hwboard
+Environment=HW_DIR=/etc/hw-board HW_PORT=8790
+ExecStart=/usr/bin/node-22 /opt/hw-board/auth/server.js
+Restart=on-failure
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/etc/hw-board
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

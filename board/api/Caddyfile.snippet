@@ -1,0 +1,15 @@
+# Add inside the board.hangingweightco.com { ... } site block, ABOVE the existing forward_auth + file_server.
+# Public: the website posts here; the Stripe webhook posts here.
+handle /api/collect {
+	reverse_proxy 127.0.0.1:8791
+}
+handle /api/stripe {
+	reverse_proxy 127.0.0.1:8791
+}
+# Signed-in only: same forward_auth as the board files.
+handle /api/* {
+	forward_auth 127.0.0.1:8790 {
+		uri /auth/check
+	}
+	reverse_proxy 127.0.0.1:8791
+}

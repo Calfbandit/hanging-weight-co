@@ -126,7 +126,7 @@ The $197 booking page already uses Allen's existing Stripe link (`SESSION_URL`, 
 
 ## 6. Where leads and bookings show up: Allen's board
 
-Everything people send from the website goes to **Allen's board** (at the address in `HW_API`; today that's hangingweight.startupagile.ai, so change it to your own board's address when you set the board up) (sign in with your board username and password):
+Everything people send from the website goes to **Allen's board** (at `https://board.hangingweightco.com`, the address in `HW_API`; the board's code is in the `board/` folder, and go-live prompt 2 in `handover/GO-LIVE-PROMPTS.md` sets it up) (sign in with your board username and password):
 
 - **Visits** and **calculator use** (opened, finished, with their break-even and price)
 - **"Email me my plan"** requests (name, email, ranch, state, head count, their price sheet)

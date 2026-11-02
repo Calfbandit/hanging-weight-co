@@ -16,14 +16,13 @@ Rules: I sign in myself whenever a site asks for a password. Ask me before you s
 GO-LIVE PROMPT 2 of 3 — Put my owner's board live
 (Use Claude Code in the Claude desktop app on your computer, so it can set up a small server for you.)
 
-I'm Allen. My owner's board for Hanging Weight Co. is in the GitHub repo hanging-weight-board (in my Calfbandit GitHub). It needs a small always-on Linux server. Read the repo's README.md first, then set it up for me step by step:
+I'm Allen. My owner's board for Hanging Weight Co. is in the board/ folder of my GitHub repo github.com/Calfbandit/hanging-weight-co. It needs a small always-on Linux server. Read board/README.md first, then set it up for me step by step:
 1. Help me rent the smallest Linux server from a well-known provider (for example DigitalOcean or Hetzner, about $5–6 a month). I'll create the account and pay myself; tell me exactly what to click.
 2. Give the board the address board.hangingweightco.com: add an A record for "board" at my domain company pointing to the server.
-3. On the server, install Node and Caddy and set up the board exactly as the README says: the sign-in service, the data collector, the Caddy settings and HTTPS. Set BOARD_URL to https://board.hangingweightco.com.
+3. On the server, copy the board/ folder to /opt/hw-board, install Node and Caddy, and set up the board exactly as the README says: the sign-in service, the data collector, the Caddy settings and HTTPS. The code already uses https://board.hangingweightco.com, and my website already sends its data there.
 4. Create my sign-in: owner, my email theherd@herddirect.net. Let me type the password myself; never show it or save it anywhere else.
-5. Point my website at the board: in the hanging-weight-co repo, change HW_API to "https://board.hangingweightco.com/api" in all four pages (index.html, calculator/index.html, book/index.html, book/thanks/index.html) and save it to GitHub.
-6. Gmail and Calendar inside the board: walk me through the one-time Google setup in the README (I'll sign in to Google myself), then I'll click Inbox → Connect Gmail on the board.
-7. Check: open the calculator on my phone, run it once, and show me it appearing on the board.
+5. Gmail and Calendar inside the board: walk me through the one-time Google setup in the README (I'll sign in to Google myself), then I'll click Inbox → Connect Gmail on the board.
+6. Check: open the calculator on my phone, run it once, and show me it appearing on the board.
 
 Rules: passwords and keys only ever go in the server's private settings file (/etc/hw-board), never in GitHub, never in chat. Ask me before anything that costs money.
 
