@@ -492,6 +492,26 @@ details.math summary{cursor:pointer;font-weight:700;min-height:48px;padding:12px
   </footer>
 </div>
 
+<dialog id="pkgDialog" class="hwdlg" aria-labelledby="pkgH">
+  <form class="dform" id="pkgForm" novalidate>
+    <div class="dhead">
+      <div><p class="kicker" style="margin-bottom:6px">Ranch Store in a Box</p><h2 id="pkgH">Tell Allen you're interested</h2></div>
+      <button type="button" class="xbtn" id="pkgClose" aria-label="Close">×</button>
+    </div>
+    <p class="fine" style="margin:0">$2,000 over 90 days. Allen will call or text you to talk it through. No payment now.</p>
+    <label class="field-l" for="pkgName">Your name<input id="pkgName" type="text" autocomplete="name" required></label>
+    <div class="row2">
+      <label class="field-l" for="pkgPhone">Phone<input id="pkgPhone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+      <label class="field-l" for="pkgHeads">Head per year <span class="opt">(optional)</span><input id="pkgHeads" type="number" inputmode="numeric" min="0" step="1"></label>
+    </div>
+    <label class="field-l" for="pkgEmail">Email <span class="opt">(optional)</span><input id="pkgEmail" type="email" autocomplete="email"></label>
+    <label class="field-l" for="pkgMsg">Anything Allen should know? <span class="opt">(optional)</span><textarea id="pkgMsg" rows="3"></textarea></label>
+    <div class="hp" aria-hidden="true"><label for="pkgWebsite">Leave this empty</label><input id="pkgWebsite" type="text" tabindex="-1" autocomplete="off"></div>
+    <p class="status" id="pkgStatus" role="status" aria-live="polite" style="margin:0"></p>
+    <button type="submit" class="btn block" id="pkgSend">Send to Allen</button>
+  </form>
+</dialog>
+
 <script>
 // ---- CONFIG (never secrets) ----
 const HW_API = "https://board.hangingweightco.com/api";   // the owner board's collector
