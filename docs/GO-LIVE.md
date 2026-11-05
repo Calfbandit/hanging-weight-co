@@ -67,7 +67,7 @@ The $197 button no longer goes straight to Stripe. The rancher first picks phone
 
 1. Sign in at **dashboard.stripe.com** with Allen's Stripe account (Test mode **off**).
 2. In the left menu click **Payment Links** (you may need to click **More** first).
-3. Click the **$197** link (the one ending in `…7L6Zy01`).
+3. Click the **$197** link (the one ending in `…Vy00`).
 4. Click **Edit** (top right), then open the **After payment** tab.
 5. Choose **Don't show confirmation page**, then **Redirect customers to your website**.
 6. Paste: `https://hangingweightco.com/book/thanks/`

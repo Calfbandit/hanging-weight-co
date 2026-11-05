@@ -31,5 +31,5 @@ Plain HTML, CSS and JavaScript. No build step: open `index.html` in a browser to
 
 - Website: https://hangingweightco.com
 - Calculator: https://hangingweightco.com/calculator/
-- Payment (Stripe): https://buy.stripe.com/8x2fZh3cn7xtf0097L6Zy01
+- Payment (Stripe): https://buy.stripe.com/28E7sN0PEgIW4pA9da4Vy00
 - Contact: info@hangingweightco.com

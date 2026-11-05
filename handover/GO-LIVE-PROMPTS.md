@@ -7,7 +7,7 @@ Do it in this order, and tell me in plain English what you're doing at each step
 1. GitHub: in the hanging-weight-co repo, turn on GitHub Pages (Settings → Pages → Deploy from a branch → main, root). Make sure the custom domain says hangingweightco.com.
 2. My domain company: find out where hangingweightco.com is registered (ask me if you can't tell). Turn off the forward that sends it to my old Claude page. Delete old A/AAAA records for @ (never touch MX or TXT records, those are my email). Add four A records for @: 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153. Add a CNAME for www pointing to calfbandit.github.io.
 3. Wait until GitHub's domain check turns green, then tick Enforce HTTPS.
-4. Stripe: on my $197 Payment Link (the one ending in 7L6Zy01), set After payment → redirect to https://hangingweightco.com/book/thanks/
+4. Stripe: on my $197 Payment Link (the one ending in Vy00), set After payment → redirect to https://hangingweightco.com/book/thanks/
 5. Check: open hangingweightco.com and hangingweightco.com/calculator and tell me what you see.
 
 Rules: I sign in myself whenever a site asks for a password. Ask me before you save each change. Never touch my email records, my bank details or anything not listed here. If something goes wrong, turning the old forward back on brings the old page back.
