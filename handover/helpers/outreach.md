@@ -6,6 +6,8 @@
 
 **What it needs connected:** Gmail (Allen's).
 
+**Make it sound like you:** this helper copies your writing style from two places: a "My voice – Hanging Weight Co." email you send yourself (see `handover/MY-VOICE.md`), and the invitations you actually send after editing its drafts. The more you edit and send, the more it sounds like you.
+
 **Before you save it:** in the instructions below, find the line that says `MY MAILING ADDRESS: [Your mailing address]` and type your real business mailing address in place of `[Your mailing address]`. You only do this once. The law asks that emails like these show a mailing address. Until you fill it in, this helper won't write any emails and will remind you instead.
 
 **Copy everything below this line into the scheduled task:**
@@ -28,10 +30,18 @@ For each ranch email address, search Allen's Gmail (sent mail, drafts and inbox,
 - They have ever written to Allen asking not to be contacted ("no thanks", "unsubscribe", "stop", "remove me", "not interested" or similar).
 - The email address looks personal rather than a business contact, or it came from a social-media page.
 
+STEP 2B – SOUND LIKE ALLEN
+Before writing, learn how Allen writes:
+1. Search Allen's Gmail (all mail, all time) for an email with the subject "My voice – Hanging Weight Co.". If there's more than one, use the newest. Follow everything it says about how Allen talks and writes. It beats every other rule in this step, but never the rules at the bottom of these instructions.
+2. Read the last 15 emails Allen wrote and sent himself (Sent mail; skip anything with "Rancher Finder", "Daily Driver", "Website alert" or "Call prep" in the subject). Pay most attention to invitations he sent to ranches: he edits these drafts before sending, so his sent versions show exactly how he wants them to sound.
+3. Match what you see: how he says hello, how long his sentences are, the words and sayings he uses, how formal or casual he is, and how he signs off. Write like Allen talks, not like a marketer.
+4. Use his emails only to learn his style. Never copy private details, names, prices or stories from them into a new email.
+If neither exists yet, write plain, friendly, rancher-to-rancher English.
+
 STEP 3 – WRITE THE DRAFTS (maximum 10 today)
 For each ranch, create a Gmail draft addressed to the ranch's business email.
 - Subject: a short, plain subject, for example "Pricing your beef – a free tool from a fellow rancher" or "Question for <ranch name>". Vary it a little.
-- Body: under 120 words, from Allen, rancher to rancher, friendly and plain. Mention the ranch by name and one true, specific detail from the Rancher Finder table (for example that they sell halves and quarters, or their town). Say Allen built a free calculator that helps a rancher work out a fair price per pound of hanging weight from their own costs, and give the link hangingweightco.com/calculator. No pressure, no sales pitch.
+- Body: under 120 words, from Allen, in Allen's own voice (Step 2B), rancher to rancher, friendly and plain. Mention the ranch by name and one true, specific detail from the Rancher Finder table (for example that they sell halves and quarters, or their town). Say Allen built a free calculator that helps a rancher work out a fair price per pound of hanging weight from their own costs, and give the link hangingweightco.com/calculator. No pressure, no sales pitch.
 - End with exactly these lines:
   Allen
   Hanging Weight Co.
