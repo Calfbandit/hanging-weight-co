@@ -25,7 +25,7 @@
 //   calls      {calls:[{event_id, booking_id, start, end, label, how, meet_link, attendee_email, attendee_response, status}]}
 //   confirm    {ok, event_id, meet_link, label}         (409 if already confirmed: use move)
 //   move       {ok, event_id, label}      cancel {ok}
-//   agents     {ok, agents:[{id, name, last_at, last_subject, last_kind:"email"|"draft"|null, count_14d, drafts:number|null}],
+//   agents     {ok, agents:[{id, name, last_at, last_subject, earlier_at (newest email older than 2 weeks, only looked up when last_at is null), last_kind:"email"|"draft"|null, count_14d, drafts:number|null}],
 //               drafts_ready, ready_label, checked_at}
 //
 // Secrets come from the environment only (/etc/hw-board/api.env): GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, HW_TOKEN_KEY.
@@ -584,7 +584,16 @@ function createGoogle({ readAll, append, newId, readBody, send, DATA }) {
       const msgs = (await pool(r.messages || [], 8, m => getMeta(m.id))).filter(m => m.at >= since && !m.labels.includes("DRAFT") && h.email.some(x => x.test(m.subject)));
       const mine = h.drafts ? drafts.filter(d => d.at >= since && h.drafts.some(x => x.test(d.subject))) : [];
       const newest = [...msgs, ...mine].sort((a, b) => b.at - a.at)[0];
+      // Quiet for 2 weeks? Look for an older email, so the board can tell "went quiet" from "never reported yet".
+      let earlier = null;
+      if (!newest) {
+        const oq = `${h.q.length > 1 ? `{${h.q.map(s => `subject:${s}`).join(" ")}}` : `subject:${h.q[0]}`} older_than:14d -in:drafts${h.sentOnly ? " in:sent" : ""}`;
+        const orr = await gapi("GET", u(`${GM()}/messages`, { q: oq, maxResults: 10 }));
+        const olds = (await pool(orr.messages || [], 8, m => getMeta(m.id))).filter(m => m.at && m.at < since && !m.labels.includes("DRAFT") && h.email.some(x => x.test(m.subject)));
+        earlier = olds.sort((a, b) => b.at - a.at)[0] || null;
+      }
       return { id: h.id, name: h.name, last_at: newest ? new Date(newest.at).toISOString() : null, last_subject: newest ? newest.subject : null,
+        earlier_at: earlier ? new Date(earlier.at).toISOString() : null,
         last_kind: newest ? (mine.includes(newest) ? "draft" : "email") : null, count_14d: msgs.length,
         drafts: h.drafts ? drafts.filter(d => h.drafts.some(x => x.test(d.subject))).length : null };
     });

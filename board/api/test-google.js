@@ -79,6 +79,7 @@ const fake = {
     ["h7", "Thanks for the call, Dana", now - 2 * DAY, ["SENT"]],
     ["h8", "Partner Outreach – please add your mailing address", now - DAY, ["INBOX", "SENT"]],
     ["h9", "Re: Your beef price sheet – thanks, Cody", now - DAY, ["INBOX"]], // the rancher's reply: not a helper
+    ["h10", "Weekly numbers – Oct 5, 2026", now - 30 * DAY, ["INBOX", "SENT"]], // old email only: Weekly Numbers went quiet
   ],
   drafts: [ // draft message id, subject, at, labels
     ["d1", "You’re booked – a few numbers before our call", now - 2 * HOUR, ["DRAFT", "Label_7"]],
@@ -367,6 +368,8 @@ async function main() {
     check("agents: Referral = 1 sent + 1 draft, newest is the draft", A2.referral.count_14d === 1 && A2.referral.drafts === 1 && A2.referral.last_kind === "draft" && A2.referral.last_subject === "Thanks for the call, Cody", A2.referral);
     check("agents: Booking draft (curly apostrophe), Recap draft without label", A2.booking.drafts === 1 && A2.recap.drafts === 1 && A2.followup.drafts === 0, [A2.booking, A2.recap, A2.followup]);
     check("agents: rancher's own \"Re:\" doesn't count for Follow-Up / Calculator Questions", A2.followup.count_14d === 0 && A2.helper.count_14d === 0, [A2.followup, A2.helper]);
+    check("agents: only an old email → no recent, but earlier_at is set (went quiet)", A2.analyst.last_at === null && A2.analyst.count_14d === 0 && A2.analyst.earlier_at === new Date(now - 30 * DAY).toISOString(), A2.analyst);
+    check("agents: never emailed → earlier_at null; recent email → earlier_at null", A2.prep.earlier_at === null && A2.finder.earlier_at === null, [A2.prep, A2.finder]);
     check("agents: nothing found → nulls and 0", A2.prep.last_at === null && A2.prep.count_14d === 0 && A2.prep.drafts === null && A2.outreach.drafts === null, A2.prep);
 
     /* --- disconnect --- */

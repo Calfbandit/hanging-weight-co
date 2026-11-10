@@ -155,6 +155,8 @@ th button[aria-sort]::after{content:" ▾"}
 .agent .meta{font-size:13px;color:var(--muted)}
 .agent .did{font-size:13.5px;grid-column:1 / -1}
 .agent.future .an,.agent.future .did{color:var(--muted)}
+.pill.wrap{white-space:normal;text-align:left;border-radius:14px;line-height:1.3}
+.agent .note{font-size:13px;color:var(--muted);margin-top:4px}
 .switch{position:relative;width:48px;height:28px;flex:none}
 .switch input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:1}
 .switch span{position:absolute;inset:0;border-radius:999px;background:var(--line);transition:background .2s}
@@ -402,6 +404,10 @@ const VIEWS=[
 ];
 const ico=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
 const agentOn=a=>S.agents[a.id]!==false;
+const SETUP_IDS=["finder","outreach","followup","prep","watchdog","driver","helper","booking","recap","upgrade","referral","articles","social","partners","analyst"];
+const DRAFT_IDS=["outreach","followup","prep","booking","helper","recap","upgrade","referral"];
+const isSetUp=a=>SETUP_IDS.includes(a.id);
+const setUpCount=()=>AGENTS.flatMap(t=>t.items).filter(isSetUp).length;
 const pendingCount=()=>S.approvals.length;
 
 /* ---------- routing ---------- */
@@ -470,7 +476,7 @@ views.funnel=()=>{const t=W[NOW].t,l=W[NOW-1].t;const stages=stageList(t);
    <section class="card"><div class="spread"><div class="eyebrow">Where they came from</div><a href="#traffic" data-go="traffic" style="color:var(--pine);font-weight:700;font-size:13px">All sources ›</a></div>
      <div class="list" style="margin-top:8px">${W[NOW].rows.slice().sort((a,b)=>b.visits-a.visits).slice(0,3).map(r=>`<div class="spread"><span class="row"><i style="width:10px;height:10px;border-radius:2px;background:${r.src.color};display:inline-block"></i>${esc(r.src.name)}</span><span class="num" style="font-size:20px">${fmt(r.visits)}</span></div>`).join("")}</div></section>
    <section class="card"><div class="spread"><div class="eyebrow">Agents</div><a href="#agents" data-go="agents" style="color:var(--pine);font-weight:700;font-size:13px">See all ›</a></div>
-     <p style="margin:8px 0 0"><b class="num" style="font-size:26px">${AGENTS.flatMap(t=>t.items).filter(agentOn).length}</b> <span class="muted">of 20 agents working</span></p></section>
+     <p style="margin:8px 0 0"><b class="num" style="font-size:26px">${setUpCount()}</b> <span class="muted">of 20 agents set up</span></p></section>
  </div></div>`};
 function todayThings(){
  if(!S.live)return `<li>Read and send the <a href="#approvals" data-go="approvals" style="color:var(--pine);font-weight:700">${pendingCount()} drafts</a> your agents wrote.</li>
@@ -562,15 +568,43 @@ function niceMax(v){const p=Math.pow(10,Math.floor(Math.log10(v||1)));const n=[1
 acts.metric=b=>{S.growthMetric=b.dataset.k;render()};acts.split=b=>{S.growthSplit=b.dataset.k;render()};
 
 /* agents */
-views.agents=()=>{const all=AGENTS.flatMap(t=>t.items),on=all.filter(agentOn).length;
- return `<div class="section-head"><div><div class="eyebrow">Your agents · finding and closing ranchers</div><h2>${on} of ${all.length} agents working</h2></div></div>
- <p class="muted" style="margin:-4px 0 6px">All 20 agents come with your system. They run in your own Claude account, write drafts in your Gmail, and never send anything to a rancher without you.${S.live?(gConnected()?" Each one's latest email to you shows below; a yellow flag means it hasn't run in 2 weeks.":" Each one's activity shows here once your Gmail is connected."):""}</p>
- ${AGENTS.map(t=>`<section class="team"><h3>${t.team}</h3><div class="card"><div class="list">${t.items.map(a=>`
-   <div class="agent ${agentOn(a)?"":"future"}"><div><div class="an">${a.name}</div><div class="meta">${a.when} · ${!agentOn(a)?"Turned off":S.live?agentLast(a):`Last ran ${a.last}`}</div></div>
-     <label class="switch" title="Turn ${a.name} on or off"><input type="checkbox" id="sw-${a.id}" data-act="toggle" data-id="${a.id}" ${agentOn(a)?"checked":""} aria-label="${a.name} on or off"><span></span></label>
-     <div class="did">${!agentOn(a)?"Off. Turn it on to start again.":S.live?esc(agentSubj(a)||a.what):esc(a.did)}</div>
-     <div class="row" style="grid-column:1 / -1;flex-wrap:wrap;gap:6px">${!agentOn(a)?`<span class="pill off">Off</span>`:S.live?agentPill(a):`<span class="pill good"><span class="dot"></span>${esc(a.brought)}</span>`}<span class="pill off">${a.ok==="No"?"Runs on its own":a.ok==="Yes"?"You approve":a.ok}</span></div></div>`).join("")}</div></div></section>`).join("")}`};
-document.addEventListener("change",e=>{const t=e.target;if(t.dataset&&t.dataset.act==="toggle"){S.agents[t.dataset.id]=t.checked;store.set("agents",S.agents);const a=AGENTS.flatMap(x=>x.items).find(x=>x.id===t.dataset.id);toast(`${a.name} turned ${t.checked?"on":"off"}`);render()}});
+views.agents=()=>{const all=AGENTS.flatMap(t=>t.items);
+ return `<div class="section-head"><div><div class="eyebrow">Your agents · finding and closing ranchers</div><h2>${setUpCount()} of ${all.length} agents set up</h2></div></div>
+ <p class="muted" style="margin:-4px 0 6px">All 20 agents come with your system. The ${setUpCount()} marked "Set up" run in your own Claude account; the other ${all.length-setUpCount()} start with your first $2,000 client. They write drafts in your Gmail and never send anything to a rancher without you.${S.live?(gConnected()?" Green means it emailed you in the last 2 weeks. Orange means it did before but has gone quiet.":" Each one's activity shows here once your Gmail is connected."):""}</p>
+ <p class="muted" style="margin:0 0 6px"><b>About the switch:</b> it only hides or shows that card on this board. It doesn't turn the agent on or off in Claude. To do that, open Scheduled in Claude.</p>
+ ${AGENTS.map(t=>`<section class="team"><h3>${t.team}</h3><div class="card"><div class="list">${t.items.map(a=>agentCard(a)).join("")}</div></div></section>`).join("")}`};
+function agentState(a){
+ if(!isSetUp(a))return {k:"notyet"};
+ if(!S.live)return {k:"demo"};
+ if(!gConnected())return {k:"nogmail"};
+ const x=agentAct(a);
+ if(!x)return {k:"unknown"};
+ if(x.last_at)return {k:"ok",x};
+ if(x.earlier_at)return {k:"quiet",x};
+ return {k:"nothing"};
+}
+const shortDay=iso=>new Date(iso).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
+function agentCard(a){
+ const on=agentOn(a),st=agentState(a),k=st.k,drafts=DRAFT_IDS.includes(a.id);
+ let meta,did,pills;
+ if(!on){meta="Hidden on this board";did="Hidden on this board only. Nothing changes in Claude. Turn the switch on to show it again.";pills=`<span class="pill off">Hidden</span>`}
+ else if(k==="notyet"){meta="Not set up yet";did=esc(a.what);pills=`<span class="pill off wrap">Not set up yet: starts with your first $2,000 client</span>`}
+ else{
+  const ok=`<span class="pill off">${a.ok==="No"?"Runs on its own":a.ok==="Yes"?"You approve":esc(a.ok)}</span>`;
+  const note=drafts?`<div class="note">Writes drafts for you, so it shows up in Ready to send, not here.</div>`:"";
+  if(k==="demo"){meta=`Last ran ${a.last}`;did=esc(a.did);pills=`<span class="pill good"><span class="dot"></span>${esc(a.brought)}</span>${ok}`}
+  else if(k==="ok"){meta="Last seen "+shortDay(st.x.last_at);did=esc(st.x.last_subject?"Latest: "+st.x.last_subject:a.what);pills=`<span class="pill good"><span class="dot"></span>${st.x.count_14d||1} in 2 weeks</span>${ok}`}
+  else if(k==="quiet"){meta="Last seen "+shortDay(st.x.earlier_at);did=esc(a.what);pills=`<span class="pill warn wrap">Hasn't reported in 2 weeks: check it under Scheduled in Claude</span>${ok}`}
+  else if(k==="nothing"){meta="Nothing to report yet";did=esc(a.what)+note;pills=`<span class="pill off">Set up · nothing to report yet</span>${ok}`}
+  else if(k==="nogmail"){meta="Runs in your Claude account";did=esc(a.what);pills=`<span class="pill off wrap">Set up · connect Gmail to see its activity</span>${ok}`}
+  else{meta="Runs in your Claude account";did=esc(a.what);pills=`<span class="pill off wrap">Set up · its activity couldn't load just now</span>${ok}`}
+ }
+ return `<div class="agent ${on&&k!=="notyet"?"":"future"}"><div><div class="an">${a.name}</div><div class="meta">${a.when} · ${meta}</div></div>
+   <label class="switch" title="Show or hide ${a.name} on this board"><input type="checkbox" id="sw-${a.id}" data-act="toggle" data-id="${a.id}" ${on?"checked":""} aria-label="Show ${a.name} on this board"><span></span></label>
+   <div class="did">${did}</div>
+   <div class="row" style="grid-column:1 / -1;flex-wrap:wrap;gap:6px">${pills}</div></div>`;
+}
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset&&t.dataset.act==="toggle"){S.agents[t.dataset.id]=t.checked;store.set("agents",S.agents);const a=AGENTS.flatMap(x=>x.items).find(x=>x.id===t.dataset.id);toast(`${a.name} ${t.checked?"shown":"hidden"} on this board`);render()}});
 
 /* calls & clients */
 views.calls=()=>`<div class="section-head"><div><div class="eyebrow">$197 calls</div><h2>${S.live?"Booked calls":"Coming up"}</h2></div></div>
@@ -696,9 +730,6 @@ connectCard=function(){
 acts.connect=()=>{if(S.live)location.href="/api/google/start";else toast("Demo: this opens Google's sign-in to connect your Gmail and Calendar.")};
 acts.gdisconnect=async()=>{try{await jpost("/api/google/disconnect");S.google={connected:false};S.gInbox=null;toast("Disconnected from Google.");render()}catch(e){toast(e.message)}};
 function agentAct(a){const L=S.agentAct&&(S.agentAct.agents||S.agentAct);return Array.isArray(L)?L.find(x=>x.id===a.id):null}
-function agentLast(a){if(!gConnected())return "Runs in your Claude account";const x=agentAct(a);return x&&x.last_at?"Last seen "+new Date(x.last_at).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"}):"No activity in the last 2 weeks"}
-function agentSubj(a){const x=gConnected()&&agentAct(a);return x&&x.last_subject?"Latest: "+x.last_subject:""}
-function agentPill(a){const x=gConnected()&&agentAct(a);if(!gConnected())return `<span class="pill good"><span class="dot"></span>Ready</span>`;if(x&&x.last_at)return `<span class="pill good"><span class="dot"></span>${x.count_14d||1} in 2 weeks</span>`;return `<span class="pill warn">Not seen yet: is it turned on in Claude?</span>`}
 const demoInbox=views.inbox;
 views.inbox=()=>{
  if(!S.live)return demoInbox();
