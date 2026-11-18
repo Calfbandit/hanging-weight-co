@@ -157,6 +157,7 @@
 @media (min-width:860px){.about{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:36px}}
 .ph{border:2px dashed var(--line-strong);border-radius:var(--r-lg);background:repeating-linear-gradient(-45deg,transparent 0 12px,color-mix(in srgb,var(--line) 55%,transparent) 12px 13px),var(--surface);display:grid;place-items:center;text-align:center;color:var(--muted);font-family:var(--display);font-weight:700;letter-spacing:.12em;font-size:20px;min-height:260px;aspect-ratio:4/5;max-height:440px;width:100%}
 @media (max-width:859px){.ph{aspect-ratio:auto;min-height:220px}}
+.about-photo{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);align-self:center}
 .about-body{display:grid;gap:16px;align-content:center}
 .ph-text{border:2px dashed var(--line-strong);border-radius:var(--r);padding:18px;color:var(--muted);font-style:italic;background:var(--surface);margin:0}
 .facts{display:grid;gap:10px;margin:0;padding:0;list-style:none}
@@ -421,13 +422,11 @@
   <!-- ABOUT -->
   <section class="band" id="about" aria-labelledby="aboutH">
     <div class="wrap about">
-      <!-- placeholder: replace with Allen's photo (e.g. <img src="assets/allen.jpg" alt="Allen on his ranch">) -->
-      <div class="ph" role="img" aria-label="Photo of Allen coming soon">[ALLEN'S PHOTO]</div>
+      <img class="about-photo" src="assets/allen.jpg" width="1600" height="1067" loading="lazy" alt="Black and white portrait of Allen Cathey, in a cowboy hat, seated beside a woman in a cowboy hat, with two dogs between them">
       <div class="about-body">
         <p class="kicker">Who you'll talk to</p>
         <h2 id="aboutH">About Allen</h2>
-        <!-- placeholder: Allen's own words go here -->
-        <p class="ph-text">[Allen's short bio — needs his words]</p>
+        <p>I am Allen Cathey, I have been in the cattle business most of my life. I have extensive experience in raising and feeding beef for your table.</p>
         <ul class="facts">
           <li><b>Who</b><span>A Texas rancher</span></li>
           <li><b>Helps</b><span>Other Texas ranchers price their beef and sell it direct by the whole, half and quarter</span></li>
